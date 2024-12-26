@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // NOTE: Update this to include the paths to all of your component files.
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
@@ -14,8 +13,8 @@ module.exports = {
         "dark-gray": "#686868",
       },
       fontFamily: {
-        sans: ["Quicksand_Regular"], // Regular como padrão para 'font-sans'
-        bold: ["Quicksand_Bold"], // Bold como padrão personalizado
+        sans: ["Quicksand_Regular"],
+        bold: ["Quicksand_Bold"],
       },
     },
   },
