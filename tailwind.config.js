@@ -13,6 +13,10 @@ module.exports = {
         "violet": "#aa82da",
         "dark-gray": "#686868",
       },
+      fontFamily: {
+        sans: ["Quicksand_Regular"], // Regular como padrão para 'font-sans'
+        bold: ["Quicksand_Bold"], // Bold como padrão personalizado
+      },
     },
   },
   plugins: [],
