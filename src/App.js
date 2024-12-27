@@ -3,9 +3,15 @@ import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/Ionicons";
 import { Quicksand_400Regular, Quicksand_700Bold } from "@expo-google-fonts/quicksand";
 import { useFonts } from "expo-font";
+
+// Importar os ícones personalizados
+import HomeIcon from "../assets/icons/home.svg";
+import TrophyIcon from "../assets/icons/trophy.svg";
+import StatsIcon from "../assets/icons/stats.svg";
+import ProfileIcon from "../assets/icons/profile.svg";
+import HelpIcon from "../assets/icons/help.svg";
 
 // Importar as telas
 import WelcomePage from "./pages/WelcomePage";
@@ -40,16 +46,31 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => {
-            // Define os ícones com base no nome da rota
-            let iconName;
-            if (route.name === "Home") iconName = "home";
-            else if (route.name === "Troféus") iconName = "trophy";
-            else if (route.name === "Dados") iconName = "stats-chart";
-            else if (route.name === "Perfil") iconName = "person";
-            else if (route.name === "Ajuda") iconName = "help-circle";
+          tabBarIcon: ({ focused, size }) => {
+            let IconComponent;
+            let color = focused ? "#fcc766" : "#d0d0d0"; // Define as cores: ativo e inativo
 
-            return <Icon name={iconName} size={size} color={color} />;
+            switch (route.name) {
+              case "Home":
+                IconComponent = HomeIcon;
+                break;
+              case "Troféus":
+                IconComponent = TrophyIcon;
+                break;
+              case "Dados":
+                IconComponent = StatsIcon;
+                break;
+              case "Perfil":
+                IconComponent = ProfileIcon;
+                break;
+              case "Ajuda":
+                IconComponent = HelpIcon;
+                break;
+              default:
+                IconComponent = null;
+            }
+
+            return <IconComponent width={size} height={size} fill={color} />;
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
