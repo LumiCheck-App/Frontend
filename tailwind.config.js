@@ -11,6 +11,7 @@ module.exports = {
         "off-white": "#fff9ef",
         "violet": "#aa82da",
         "dark-gray": "#686868",
+        "light-gray": "#d0d0d0",
       },
       fontFamily: {
         sans: ["Quicksand_Regular"],
