@@ -28,7 +28,7 @@ export default function WelcomePage({ navigation }) {
         onPanResponderRelease: (_, gestureState) => {
             if (gestureState.dx < -50) {
                 // Movimento de deslizar para a esquerda
-                handleNextStep();
+                navigation.replace("HomeTabs");
             }
         },
     });
