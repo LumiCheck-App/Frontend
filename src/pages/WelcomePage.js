@@ -1,91 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
   Image,
-  PanResponder,
   Animated,
   FlatList,
+  Dimensions,
 } from "react-native";
+
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function WelcomePage({ navigation }) {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
-    {
-      id: 0,
-      text: "Olá! Bem-vindo ao LUMICHECK!",
-    },
-    {
-      id: 1,
-      text: "Eu sou a Lumi. É um prazer poder conhecer-te!",
-    },
-    {
-      id: 2,
-      text: "Vamos começar?",
-    },
+    { id: 0, text: "Olá! Bem-vindo ao LUMICHECK!" },
+    { id: 1, text: "Eu sou a Lumi. É um prazer poder conhecer-te!" },
+    { id: 2, text: "Vamos começar?" },
+    { id: 3, text: " " },
   ];
 
-  const handleNextStep = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
+  const flatListRef = useRef(null);
+
+  const handleScroll = (event) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(offsetX / SCREEN_WIDTH);
+    setCurrentStep(currentIndex);
+    if (currentStep === steps.length - 1) {
       navigation.replace("Login");
     }
   };
 
-  // Configuração do PanResponder para capturar gestos
-  const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: (_, gestureState) => {
-      // Detecta se o movimento horizontal é significativo
-      return Math.abs(gestureState.dx) > 20 && Math.abs(gestureState.dy) < 20;
-    },
-    onPanResponderRelease: (_, gestureState) => {
-      if (gestureState.dx < -50) {
-        // Movimento de deslizar para a esquerda
-        handleNextStep();
-      }
-    },
-  });
-
   return (
-    <Animated.View
-      className="flex-1 justify-between items-center p-20 bg-yellow"
-      {...panResponder.panHandlers}
-    >
+    <Animated.View className="flex-1 justify-between items-center p-20 bg-yellow">
       {/* Texto principal */}
       <View className="w-screen h-screen">
-        {/*  Renderizar os textos */}
         <FlatList
+          ref={flatListRef}
           data={steps}
           renderItem={({ item }) => (
-            <>
-              <View>
-                <View className="h-2/6 justify-center items-center">
-                  <Text
-                    className={`text-4xl font-bold text-center mb-6 w-screen px-12`}
-                  >
-                    {item.text}
-                  </Text>
-                </View>
-                {/* Imagem */}
-                <View className="justify-center items-center">
-                  <Image source={require("../../assets/Lumi.png")} />
-                </View>
+            <View>
+              <View className="h-2/6 justify-center items-center">
+                <Text className="text-4xl font-bold text-center mb-6 w-screen px-12">
+                  {item.text}
+                </Text>
               </View>
-            </>
+              {/* Imagem */}
+              <View
+                className={`justify-center items-center ${
+                  item.id === steps.length - 1 ? "hidden" : "block"
+                }`}
+              >
+                <Image source={require("../../assets/Lumi.png")} />
+              </View>
+            </View>
           )}
           horizontal
-          showsHorizontalScrollIndicator
+          showsHorizontalScrollIndicator={false}
           pagingEnabled
-          keyExtractor={(item) => item.id}
+          onScroll={handleScroll}
+          keyExtractor={(item) => item.id.toString()}
+          scrollEventThrottle={16} // Optimize scroll updates
         />
       </View>
 
+      {/* Barra de progresso */}
       <View className="flex-col justify-center items-center mt-6 absolute z-10 bottom-24">
-        {/* Barra de progresso */}
         <View className="flex-row justify-center items-center mt-6">
-          {[...Array(steps.length + 1)].map((_, index) => (
+          {steps.map((_, index) => (
             <View
               key={index}
               className={`w-3 h-3 rounded-full mx-1 ${
@@ -102,8 +84,9 @@ export default function WelcomePage({ navigation }) {
           }`}
         >
           <Image
+            id="swipe_Icon"
             source={require("../../assets/Swipe_Icon.png")}
-            className="swipe_anime"
+            className={`${currentStep === 0 ? "swipe_anime" : "dont_swipe"}`}
           />
           <Text className="text-lg font-bold">Desliza</Text>
         </View>

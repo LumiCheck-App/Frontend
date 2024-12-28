@@ -5,6 +5,9 @@
 
 /* Animação do icon de swipe */
 
+.dont_swipe{
+    animation: none;
+}
 .swipe_anime{
     animation-name: swipe_icon_animation;
     animation-duration: 2.5s;
