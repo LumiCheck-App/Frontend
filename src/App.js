@@ -46,6 +46,11 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
+          // tabBarStyle: {
+          //   paddingBottom: 15, // Espaçamento inferior dentro da barra
+          //   paddingTop: 10, // Espaçamento superior dentro da barra
+          //   backgroundColor: "#fff", // Cor de fundo da barra
+          // },
           tabBarIcon: ({ focused, size }) => {
             let IconComponent;
             let color = focused ? "#fcc766" : "#d0d0d0"; // Define as cores: ativo e inativo
@@ -70,7 +75,7 @@ export default function App() {
                 IconComponent = null;
             }
 
-            return <IconComponent width={size} height={size} fill={color} />;
+            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
