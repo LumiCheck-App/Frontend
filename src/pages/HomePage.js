@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Task from "../components/Task";
 
 // Importar os ícones SVG diretamente
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
-import CheckIcon from "../../assets/icons/check.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
 
 export default function HomePage() {
@@ -61,23 +61,9 @@ export default function HomePage() {
                                     <Text className="text-md font-bold text-orange self-end">7 HORAS</Text>
                                 </View>
 
-                                {/* Primeira tarefa */}
-                                <View className="flex-row items-center justify-between bg-white rounded-lg px-4 mb-2 border border-light-gray">
-                                    <Text className="text-lg text-gray-600 flex-1 py-3">
-                                        Estar apenas 2 horas no Insta hoje
-                                    </Text>
-                                    <View className="h-full w-[1px] bg-light-gray mr-4" />
-                                    <CheckIcon width={24} height={24} />
-                                </View>
-
-                                {/* Segunda tarefa */}
-                                <View className="flex-row items-center justify-between bg-white rounded-lg px-4 border border-light-gray">
-                                    <Text className="text-lg text-gray-600 flex-1 py-3">
-                                        Falar com os amigos
-                                    </Text>
-                                    <View className="h-full w-[1px] bg-light-gray mr-4" />
-                                    <CheckIcon width={24} height={24} style={{ opacity: 0 }} />
-                                </View>
+                                {/* Tarefas */}
+                                <Task taskText="Estar apenas 2 horas no Insta hoje" isCompleted={true} />
+                                <Task taskText="Falar com os amigos" isCompleted={false} />
                             </View>
 
                             {/* Literacia */}
