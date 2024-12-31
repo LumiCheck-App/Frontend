@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -30,7 +30,7 @@ export default function App() {
 
   if (!fontsLoaded) {
     return (
-      <View className="flex-1 justify-center items-center bg-gray-100">
+      <View className="flex-1 justify-center items-center bg-off'white">
         <Text>Carregando fontes...</Text>
       </View>
     );
@@ -46,9 +46,14 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
+          tabBarStyle: {
+            paddingTop: 5, // Espaçamento superior dentro da barra
+            paddingBottom: 5, // Espaçamento inferior dentro da barra
+            backgroundColor: "#fff", // Cor de fundo da barra
+          },
           tabBarIcon: ({ focused, size }) => {
             let IconComponent;
-            let color = focused ? "#fcc766" : "#d0d0d0"; // Define as cores: ativo e inativo
+            let color = focused ? "#fcc766" : "#d0d0d0";
 
             switch (route.name) {
               case "Home":
@@ -70,7 +75,7 @@ export default function App() {
                 IconComponent = null;
             }
 
-            return <IconComponent width={size} height={size} fill={color} />;
+            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
@@ -87,26 +92,29 @@ export default function App() {
 
   // Stack Navigator (para gerenciar Welcome e HomeTabs)
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {/* Tela de boas-vindas sem navbar */}
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomePage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginPage}
-          options={{ headerShown: false }}
-        />
-        {/* Tela HomeTabs com navbar */}
-        <Stack.Screen
-          name="HomeTabs"
-          component={HomeTabs}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          {/* Tela de boas-vindas sem navbar */}
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomePage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={LoginPage}
+            options={{ headerShown: false }}
+          />
+          {/* Tela HomeTabs com navbar */}
+          <Stack.Screen
+            name="HomeTabs"
+            component={HomeTabs}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
