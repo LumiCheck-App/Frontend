@@ -68,10 +68,10 @@ export default function HomePage() {
 
                             {/* Literacia */}
                             <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border-2 border-violet p-4">
-                                <Text className="text-xl text-dark-gray">Sabias que</Text>
+                                <Text className="text-xl font-regular text-dark-gray">Sabias que</Text>
                                 <Text className="text-md font-bold my-2">Ter uma adição pode prejudicar seriamente o nosso trabalho e as nossas relações.</Text>
                                 <View className="flex-row items-center justify-end">
-                                    <Text className="text-sm text-light-gray">Aprender mais em</Text>
+                                    <Text className="text-sm font-regular text-light-gray">Aprender mais em</Text>
                                     <Image
                                         source={require("../../assets/sintome.png")}
                                         className="w-16 ml-2"

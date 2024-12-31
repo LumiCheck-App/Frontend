@@ -14,7 +14,7 @@ module.exports = {
         "light-gray": "#d0d0d0",
       },
       fontFamily: {
-        sans: ["Quicksand_Regular"],
+        regular: ["Quicksand_Regular"],
         bold: ["Quicksand_Bold"],
       },
     },
