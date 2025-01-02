@@ -1,13 +1,19 @@
 import React from "react";
-import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 import Task from "../components/Task";
+import TrophyProgress from "../components/TrophyProgress";
+import Achievements from "../components/Achievements";
 
-// Importar os ícones SVG diretamente
-import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
-import QuestionIcon from "../../assets/icons/question.svg";
-import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
+// Importar os ícones diretamente
+import TrophyRed from "../../assets/trofeu-vermelho.png";
+import TrophyBlue from "../../assets/trofeu-azul.png";
+import ChestIcon from "../../assets/chest.png";
+
 export default function TrophiesPage() {
+    const navigation = useNavigation();
+
     return (
         <LinearGradient
             colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
@@ -31,30 +37,92 @@ export default function TrophiesPage() {
                                 <Task taskText="Falar com os amigos" isCompleted={false} />
 
                                 {/* Ver todas */}
+                                <TouchableOpacity onPress={() => navigation.navigate("AllTasks")}>
+                                    <View className="mb-4 flex-row justify-end">
+                                        <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* Secção de Trofeus */}
+                            <View className="w-11/12 mt-8">
+                                {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                    <Text className="text-xl font-bold text-black">Icon Exclusivo</Text>
+                                </View>
+
+                                {/* Icon exclusivo */}
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center">
+                                    <TrophyProgress
+                                        text="Complete 30 tarefas diárias"
+                                        progress={7}
+                                        total={30}
+                                        icon={ChestIcon}
+                                    />
+                                </View>
+
+
+                                <View className="bg-white rounded-lg border border-light-gray p-4 mt-8">
+                                    <View className="mb-4">
+                                        <Text className="text-xl font-bold text-black">Outros Prémios</Text>
+                                    </View>
+                                    <View className="mb-4">
+                                        <TrophyProgress
+                                            text="Responda a 3 perguntas num dia"
+                                            progress={1}
+                                            total={3}
+                                            icon={TrophyRed}
+                                        />
+                                    </View>
+                                    <View className="mb-4">
+                                        <TrophyProgress
+                                            text="Aprenda mais em Eu Sinto-Me"
+                                            progress={0}
+                                            total={1}
+                                            icon={TrophyBlue}
+                                        />
+                                    </View>
                                 </View>
                             </View>
 
-                            {/* Literacia */}
-                            <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border-2 border-violet p-4">
-                                <Text className="text-xl text-dark-gray">Sabias que</Text>
-                                <Text className="text-md font-bold my-2">Ter uma adição pode prejudicar seriamente o nosso trabalho e as nossas relações.</Text>
-                                <View className="flex-row items-center justify-end">
-                                    <Text className="text-sm text-light-gray">Aprender mais em</Text>
-                                    <Image
-                                        source={require("../../assets/sintome.png")}
-                                        className="w-16 ml-2"
-                                        resizeMode="contain"
+                            <View className="w-11/12 mt-8">
+                                {/* Cabeçalho */}
+                                <View className="mb-4">
+                                    <Text className="text-xl font-bold text-black">As Minhas Conquistas</Text>
+                                </View>
+
+                                {/* Icon exclusivo */}
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
+                                    <Achievements
+                                        text="Adeus Instagram"
+                                        description="Desinstalar o Instagram"
+                                        icon={TrophyRed}
                                     />
                                 </View>
-                            </TouchableOpacity>
 
-                            {/* Informação de contactos */}
-                            <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
-                                <HelpContactsIcon width={100} height={100} />
-                                <Text className="text-md font-bold my-2">Existem 96 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
-                            </TouchableOpacity>
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
+                                    <Achievements
+                                        text="Adeus Instagram"
+                                        description="Desinstalar o Instagram"
+                                        icon={TrophyRed}
+                                    />
+                                </View>
+
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
+                                    <Achievements
+                                        text="Adeus Instagram"
+                                        description="Desinstalar o Instagram"
+                                        icon={TrophyRed}
+                                    />
+                                </View>
+
+                                {/* Ver todas */}
+                                <TouchableOpacity onPress={() => console.log("Ver todas as conquistas clicado")}>
+                                    <View className="mb-4 flex-row justify-end">
+                                        <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
 
                         </View>
                     </View>

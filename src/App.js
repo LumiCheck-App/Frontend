@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StatusBar } from "react-native";
+import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -18,6 +18,7 @@ import HelpIcon from "../assets/icons/help.svg";
 import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import TrophiesPage from "./pages/TrophiesPage";
+import AllTasksPage from "./pages/AllTasksPage";
 import DataPage from "./pages/DataPage";
 import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
@@ -95,7 +96,6 @@ export default function App() {
   // Stack Navigator (para gerenciar Welcome e HomeTabs)
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator>
           {/* Tela de boas-vindas sem navbar */}
@@ -118,6 +118,11 @@ export default function App() {
           <Stack.Screen
             name="HomeTabs"
             component={HomeTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AllTasks"
+            component={AllTasksPage}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
