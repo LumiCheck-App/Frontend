@@ -1,65 +1,96 @@
-import React, { useState } from "react";
-import { View, Text, Image, PanResponder } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Text,
+  Image,
+  Animated,
+  FlatList,
+  Dimensions,
+} from "react-native";
+
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 export default function WelcomePage({ navigation }) {
-    const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
 
-    const steps = [
-        { text: "Olá! Bem-vindo ao LUMICHECK!", image: require("../../assets/Lumi.png") },
-        { text: "Eu sou a Lumi. É um prazer poder conhecer-te!", image: require("../../assets/Lumi.png") },
-        { text: "Vamos começar?", image: require("../../assets/Lumi.png") },
-    ];
+  const steps = [
+    { id: 0, text: "Olá! Bem-vindo ao LUMICHECK!" },
+    { id: 1, text: "Eu sou a Lumi. É um prazer poder conhecer-te!" },
+    { id: 2, text: "Vamos começar?" },
+    { id: 3, text: " " },
+  ];
 
-    const handleNextStep = () => {
-        if (currentStep < steps.length - 1) {
-            setCurrentStep(currentStep + 1);
-        } else {
-            navigation.replace("Login");
-        }
-    };
+  const flatListRef = useRef(null);
 
-    // Configuração do PanResponder para capturar gestos
-    const panResponder = PanResponder.create({
-        onMoveShouldSetPanResponder: (_, gestureState) => {
-            // Detecta se o movimento horizontal é significativo
-            return Math.abs(gestureState.dx) > 20 && Math.abs(gestureState.dy) < 20;
-        },
-        onPanResponderRelease: (_, gestureState) => {
-            if (gestureState.dx < -50) {
-                // Movimento de deslizar para a esquerda
-                handleNextStep();
-            }
-        },
-    });
+  const handleScroll = (event) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(offsetX / SCREEN_WIDTH);
+    setCurrentStep(currentIndex);
+    if (currentStep === steps.length - 1) {
+      navigation.replace("Login");
+    }
+  };
 
-    return (
-        <View
-            className="flex-1 justify-center items-center bg-yellow"
-            {...panResponder.panHandlers}
-        >
-            {/* Texto principal */}
-            <Text className="text-xl font-bold text-center mb-6">{steps[currentStep].text}</Text>
-
-            {/* Imagem */}
-            <Image source={steps[currentStep].image} />
-
-            {/* Barra de progresso */}
-            <View className="flex-row justify-center items-center mt-6">
-                {[...Array(steps.length + 1)].map((_, index) => (
-                    <View
-                        key={index}
-                        className={`w-3 h-3 rounded-full mx-1 ${index === currentStep ? "bg-orange" : "bg-white"
-                            }`}
-                    />
-                ))}
+  return (
+    <Animated.View className="flex-1 justify-between items-center p-20 bg-yellow">
+      {/* Texto principal */}
+      <View className="w-screen h-screen">
+        <FlatList
+          ref={flatListRef}
+          data={steps}
+          renderItem={({ item }) => (
+            <View>
+              <View className="h-2/6 justify-center items-center">
+                <Text className="text-4xl font-bold text-center mb-6 w-screen px-12">
+                  {item.text}
+                </Text>
+              </View>
+              {/* Imagem */}
+              <View
+                className={`justify-center items-center ${
+                  item.id === steps.length - 1 ? "hidden" : "block"
+                }`}
+              >
+                <Image source={require("../../assets/Lumi.png")} />
+              </View>
             </View>
+          )}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          onScroll={handleScroll}
+          keyExtractor={(item) => item.id.toString()}
+          scrollEventThrottle={16} // Optimize scroll updates
+        />
+      </View>
 
-            {/* Texto fixo indicando para deslizar */}
-            <View className="flex-row items-center mt-10">
-                <Text className="text-lg font-bold text-blue-600">Desliza</Text>
-                <FontAwesome name="arrow-right" size={24} color="#1E90FF" className="ml-2" />
-            </View>
+      {/* Barra de progresso */}
+      <View className="flex-col justify-center items-center mt-6 absolute z-10 bottom-24">
+        <View className="flex-row justify-center items-center mt-6">
+          {steps.map((_, index) => (
+            <View
+              key={index}
+              className={`w-3 h-3 rounded-full mx-1 ${
+                index === currentStep ? "bg-orange" : "bg-white"
+              }`}
+            />
+          ))}
         </View>
-    );
+
+        {/* Texto fixo indicando para deslizar */}
+        <View
+          className={`flex items-end w-screen px-12 mt-1 transition-opacity ${
+            currentStep === 0 ? "opacity-1" : "opacity-0"
+          }`}
+        >
+          <Image
+            id="swipe_Icon"
+            source={require("../../assets/Swipe_Icon.png")}
+            className={`${currentStep === 0 ? "swipe_anime" : "dont_swipe"}`}
+          />
+          <Text className="text-lg font-bold">Desliza</Text>
+        </View>
+      </View>
+    </Animated.View>
+  );
 }

@@ -1,14 +1,18 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
-import {
-  Quicksand_400Regular,
-  Quicksand_700Bold,
-} from "@expo-google-fonts/quicksand";
+import { Quicksand_400Regular, Quicksand_700Bold } from "@expo-google-fonts/quicksand";
 import { useFonts } from "expo-font";
+
+// Importar os ícones personalizados
+import HomeIcon from "../assets/icons/home.svg";
+import TrophyIcon from "../assets/icons/trophy.svg";
+import StatsIcon from "../assets/icons/stats.svg";
+import ProfileIcon from "../assets/icons/profile.svg";
+import HelpIcon from "../assets/icons/help.svg";
 
 // Importar as telas
 import WelcomePage from "./pages/WelcomePage";
@@ -28,7 +32,7 @@ export default function App() {
 
   if (!fontsLoaded) {
     return (
-      <View className="flex-1 justify-center items-center bg-gray-100">
+      <View className="flex-1 justify-center items-center bg-off'white">
         <Text>Carregando fontes...</Text>
       </View>
     );
@@ -44,16 +48,36 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => {
-            // Define os ícones com base no nome da rota
-            let iconName;
-            if (route.name === "Home") iconName = "home";
-            else if (route.name === "Troféus") iconName = "trophy";
-            else if (route.name === "Dados") iconName = "stats-chart";
-            else if (route.name === "Perfil") iconName = "person";
-            else if (route.name === "Ajuda") iconName = "help-circle";
+          tabBarStyle: {
+            paddingTop: 5, // Espaçamento superior dentro da barra
+            paddingBottom: 5, // Espaçamento inferior dentro da barra
+            backgroundColor: "#fff", // Cor de fundo da barra
+          },
+          tabBarIcon: ({ focused, size }) => {
+            let IconComponent;
+            let color = focused ? "#fcc766" : "#d0d0d0";
 
-            return <Icon name={iconName} size={size} color={color} />;
+            switch (route.name) {
+              case "Home":
+                IconComponent = HomeIcon;
+                break;
+              case "Troféus":
+                IconComponent = TrophyIcon;
+                break;
+              case "Dados":
+                IconComponent = StatsIcon;
+                break;
+              case "Perfil":
+                IconComponent = ProfileIcon;
+                break;
+              case "Ajuda":
+                IconComponent = HelpIcon;
+                break;
+              default:
+                IconComponent = null;
+            }
+
+            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
@@ -70,31 +94,34 @@ export default function App() {
 
   // Stack Navigator (para gerenciar Welcome e HomeTabs)
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {/* Tela de boas-vindas sem navbar */}
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomePage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginPage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
+    <>
+      <StatusBar barStyle="dark-content" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          {/* Tela de boas-vindas sem navbar */}
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomePage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={LoginPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
           name="Register"
           component={RegisterPage}
           options={{ headerShown: false }}
-        />
-        {/* Tela HomeTabs com navbar */}
-        <Stack.Screen
-          name="HomeTabs"
-          component={HomeTabs}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          />
+          {/* Tela HomeTabs com navbar */}
+          <Stack.Screen
+            name="HomeTabs"
+            component={HomeTabs}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
