@@ -3,6 +3,7 @@ import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Task from "../components/Task";
 import TrophyProgress from "../components/TrophyProgress";
+import Achievements from "../components/Achievements";
 
 // Importar os ícones diretamente
 import TrophyRed from "../../assets/trofeu-vermelho.png";
@@ -81,7 +82,44 @@ export default function TrophiesPage() {
                                 </View>
                             </View>
 
+                            <View className="w-11/12 mt-8">
+                                {/* Cabeçalho */}
+                                <View className="mb-4">
+                                    <Text className="text-xl font-bold text-black">As Minhas Conquistas</Text>
+                                </View>
 
+                                {/* Icon exclusivo */}
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
+                                    <Achievements
+                                        text="Adeus Instagram"
+                                        description="Desinstalar o Instagram"
+                                        icon={TrophyRed}
+                                    />
+                                </View>
+
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
+                                    <Achievements
+                                        text="Adeus Instagram"
+                                        description="Desinstalar o Instagram"
+                                        icon={TrophyRed}
+                                    />
+                                </View>
+
+                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
+                                    <Achievements
+                                        text="Adeus Instagram"
+                                        description="Desinstalar o Instagram"
+                                        icon={TrophyRed}
+                                    />
+                                </View>
+
+                                {/* Ver todas */}
+                                <TouchableOpacity onPress={() => console.log("Ver todas as conquistas clicado")}>
+                                    <View className="mb-4 flex-row justify-end">
+                                        <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
 
                         </View>
                     </View>
