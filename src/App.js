@@ -4,7 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
-import { Quicksand_400Regular, Quicksand_700Bold } from "@expo-google-fonts/quicksand";
+import {
+  Quicksand_400Regular,
+  Quicksand_700Bold,
+} from "@expo-google-fonts/quicksand";
 import { useFonts } from "expo-font";
 
 // Importar as telas
@@ -15,6 +18,7 @@ import DataPage from "./pages/DataPage";
 import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -77,6 +81,11 @@ export default function App() {
         <Stack.Screen
           name="Login"
           component={LoginPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterPage}
           options={{ headerShown: false }}
         />
         {/* Tela HomeTabs com navbar */}
