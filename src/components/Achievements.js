@@ -18,7 +18,7 @@ const Achievements = ({ text, description, icon }) => {
             </View>
 
             <View className="ml-auto">
-                <MaterialIcons name="chevron-right" size={35} color="#aa82da" /> {/* Ícone substituído */}
+                <MaterialIcons name="chevron-right" size={35} color="#aa82da" />
             </View>
         </View>
     );
