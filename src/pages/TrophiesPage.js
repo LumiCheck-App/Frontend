@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 import Task from "../components/Task";
 import TrophyProgress from "../components/TrophyProgress";
 import Achievements from "../components/Achievements";
@@ -11,6 +12,8 @@ import TrophyBlue from "../../assets/trofeu-azul.png";
 import ChestIcon from "../../assets/chest.png";
 
 export default function TrophiesPage() {
+    const navigation = useNavigation();
+
     return (
         <LinearGradient
             colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
@@ -34,7 +37,7 @@ export default function TrophiesPage() {
                                 <Task taskText="Falar com os amigos" isCompleted={false} />
 
                                 {/* Ver todas */}
-                                <TouchableOpacity onPress={() => console.log("Ver todas as tarefas clicado")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("AllTasks")}>
                                     <View className="mb-4 flex-row justify-end">
                                         <Text className="text-md font-bold text-orange">VER TODAS</Text>
                                     </View>
