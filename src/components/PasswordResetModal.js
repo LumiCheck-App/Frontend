@@ -131,7 +131,7 @@ export default function PasswordResetModal({
                 value={PassConfirm}
                 placeholder="Confirm Password"
               />
-              <Text>Código</Text>
+              <Text className="font-regular">Código</Text>
               <TextInput
                 className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
                 keyboardType="numeric"

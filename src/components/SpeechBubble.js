@@ -17,7 +17,7 @@ export default function SpeechBubble() {
       />
       {/* Bubble */}
       <View className="bg-white px-4 py-6 rounded-2xl relative border border-light-gray">
-        <Text className="font-normal text-black text-xl text-center">
+        <Text className="font-regular text-black text-xl text-center">
           Ainda não estás registado?
         </Text>
         <TouchableOpacity>

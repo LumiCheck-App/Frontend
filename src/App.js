@@ -3,8 +3,10 @@ import { Text, View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/Ionicons";
-import { Quicksand_400Regular, Quicksand_700Bold } from "@expo-google-fonts/quicksand";
+import {
+  Quicksand_400Regular,
+  Quicksand_700Bold,
+} from "@expo-google-fonts/quicksand";
 import { useFonts } from "expo-font";
 
 // Importar os ícones personalizados
@@ -23,6 +25,7 @@ import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import FirstQuestionnaire from "./pages/FirstQuestionnaire";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -77,7 +80,13 @@ export default function App() {
                 IconComponent = null;
             }
 
-            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
+            return (
+              <IconComponent
+                width={size * 1.2}
+                height={size * 1.2}
+                fill={color}
+              />
+            );
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
@@ -95,7 +104,6 @@ export default function App() {
   // Stack Navigator (para gerenciar Welcome e HomeTabs)
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator>
           {/* Tela de boas-vindas sem navbar */}
@@ -110,9 +118,14 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-          name="Register"
-          component={RegisterPage}
-          options={{ headerShown: false }}
+            name="Register"
+            component={RegisterPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="FirstQuestionnaire"
+            component={FirstQuestionnaire}
+            options={{ headerShown: false }}
           />
           {/* Tela HomeTabs com navbar */}
           <Stack.Screen
