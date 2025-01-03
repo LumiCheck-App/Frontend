@@ -1,18 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, TouchableOpacity, FlatList, Modal } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { markersOnMap } from "../psicologos";
 
+const distritos = [
+    "Aveiro",
+    "Beja",
+    "Braga",
+    "Bragança",
+    "Castelo Branco",
+    "Coimbra",
+    "Évora",
+    "Faro",
+    "Guarda",
+    "Leiria",
+    "Lisboa",
+    "Portalegre",
+    "Porto",
+    "Santarém",
+    "Setúbal",
+    "Viana do Castelo",
+    "Vila Real",
+    "Viseu",
+    "Açores",
+    "Madeira",
+    "Outros",
+];
+
 export default function HelpPage() {
     const [location, setLocation] = useState(null);
     const [region, setRegion] = useState({
-        latitude: 39.3999, // Centro de Portugal como padrão
+        latitude: 39.3999,
         longitude: -8.2245,
         latitudeDelta: 5,
         longitudeDelta: 5,
     });
+    const [selectedDistrito, setSelectedDistrito] = useState(null);
+    const [dropdownVisible, setDropdownVisible] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -36,6 +62,15 @@ export default function HelpPage() {
             });
         })();
     }, []);
+
+    const filteredMarkers = selectedDistrito
+        ? markersOnMap.filter((marker) => {
+            const markerDistrito = marker.distrito?.toLowerCase();
+            const selectedDistritoLower = selectedDistrito.toLowerCase();
+            console.log(`Comparando: ${markerDistrito} === ${selectedDistritoLower}`);
+            return markerDistrito === selectedDistritoLower;
+        })
+        : [];
 
     return (
         <LinearGradient
@@ -78,14 +113,65 @@ export default function HelpPage() {
                     })}
                 </MapView>
 
-                {/* Contactos */}
-                <View style={{ padding: 16, backgroundColor: "#fff9ef" }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Contactos</Text>
-                </View>
+                <View className="flex-1 px-4 items-center">
+                    <View className="w-11/12 mt-8">
+                        <TouchableOpacity
+                            className="p-3 bg-[#ffe5b4] rounded-md items-center"
+                            onPress={() => setDropdownVisible(true)}
+                        >
+                            <Text className="text-lg font-bold text-gray-800">
+                                {selectedDistrito || "Selecione um Distrito"}
+                            </Text>
+                        </TouchableOpacity>
+                        <Modal
+                            visible={dropdownVisible}
+                            transparent={true}
+                            animationType="slide"
+                        >
+                            <View className="flex-1 bg-black bg-opacity-50 justify-center">
+                                <FlatList
+                                    data={distritos}
+                                    keyExtractor={(item, index) => index.toString()}
+                                    renderItem={({ item }) => (
+                                        <TouchableOpacity
+                                            className="p-4 bg-white border-b border-gray-300"
+                                            onPress={() => {
+                                                setSelectedDistrito(item);
+                                                setDropdownVisible(false);
+                                            }}
+                                        >
+                                            <Text className="text-lg text-gray-800">{item}</Text>
+                                        </TouchableOpacity>
+                                    )}
+                                />
+                            </View>
+                        </Modal>
+                    </View>
 
-                {/* Posts */}
-                <View style={{ padding: 16, backgroundColor: "#fff9ef" }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Posts</Text>
+                    {/* Lista de Contactos */}
+                    <View className="w-11/12 mt-8">
+                        <Text className="text-xl font-bold mb-2">Contactos</Text>
+                        {selectedDistrito && filteredMarkers.length > 0 ? (
+                            filteredMarkers.map((marker, index) => (
+                                <View key={index} className="mb-4 p-3 bg-white rounded-md">
+                                    <Text className="text-lg font-bold">
+                                        {marker.placeName.replace(/<[^>]+>/g, "")}
+                                    </Text>
+                                    <Text className="text-sm text-gray-600">
+                                        {marker.placeDesc.replace(/<[^>]+>/g, "")}
+                                    </Text>
+                                </View>
+                            ))
+                        ) : selectedDistrito ? (
+                            <Text className="text-center text-gray-500">
+                                Nenhum psicólogo encontrado no distrito selecionado.
+                            </Text>
+                        ) : (
+                            <Text className="text-center text-gray-500">
+                                Selecione um distrito para ver os contactos disponíveis.
+                            </Text>
+                        )}
+                    </View>
                 </View>
             </View>
         </LinearGradient>
