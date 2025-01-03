@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import PasswordResetModal from "../components/PasswordResetModal";
 import SpeechBubble from "../components/SpeechBubble";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LoginPage() {
   //DB Simulation
@@ -29,6 +30,8 @@ export default function LoginPage() {
       Idade: 23,
     },
   ];
+
+  const navigation = useNavigation();
 
   //State Variables
   const [username, setUname] = useState("");
@@ -57,6 +60,7 @@ export default function LoginPage() {
           // !Falta a encriptação da password
           console.log(username, pass);
           clearLoginForm();
+          navigation.replace("HomeTabs");
         } else {
           console.log("Wrong password.");
         }
