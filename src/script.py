@@ -2,7 +2,7 @@ import requests
 import re
 
 # Sua chave de API do OpenCage
-API_KEY = "452a0593b8f04da3a81e8d6708013ca2"
+API_KEY = "042c3a2a86c744d788d62489f52d1f96"
 
 # Função para obter dados da API do OpenCage
 def get_location_data(lat, lon):
@@ -22,7 +22,7 @@ def get_location_data(lat, lon):
     return None, None, None
 
 # Caminho do ficheiro .js
-js_file_path = "C:/Users/rodri/Desktop/LumiCheck/Frontend/src/psicologos1.js"
+js_file_path = "C:/Users/rodri/Desktop/LumiCheck/Frontend/src/psicologos2.js"
 
 # Ler o conteúdo do ficheiro .js
 with open(js_file_path, "r", encoding="utf-8") as file:
