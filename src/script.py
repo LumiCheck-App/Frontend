@@ -1,7 +1,7 @@
 import re
 
 # Caminho do ficheiro .js
-js_file_path = "C:/Users/rodri/Desktop/LumiCheck/Frontend/src/psicologos1.js"
+js_file_path = "C:/Users/rodri/Desktop/LumiCheck/Frontend/src/psicologos.js"
 
 # Ler o conteúdo do ficheiro .js
 with open(js_file_path, "r", encoding="utf-8") as file:
@@ -9,7 +9,7 @@ with open(js_file_path, "r", encoding="utf-8") as file:
 
 # Remover duplicatas de "Pais", "Distrito" e "Cidade" no conteúdo do ficheiro
 js_content = re.sub(
-    r"(pais: '[^']*', estado: '[^']*', cidade: '[^']*',? ?)+",
+    r"(Pais: '[^']*', Distrito: '[^']*', Cidade: '[^']*',? ?)+",
     lambda match: match.group(1),  # Mantém apenas uma ocorrência
     js_content
 )
