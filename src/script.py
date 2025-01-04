@@ -2,7 +2,7 @@ import requests
 import re
 
 # Sua chave de API do OpenCage
-API_KEY = "042c3a2a86c744d788d62489f52d1f96"
+API_KEY = "e74c96f0b4fc4247b4e56dec496fe8e4"
 
 # Função para obter dados da API do OpenCage
 def get_location_data(lat, lon):
