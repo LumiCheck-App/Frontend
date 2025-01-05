@@ -140,7 +140,7 @@ export default function HelpPage() {
                                     />
 
                                     {/* Parte inferior do modal */}
-                                    <View className="h-1/2 bg-white rounded-t-lg">
+                                    <View className="h-1/2 bg-white rounded-t-lg mb-6">
                                         <FlatList
                                             data={[...distritos, "Outros"]}
                                             keyExtractor={(item, index) => index.toString()}
