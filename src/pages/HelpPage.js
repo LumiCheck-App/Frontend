@@ -58,8 +58,8 @@ export default function HelpPage() {
             setRegion({
                 latitude,
                 longitude,
-                latitudeDelta: 0.2,
-                longitudeDelta: 0.2,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
             });
         })();
     }, []);
@@ -117,7 +117,7 @@ export default function HelpPage() {
 
                         {/* Renderiza os marcadores */}
                         {markersOnMap.map((marker, index) => {
-                            const { Coords, Nome, Descricao } = marker;
+                            const { Coords, Nome, Telefone } = marker;
                             if (!Coords || Coords.length === 0) return null;
 
                             const { lat, lng } = Coords[0];
@@ -126,7 +126,7 @@ export default function HelpPage() {
                                     key={index}
                                     coordinate={{ latitude: lat, longitude: lng }}
                                     title={Nome}
-                                    description={Descricao}
+                                    description={Telefone}
                                     onPress={() => setSelectedMarker(marker)}
                                 />
                             );
@@ -137,13 +137,24 @@ export default function HelpPage() {
                     {selectedMarker && (
                         <View className="flex-1 px-4 items-center">
                             <View className="w-11/12 mt-4">
-                                <View className="mb-4 p-3 bg-white rounded-md">
-                                    <Text className="text-lg font-bold">
-                                        {selectedMarker.Nome}
-                                    </Text>
-                                    <Text className="text-sm text-gray-600">
-                                        {selectedMarker.Descricao}
-                                    </Text>
+                                <View className="mb-4 p-3 bg-white rounded-md border border-light-gray">
+                                    <View className="flex-row">
+                                        <View className="w-1/2">
+                                            <Text className="text-lg font-bold">
+                                                {selectedMarker.Nome}
+                                            </Text>
+                                        </View>
+                                        <View className="w-1/2">
+                                            <Text className="text-lg self-end text-violet font-bold">
+                                                {selectedMarker.Telefone}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <View className="w-full mt-2">
+                                        <Text className="text-sm text-dark-gray">
+                                            {selectedMarker.Descricao}
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -178,14 +189,14 @@ export default function HelpPage() {
                                             keyExtractor={(item, index) => index.toString()}
                                             renderItem={({ item }) => (
                                                 <TouchableOpacity
-                                                    className="p-4 border-b border-gray-300"
+                                                    className="p-4 border-b border-light-gray"
                                                     onPress={() => {
                                                         setSelectedDistrito(item);
                                                         setDropdownVisible(false);
                                                         setVisibleCount(5); // Reseta o contador ao mudar o distrito
                                                     }}
                                                 >
-                                                    <Text className="text-lg text-gray-800">{item}</Text>
+                                                    <Text className="text-lg text-dark-gray">{item}</Text>
                                                 </TouchableOpacity>
                                             )}
                                         />
@@ -198,21 +209,32 @@ export default function HelpPage() {
                         <View className="w-11/12 mt-8">
                             {selectedDistrito && filteredMarkers.length > 0 ? (
                                 filteredMarkers.slice(0, visibleCount).map((marker, index) => (
-                                    <View key={index} className="mb-4 p-3 bg-white rounded-md">
-                                        <Text className="text-lg font-bold">
-                                            {marker.Nome}
-                                        </Text>
-                                        <Text className="text-sm text-gray-600">
-                                            {marker.Descricao}
-                                        </Text>
+                                    <View key={index} className="mb-4 p-3 bg-white rounded-md border border-light-gray">
+                                        <View className="flex-row">
+                                            <View className="w-1/2">
+                                                <Text className="text-lg font-bold">
+                                                    {marker.Nome}
+                                                </Text>
+                                            </View>
+                                            <View className="w-1/2">
+                                                <Text className="text-lg self-end text-violet font-bold">
+                                                    {marker.Telefone}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View className="w-full mt-2">
+                                            <Text className="text-sm text-dark-gray">
+                                                {marker.Descricao}
+                                            </Text>
+                                        </View>
                                     </View>
                                 ))
                             ) : selectedDistrito ? (
-                                <Text className="text-center text-gray-500">
+                                <Text className="text-center text-dark-gray">
                                     Nenhum psicólogo encontrado no distrito selecionado.
                                 </Text>
                             ) : (
-                                <Text className="text-center text-gray-500">
+                                <Text className="text-center text-dark-gray">
                                     Selecione um distrito para ver os contactos disponíveis.
                                 </Text>
                             )}
