@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Alert, TouchableOpacity, FlatList, Modal, ScrollView } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { markersOnMap } from "../psicologos";
@@ -38,6 +38,7 @@ export default function HelpPage() {
     });
     const [selectedDistrito, setSelectedDistrito] = useState(null);
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [selectedMarker, setSelectedMarker] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -109,13 +110,32 @@ export default function HelpPage() {
                                 <Marker
                                     key={index}
                                     coordinate={{ latitude: lat, longitude: lng }}
-                                    title={Nome.replace(/<[^>]+>/g, "")}
-                                    description={Descricao.replace(/<[^>]+>/g, "")}
+                                    title={Nome}
+                                    description={Descricao}
+                                    onPress={() => setSelectedMarker(marker)}
                                 />
                             );
                         })}
                     </MapView>
 
+                    {/* Card de informações do marcador */}
+                    {selectedMarker && (
+                        <View className="flex-1 px-4 items-center">
+                            <View className="w-11/12 mt-8">
+                                <Text className="text-xl font-bold mb-2">Pin selecionado</Text>
+                                <View className="mb-4 p-3 bg-white rounded-md">
+                                    <Text className="text-lg font-bold">
+                                        {selectedMarker.Nome}
+                                    </Text>
+                                    <Text className="text-sm text-gray-600">
+                                        {selectedMarker.Descricao}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    )}
+
+                    {/* Dropdown para distritos */}
                     <View className="flex-1 px-4 items-center">
                         <View className="w-11/12 mt-8">
                             <TouchableOpacity
@@ -132,14 +152,11 @@ export default function HelpPage() {
                                 animationType="slide"
                             >
                                 <View className="flex-1 justify-end">
-                                    {/* Fundo transparente do modal */}
                                     <TouchableOpacity
                                         className="flex-1"
                                         activeOpacity={1}
                                         onPress={() => setDropdownVisible(false)}
                                     />
-
-                                    {/* Parte inferior do modal */}
                                     <View className="h-1/2 bg-white rounded-t-lg mb-6">
                                         <FlatList
                                             data={[...distritos, "Outros"]}
@@ -168,10 +185,10 @@ export default function HelpPage() {
                                 filteredMarkers.map((marker, index) => (
                                     <View key={index} className="mb-4 p-3 bg-white rounded-md">
                                         <Text className="text-lg font-bold">
-                                            {marker.Nome.replace(/<[^>]+>/g, "")}
+                                            {marker.Nome}
                                         </Text>
                                         <Text className="text-sm text-gray-600">
-                                            {marker.Descricao.replace(/<[^>]+>/g, "")}
+                                            {marker.Descricao}
                                         </Text>
                                     </View>
                                 ))
@@ -186,6 +203,8 @@ export default function HelpPage() {
                             )}
                         </View>
                     </View>
+
+
                 </View>
             </ScrollView>
         </LinearGradient>
