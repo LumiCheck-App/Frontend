@@ -86,6 +86,12 @@ export default function HelpPage() {
                 <View style={{ flex: 1 }}>
                     {/* Mapa */}
                     <MapView
+                        onPress={(e) => {
+                            const isMarkerPress = e.nativeEvent.action === "marker-press";
+                            if (!isMarkerPress) {
+                                setSelectedMarker(null);
+                            }
+                        }}
                         style={{
                             width: "100%",
                             aspectRatio: 1,
@@ -121,8 +127,7 @@ export default function HelpPage() {
                     {/* Card de informações do marcador */}
                     {selectedMarker && (
                         <View className="flex-1 px-4 items-center">
-                            <View className="w-11/12 mt-8">
-                                <Text className="text-xl font-bold mb-2">Pin selecionado</Text>
+                            <View className="w-11/12 mt-4">
                                 <View className="mb-4 p-3 bg-white rounded-md">
                                     <Text className="text-lg font-bold">
                                         {selectedMarker.Nome}
@@ -137,7 +142,8 @@ export default function HelpPage() {
 
                     {/* Dropdown para distritos */}
                     <View className="flex-1 px-4 items-center">
-                        <View className="w-11/12 mt-8">
+                        <View className="w-11/12 mt-6">
+                            <Text className="text-xl font-bold mb-2">Contactos</Text>
                             <TouchableOpacity
                                 className="p-3 bg-[#ffe5b4] rounded-md items-center"
                                 onPress={() => setDropdownVisible(true)}
@@ -180,7 +186,6 @@ export default function HelpPage() {
 
                         {/* Lista de Contactos */}
                         <View className="w-11/12 mt-8">
-                            <Text className="text-xl font-bold mb-2">Contactos</Text>
                             {selectedDistrito && filteredMarkers.length > 0 ? (
                                 filteredMarkers.map((marker, index) => (
                                     <View key={index} className="mb-4 p-3 bg-white rounded-md">
