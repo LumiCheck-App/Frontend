@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Alert, TouchableOpacity, FlatList, Modal, ScrollView } from "react-native";
-import MapView, { Marker, Callout } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { markersOnMap } from "../psicologos";
@@ -39,6 +39,7 @@ export default function HelpPage() {
     const [selectedDistrito, setSelectedDistrito] = useState(null);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(null);
+    const [visibleCount, setVisibleCount] = useState(5); // Novo estado para controle de contatos visíveis
 
     useEffect(() => {
         (async () => {
@@ -75,6 +76,14 @@ export default function HelpPage() {
                     marker.Distrito?.toLowerCase() === selectedDistrito.toLowerCase()
             )
         : [];
+
+    const handleShowMore = () => {
+        if (visibleCount < filteredMarkers.length) {
+            setVisibleCount((prevCount) => prevCount + 5);
+        } else {
+            setVisibleCount(5); // Reseta para mostrar apenas os 5 primeiros
+        }
+    };
 
     return (
         <LinearGradient
@@ -173,6 +182,7 @@ export default function HelpPage() {
                                                     onPress={() => {
                                                         setSelectedDistrito(item);
                                                         setDropdownVisible(false);
+                                                        setVisibleCount(5); // Reseta o contador ao mudar o distrito
                                                     }}
                                                 >
                                                     <Text className="text-lg text-gray-800">{item}</Text>
@@ -187,7 +197,7 @@ export default function HelpPage() {
                         {/* Lista de Contactos */}
                         <View className="w-11/12 mt-8">
                             {selectedDistrito && filteredMarkers.length > 0 ? (
-                                filteredMarkers.map((marker, index) => (
+                                filteredMarkers.slice(0, visibleCount).map((marker, index) => (
                                     <View key={index} className="mb-4 p-3 bg-white rounded-md">
                                         <Text className="text-lg font-bold">
                                             {marker.Nome}
@@ -207,9 +217,23 @@ export default function HelpPage() {
                                 </Text>
                             )}
                         </View>
+
+                        {/* Botão "Mostrar mais" */}
+                        {selectedDistrito && filteredMarkers.length > 5 && (
+                            <View className="w-11/12 mt-2 mb-20">
+                                <TouchableOpacity
+                                    style={{
+                                        alignItems: "flex-end", // Alinha o botão à direita
+                                    }}
+                                    onPress={handleShowMore}
+                                >
+                                    <Text className="text-md font-bold text-orange">
+                                        {visibleCount >= filteredMarkers.length ? "VER MENOS" : "VER MAIS"}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
                     </View>
-
-
                 </View>
             </ScrollView>
         </LinearGradient>
