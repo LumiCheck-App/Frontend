@@ -4,6 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { markersOnMap } from "../psicologos";
+import { Linking } from "react-native";
 
 const distritos = [
     "Aveiro",
@@ -85,6 +86,12 @@ export default function HelpPage() {
         }
     };
 
+    const makeCall = (phoneNumber) => {
+        Linking.openURL(`tel:${phoneNumber}`).catch((err) =>
+            console.error("Erro ao tentar abrir o discador:", err)
+        );
+    };
+
     return (
         <LinearGradient
             colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
@@ -145,9 +152,11 @@ export default function HelpPage() {
                                             </Text>
                                         </View>
                                         <View className="w-1/2">
-                                            <Text className="text-lg self-end text-violet font-bold">
-                                                {selectedMarker.Telefone}
-                                            </Text>
+                                            <TouchableOpacity onPress={() => makeCall(marker.Telefone)}>
+                                                <Text className="text-lg self-end text-violet font-bold">
+                                                    {selectedMarker.Telefone}
+                                                </Text>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                     <View className="w-full mt-2">
@@ -217,9 +226,11 @@ export default function HelpPage() {
                                                 </Text>
                                             </View>
                                             <View className="w-1/2">
-                                                <Text className="text-lg self-end text-violet font-bold">
-                                                    {marker.Telefone}
-                                                </Text>
+                                                <TouchableOpacity onPress={() => makeCall(marker.Telefone)}>
+                                                    <Text className="text-lg self-end text-violet font-bold">
+                                                        {marker.Telefone}
+                                                    </Text>
+                                                </TouchableOpacity>
                                             </View>
                                         </View>
                                         <View className="w-full mt-2">
