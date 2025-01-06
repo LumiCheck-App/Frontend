@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Alert, TouchableOpacity, FlatList, Modal, ScrollView } from "react-native";
+import { View, Text, Alert, TouchableOpacity, FlatList, Modal, ScrollView, ImageBackground } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
@@ -41,6 +41,39 @@ export default function HelpPage() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [visibleCount, setVisibleCount] = useState(5); // Novo estado para controle de contatos visíveis
+
+    const [posts] = useState([
+        {
+            id: 1,
+            image: require('../../assets/bem-estar.jpg'),
+            title: 'Link de ajuda',
+            link: 'www.eusintoME.com/linkdeajuda',
+        },
+        {
+            id: 2,
+            image: require('../../assets/bem-estar.jpg'),
+            title: 'Outro link',
+            link: 'www.exemplo.com/outro',
+        },
+        {
+            id: 3,
+            image: require('../../assets/bem-estar.jpg'),
+            title: 'Mais um link',
+            link: 'www.exemplo.com/maisum',
+        },
+        {
+            id: 4,
+            image: require('../../assets/bem-estar.jpg'),
+            title: 'Ajuda aqui',
+            link: 'www.ajuda.com/aqui',
+        },
+        {
+            id: 5,
+            image: require('../../assets/bem-estar.jpg'),
+            title: 'Último link',
+            link: 'www.exemplo.com/ultimo',
+        },
+    ]);
 
     useEffect(() => {
         (async () => {
@@ -174,10 +207,10 @@ export default function HelpPage() {
                         <View className="w-11/12 mt-6">
                             <Text className="text-xl font-bold mb-2">Contactos</Text>
                             <TouchableOpacity
-                                className="p-3 bg-[#ffe5b4] rounded-md items-center"
+                                className="p-3 bg-yellow rounded-md items-center"
                                 onPress={() => setDropdownVisible(true)}
                             >
-                                <Text className="text-lg font-bold">
+                                <Text className="text-lg font-bold text-white">
                                     {selectedDistrito || "Selecione um Distrito"}
                                 </Text>
                             </TouchableOpacity>
@@ -192,7 +225,7 @@ export default function HelpPage() {
                                         activeOpacity={1}
                                         onPress={() => setDropdownVisible(false)}
                                     />
-                                    <View className="h-1/2 bg-white rounded-t-lg mb-6">
+                                    <View className="h-1/2 bg-white rounded-t-lg">
                                         <FlatList
                                             data={[...distritos, "Outros"]}
                                             keyExtractor={(item, index) => index.toString()}
@@ -266,9 +299,46 @@ export default function HelpPage() {
                                 </TouchableOpacity>
                             </View>
                         )}
+
+                        {/* Secção de Tarefas Diárias */}
+                        <View className="w-11/12 mt-8">
+                            <View className="flex-row items-center justify-between mb-4">
+                                <Text className="text-xl font-bold text-black">Posts</Text>
+                            </View>
+                        </View>
                     </View>
+
+
+                    <FlatList
+                        className="w-full"
+                        data={posts}
+                        horizontal
+                        keyExtractor={(item) => item.id.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item, index }) => (
+                            <TouchableOpacity
+                                className={`rounded-lg ${index === 0 ? 'ml-[2.25rem] mr-4' : ''
+                                    } ${index === 4 ? 'mr-[2.25rem]' : 'mr-4'}`}
+                            >
+                                <ImageBackground
+                                    source={item.image}
+                                    className="w-72 h-48 rounded-lg overflow-hidden"
+                                    resizeMode="cover"
+                                >
+                                    <LinearGradient
+                                        colors={['transparent', 'rgba(0, 0, 0, 0.7)']}
+                                        style={{ flex: 1, justifyContent: 'flex-end', padding: 10 }}
+                                    >
+                                        <Text className="text-md font-bold text-white">{item.title}</Text>
+                                        <Text className="text-sm text-white">{item.link}</Text>
+                                    </LinearGradient>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        )}
+                    />
+
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </LinearGradient >
     );
 }
