@@ -1,0 +1,1 @@
+https://json.geoapi.pt/gps/38.748406,-9.102984/base
