@@ -3,7 +3,7 @@ import { View, Text, Alert, TouchableOpacity, FlatList, Modal, ScrollView, Image
 import MapView, { Marker } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
-import { markersOnMap } from "../psicologos";
+import { markersOnMap } from "../psicologos_fakes";
 import { Linking } from "react-native";
 
 const distritos = [
