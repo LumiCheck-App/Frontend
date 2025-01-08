@@ -62,9 +62,6 @@ export default function RegisterPage() {
     }
   }
 
-  function QuestionnaireRedirect() {
-    navigation.replace("FirstQuestionnaire");
-  }
   return (
     <>
       <ScrollView className="flex-1 bg-off-white">
@@ -147,7 +144,7 @@ export default function RegisterPage() {
           {/* Botão do form */}
           <TouchableOpacity
             className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
-            onPress={QuestionnaireRedirect}
+            onPress={handleRegistration}
           >
             <Text className="text-xl font-regular text-white font-bold">
               Criar Conta

@@ -14,6 +14,7 @@ export default function LoginPage() {
       Pass: "123",
       Email: "reistiago64@gmail.com",
       Idade: 26,
+      FirstEntry: true,
     },
     {
       id: 1,
@@ -21,6 +22,7 @@ export default function LoginPage() {
       Pass: "123",
       Email: "reistiago64@gmail.com",
       Idade: 21,
+      FirstEntry: false,
     },
     {
       id: 2,
@@ -28,6 +30,7 @@ export default function LoginPage() {
       Pass: "123",
       Email: "reistiago64@gmail.com",
       Idade: 23,
+      FirstEntry: false,
     },
   ];
 
@@ -60,7 +63,11 @@ export default function LoginPage() {
           // !Falta a encriptação da password
           console.log(username, pass);
           clearLoginForm();
-          navigation.replace("HomeTabs");
+          if (user.FirstEntry) {
+            navigation.replace("FirstQuestionnaire");
+          } else {
+            navigation.replace("HomeTabs");
+          }
         } else {
           console.log("Wrong password.");
         }
