@@ -29,6 +29,7 @@ export default function SwipeableCard({ card, index, onSwipe }) {
         // Swiped right
         runOnJS(onSwipe)("right"); // Trigger the callback immediately
         translateX.value = withSpring(width * 1.5); // Continue the animation
+        console.log(card);
       } else if (event.translationX < -width / 4) {
         // Swiped left
         runOnJS(onSwipe)("left"); // Trigger the callback immediately
@@ -61,10 +62,10 @@ export default function SwipeableCard({ card, index, onSwipe }) {
       onGestureEvent={gestureHandler}
     >
       <Animated.View
-        className="absolute w-3/5 h-full bg-white rounded-3xl border border-gray-300 flex items-center justify-center"
+        className="absolute w-3/5 h-full bg-white rounded-3xl border border-gray-300 flex items-center justify-center gap-7"
         style={animatedStyle}
       >
-        <Image source={require(card.im)} />
+        <Image source={card.image} />
         <Text className="text-lg font-medium">{card.text}</Text>
       </Animated.View>
     </PanGestureHandler>

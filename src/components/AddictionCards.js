@@ -3,12 +3,17 @@ import { View, Text, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SwipeableCard from "./SwipeableCard";
 
+import RedesSociais from "../../assets/RedesSociais.png";
+import JogosOnline from "../../assets/JogosOnline.png";
+import Jogos from "../../assets/Jogos.png";
+import ComprasOnline from "../../assets/ComprasOnline.png";
+
 export default function AddictionCards({ onCardSwipe }) {
   const [cards, setCards] = useState([
-    { id: 0, text: "Redes Sociais", image: "../../assets/RedesSociais.png" },
-    { id: 1, text: "Jogos de sorte", image: "../../assets/JogosOnline.png" },
-    { id: 2, text: "Jogos", image: "../../assets/Jogos.png" },
-    { id: 3, text: "Compras Online", image: "../../assets/ComprasOnline.png" },
+    { id: 0, text: "Redes Sociais", image: RedesSociais },
+    { id: 1, text: "Jogos de sorte", image: JogosOnline },
+    { id: 2, text: "Jogos", image: Jogos },
+    { id: 3, text: "Compras Online", image: ComprasOnline },
   ]);
 
   const progress = 50 / cards.length;
