@@ -29,7 +29,6 @@ export default function SwipeableCard({ card, index, onSwipe }) {
         // Swiped right
         runOnJS(onSwipe)("right"); // Trigger the callback immediately
         translateX.value = withSpring(width * 1.5); // Continue the animation
-        console.log(card);
       } else if (event.translationX < -width / 4) {
         // Swiped left
         runOnJS(onSwipe)("left"); // Trigger the callback immediately

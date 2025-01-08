@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SwipeableCard from "./SwipeableCard";
+import FQFirstMessage from "./FQFirstMessage";
 
 import RedesSociais from "../../assets/RedesSociais.png";
 import JogosOnline from "../../assets/JogosOnline.png";
 import Jogos from "../../assets/Jogos.png";
 import ComprasOnline from "../../assets/ComprasOnline.png";
 
-export default function AddictionCards({ onCardSwipe }) {
+export default function AddictionCards({
+  onCardSwipe,
+  modalVisible,
+  CloseModal,
+}) {
   const [cards, setCards] = useState([
     { id: 0, text: "Redes Sociais", image: RedesSociais },
     { id: 1, text: "Jogos de sorte", image: JogosOnline },
@@ -18,8 +23,6 @@ export default function AddictionCards({ onCardSwipe }) {
 
   const progress = 50 / cards.length;
   const handleSwipe = (id, direction) => {
-    //console.log(`Swiped ${direction} on: ${id}`);
-
     if (direction === "right") {
       //send to database
     }
@@ -29,8 +32,13 @@ export default function AddictionCards({ onCardSwipe }) {
     }
   };
 
+  function CloseFQMModal() {
+    CloseModal();
+  }
+
   return (
     <View className="flex-1 ">
+      <FQFirstMessage modalVisible={modalVisible} CloseModal={CloseFQMModal} />
       {/* Question Section */}
       <View className="w-screen px-6 mb-16 items-center">
         <Text className="font-bold text-yellow text-center text-4xl">
@@ -56,7 +64,7 @@ export default function AddictionCards({ onCardSwipe }) {
           <Text className="text-lg text-red-600 font-semibold">NÃO</Text>
           <Image
             source={require("../../assets/Swipe_Icon.png")}
-            className="swipe_anime"
+            className={`${!modalVisible ? "swipe_anime" : "dont_swipe"}`}
           />
         </View>
         <Text className="text-gray-600 font-medium">
@@ -65,7 +73,9 @@ export default function AddictionCards({ onCardSwipe }) {
         <View className="flex-row items-center gap-3">
           <Image
             source={require("../../assets/Swipe_Icon.png")}
-            className="swipe_anime flip"
+            className={`${
+              !modalVisible ? "swipe_anime flip" : "dont_swipe flip"
+            }`}
           />
           <Text className="text-lg text-green-600 font-semibold">SIM</Text>
         </View>
