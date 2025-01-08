@@ -24,4 +24,6 @@
 }
 
     
-
+.flip{
+    transform: scaleX(-1);
+}

@@ -49,7 +49,7 @@ export default function RegisterPage() {
             Idade: idade,
           };
           Users.push(user);
-          navigation.replace("FirstQuestionnaire");
+          navigation.replace("Login");
         }
       } else {
         setHasError(true);
