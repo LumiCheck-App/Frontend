@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# Android Studio
+.idea/
+
 # Expo
 .expo/
 dist/

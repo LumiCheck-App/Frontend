@@ -1,14 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Task from "../components/Task";
-
-// Importar os ícones SVG diretamente
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
 
 export default function HomePage() {
+    const [dailyTasks, setDailyTasks] = useState([]);
+    const [timeLeft, setTimeLeft] = useState("");
+
+    // Função para calcular o tempo restante até a meia-noite
+    const calculateTimeLeft = () => {
+        const now = new Date();
+        const midnight = new Date();
+        midnight.setHours(24, 0, 0, 0);
+        const diff = midnight - now;
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        if (hours === 0) setTimeLeft(`${minutes} MINUTOS`);
+        else if (hours === 1) setTimeLeft(`${hours} HORA`);
+        else setTimeLeft(`${hours} HORAS`);
+    };
+
+    // Função para buscar tarefas do endpoint
+    const fetchTasks = async () => {
+        try {
+            const response = await fetch("https://lumicheckbd.onrender.com/tarefas/1/tarefas/nao_concluidas");
+            const tasks = await response.json();
+
+            // Filtrar tarefas não concluídas e selecionar 2 aleatoriamente
+            const selectedTasks = tasks
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 2);
+
+            setDailyTasks(selectedTasks);
+        } catch (error) {
+            console.error("Erro ao buscar tarefas:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchTasks();
+        calculateTimeLeft();
+
+        // Atualizar o tempo restante a cada minuto
+        const timer = setInterval(() => {
+            calculateTimeLeft();
+        }, 60000);
+
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <LinearGradient
             colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
@@ -38,7 +82,7 @@ export default function HomePage() {
                         <View className="flex-1 items-center pt-12">
                             {/* Ícone PNG */}
                             <Image
-                                source={require("../../assets/Lumi.png")} // Caminho do ícone grande (fogo)
+                                source={require("../../assets/Lumi.png")}
                                 className="w-40 h-40"
                                 resizeMode="contain"
                             />
@@ -58,12 +102,19 @@ export default function HomePage() {
                                 {/* Cabeçalho da seção */}
                                 <View className="flex-row items-center justify-between mb-4">
                                     <Text className="text-xl font-bold text-black">Tarefas Diárias</Text>
-                                    <Text className="text-md font-bold text-orange self-end">7 HORAS</Text>
+                                    <Text className="text-md font-bold text-orange self-end">{timeLeft}</Text>
                                 </View>
 
-                                {/* Tarefas */}
-                                <Task taskText="Estar apenas 2 horas no Insta hoje" isCompleted={true} />
-                                <Task taskText="Falar com os amigos" isCompleted={false} />
+                                {dailyTasks.map(task => (
+                                    <Task
+                                        key={task.id}
+                                        taskId={task.id}
+                                        taskText={task.descricao}
+                                        isCompleted={task.done}
+                                        onTaskUpdate={(taskId, completed) => {
+                                            console.log(`Tarefa ${taskId} concluída: ${completed}`);
+                                        }} />
+                                ))}
                             </View>
 
                             {/* Literacia */}
@@ -83,7 +134,7 @@ export default function HomePage() {
                             {/* Informação de contactos */}
                             <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
                                 <HelpContactsIcon width={100} height={100} />
-                                <Text className="text-md font-bold my-2">Existem 96 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
+                                <Text className="text-md font-bold my-2">Existem 4270 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
                             </TouchableOpacity>
 
                         </View>
