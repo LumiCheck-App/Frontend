@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/quicksand": "^0.2.3",
     "@expo/metro-runtime": "~4.0.0",
+    "@react-native-community/slider": "^4.5.5",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-native-picker/picker": "^2.10.2",
     "@react-navigation/bottom-tabs": "^7.2.0",

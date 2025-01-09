@@ -5,11 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "orange": "#ff9d00",
-        "yellow": "#fcc766",
+        orange: "#ff9d00",
+        yellow: "#fcc766",
         "light-yellow": "#ffe5b4",
         "off-white": "#fff9ef",
-        "violet": "#aa82da",
+        violet: "#aa82da",
         "dark-gray": "#686868",
         "light-gray": "#d0d0d0",
       },
@@ -20,4 +20,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
