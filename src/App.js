@@ -21,7 +21,7 @@ import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import TrophiesPage from "./pages/TrophiesPage";
 import AllTasksPage from "./pages/AllTasksPage";
-import DataPage from "./pages/DataPage";
+import ReportPage from "./pages/ReportPage";
 import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/LoginPage";
@@ -68,7 +68,7 @@ export default function App() {
               case "Troféus":
                 IconComponent = TrophyIcon;
                 break;
-              case "Dados":
+              case "Report":
                 IconComponent = StatsIcon;
                 break;
               case "Perfil":
@@ -95,7 +95,7 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={HomePage} />
         <Tab.Screen name="Troféus" component={TrophiesPage} />
-        <Tab.Screen name="Dados" component={DataPage} />
+        <Tab.Screen name="Report" component={ReportPage} />
         <Tab.Screen name="Perfil" component={ProfilePage} />
         <Tab.Screen name="Ajuda" component={HelpPage} />
       </Tab.Navigator>

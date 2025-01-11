@@ -27,7 +27,7 @@ export default function WelcomePage({ navigation }) {
     const currentIndex = Math.round(offsetX / SCREEN_WIDTH);
     setCurrentStep(currentIndex);
     if (currentStep === steps.length - 1) {
-      navigation.replace("Login");
+      navigation.replace("HomeTabs");
     }
   };
 
