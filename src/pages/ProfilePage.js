@@ -97,7 +97,7 @@ export default function ProfilePage() {
                             </View>
 
                             <View className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray px-4 py-2 items-center">
-                                <View className="flex-row items-center w-full py-3">
+                                <TouchableOpacity className="flex-row items-center w-full py-3" onPress={() => navigation.navigate("Settings")}>
                                     {/* Ícone */}
                                     <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
                                         <FontAwesome6 name="clipboard-question" size={25} color="#fcc766" />
@@ -112,9 +112,9 @@ export default function ProfilePage() {
                                     <View className="ml-auto">
                                         <MaterialIcons name="chevron-right" size={30} color="#000000" />
                                     </View>
-                                </View>
+                                </TouchableOpacity>
 
-                                <View className="flex-row items-center w-full py-3">
+                                <TouchableOpacity className="flex-row items-center w-full py-3" onPress={() => navigation.navigate("Settings")}>
                                     {/* Ícone */}
                                     <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
                                         <FontAwesome name="gear" size={25} color="#fcc766" />
@@ -129,9 +129,9 @@ export default function ProfilePage() {
                                     <View className="ml-auto">
                                         <MaterialIcons name="chevron-right" size={30} color="#000000" />
                                     </View>
-                                </View>
+                                </TouchableOpacity>
 
-                                <View className="flex-row items-center w-full py-3">
+                                <TouchableOpacity className="flex-row items-center w-full py-3" onPress={() => navigation.navigate("Login")}>
                                     {/* Ícone */}
                                     <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
                                         <Feather name="log-out" size={25} color="#da6f6f" />
@@ -146,7 +146,7 @@ export default function ProfilePage() {
                                     <View className="ml-auto">
                                         <MaterialIcons name="chevron-right" size={30} color="#da6f6f" />
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             </View>
 
                         </View>
@@ -154,6 +154,6 @@ export default function ProfilePage() {
 
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </LinearGradient >
     );
 }

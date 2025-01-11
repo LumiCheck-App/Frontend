@@ -5,7 +5,7 @@ import Task from "../components/Task";
 import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function AllTasksPage({ navigation }) {
+export default function AllTasks({ navigation }) {
     // Lista de tarefas
     const tasksdiarias = [
         "Estar apenas 2 horas no Insta hoje",

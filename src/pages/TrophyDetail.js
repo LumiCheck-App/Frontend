@@ -6,7 +6,7 @@ import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "react-native";
 
-export default function AllTasksPage({ navigation }) {
+export default function TrophyDetail({ navigation }) {
 
     return (
         <LinearGradient
