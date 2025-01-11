@@ -7,12 +7,13 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import TrophyRed from "../../assets/trofeu-vermelho.png";
 import TrophyBlue from "../../assets/trofeu-azul.png";
 
 export default function ProfilePage() {
-
+    const navigation = useNavigation();
 
     return (
         <LinearGradient
@@ -74,17 +75,23 @@ export default function ProfilePage() {
 
                                 <View className="flex-row items-center justify-around bg-white rounded-lg mb-2 border border-light-gray">
                                     {/* Texto da tarefa */}
-                                    <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
+                                    <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail")}>
+                                        <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
+                                    </TouchableOpacity>
                                     <View className="w-px h-full bg-light-gray" />
-                                    <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
+                                    <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail")}>
+                                        <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
+                                    </TouchableOpacity>
                                     <View className="w-px h-full bg-light-gray" />
-                                    <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
+                                    <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail")}>
+                                        <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
+                                    </TouchableOpacity>
                                 </View>
 
                                 {/* Ver todas */}
-                                <TouchableOpacity onPress={() => navigation.navigate("AllTasks")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("AllTrophyDetail")}>
                                     <View className="mb-4 flex-row justify-end">
-                                        <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                        <Text className="text-md font-bold text-orange">VER TODOS</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

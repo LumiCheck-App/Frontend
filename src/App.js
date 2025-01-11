@@ -21,6 +21,7 @@ import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import TrophiesPage from "./pages/TrophiesPage";
 import AllTasksPage from "./pages/AllTasksPage";
+import TrophyDetail from "./pages/TrophyDetail";
 import DataPage from "./pages/DataPage";
 import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
@@ -137,6 +138,11 @@ export default function App() {
           <Stack.Screen
             name="AllTasks"
             component={AllTasksPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TrophyDetail"
+            component={TrophyDetail}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
