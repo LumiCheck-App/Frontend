@@ -40,7 +40,6 @@ export default function AllTasks({ navigation }) {
                                 >
                                     <Ionicons name="arrow-back" size={24} color="black" />
                                 </TouchableOpacity>
-                                <View className="flex-1"></View>
                             </View>
 
                             {/* Secção de Tarefas Diárias */}

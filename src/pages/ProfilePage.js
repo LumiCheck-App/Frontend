@@ -8,6 +8,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+
 
 import TrophyRed from "../../assets/trofeu-vermelho.png";
 import TrophyBlue from "../../assets/trofeu-azul.png";
@@ -26,10 +28,16 @@ export default function ProfilePage() {
                     <View className="flex-1">
 
                         <View className="flex-1 items-center pt-12">
+                            <TouchableOpacity
+                                onPress={() => navigation.goBack()}
+                            >
+                                <Ionicons name="arrow-back" size={24} color="black" />
+                            </TouchableOpacity>
+
                             {/* Ícone PNG */}
                             <Image
                                 source={require("../../assets/juice_pfp.jpg")}
-                                className="w-40 h-40 rounded-full"
+                                className="w-40 h-40 rounded-full mt-[24px]"
                                 resizeMode="contain"
                             />
 
@@ -140,7 +148,7 @@ export default function ProfilePage() {
                                     {/* Conteúdo de progresso */}
                                     <View className="flex-1">
                                         {/* Texto */}
-                                        <Text className="text-lg font-bold">Log Out</Text>
+                                        <Text className="text-lg font-bold text-red">Log Out</Text>
                                     </View>
 
                                     <View className="ml-auto">

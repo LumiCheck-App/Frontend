@@ -1,13 +1,61 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import CardForOptions from "../components/CardForOptions";
 
 export default function Settings({ navigation }) {
+
+    const Conta = [
+        {
+            text: "Editar Perfil",
+            textColor: "text-black",
+            arrowColor: "#000000",
+            icon: null,
+        },
+        {
+            text: "Opções de Monitorização",
+            textColor: "text-black",
+            arrowColor: "#000000",
+            icon: null,
+        },
+        {
+            text: "Termos e Condições",
+            textColor: "text-black",
+            arrowColor: "#000000",
+            icon: null,
+        },
+    ];
+
+    const Suporte = [
+        {
+            text: "Onboarding",
+            textColor: "text-black",
+            arrowColor: "#000000",
+            icon: null,
+        },
+        {
+            text: "Enviar Feedback",
+            textColor: "text-black",
+            arrowColor: "#000000",
+            icon: null,
+        },
+    ];
+
+
+    const Logout = [
+        {
+            text: "Log Out",
+            textColor: "text-red",
+            arrowColor: "#da6f6f",
+            icon: <Feather name="log-out" size={25} color="#da6f6f" />,
+        },
+    ];
+
 
     return (
         <LinearGradient
@@ -26,60 +74,34 @@ export default function Settings({ navigation }) {
                                 >
                                     <Ionicons name="arrow-back" size={24} color="black" />
                                 </TouchableOpacity>
-                                <View className="flex-1"></View>
                             </View>
 
-                            <View className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray px-4 py-2 items-center">
-                                <View className="flex-row items-center w-full py-3">
-                                    {/* Ícone */}
-                                    <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
-                                        <FontAwesome6 name="clipboard-question" size={25} color="#fcc766" />
-                                    </View>
+                            <Image
+                                source={require("../../assets/juice_pfp.jpg")}
+                                className="w-40 h-40 rounded-full"
+                                resizeMode="contain"
+                            />
 
-                                    {/* Conteúdo de progresso */}
-                                    <View className="flex-1">
-                                        {/* Texto */}
-                                        <Text className="text-lg font-bold">Perguntas da Lumi</Text>
-                                    </View>
+                            {/* Texto de boas-vindas */}
+                            <Text className="text-2xl font-bold text-black mt-6">
+                                Rodrigo
+                            </Text>
+                            <Text className="text-md font-bold text-dark-gray">
+                                @rodrigograc4
+                            </Text>
 
-                                    <View className="ml-auto">
-                                        <MaterialIcons name="chevron-right" size={30} color="#000000" />
-                                    </View>
-                                </View>
+                            <View className="w-11/12 mt-8 mb-4">
+                                <Text className="text-xl font-bold text-black">Conta</Text>
+                            </View>
+                            <CardForOptions options={Conta} />
 
-                                <View className="flex-row items-center w-full py-3">
-                                    {/* Ícone */}
-                                    <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
-                                        <FontAwesome name="gear" size={25} color="#fcc766" />
-                                    </View>
+                            <View className="w-11/12 mb-4">
+                                <Text className="text-xl font-bold text-black">Suporte</Text>
+                            </View>
+                            <CardForOptions options={Suporte} />
 
-                                    {/* Conteúdo de progresso */}
-                                    <View className="flex-1">
-                                        {/* Texto */}
-                                        <Text className="text-lg font-bold">Definições</Text>
-                                    </View>
-
-                                    <View className="ml-auto">
-                                        <MaterialIcons name="chevron-right" size={30} color="#000000" />
-                                    </View>
-                                </View>
-
-                                <View className="flex-row items-center w-full py-3">
-                                    {/* Ícone */}
-                                    <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
-                                        <Feather name="log-out" size={25} color="#da6f6f" />
-                                    </View>
-
-                                    {/* Conteúdo de progresso */}
-                                    <View className="flex-1">
-                                        {/* Texto */}
-                                        <Text className="text-lg font-bold">Log Out</Text>
-                                    </View>
-
-                                    <View className="ml-auto">
-                                        <MaterialIcons name="chevron-right" size={30} color="#da6f6f" />
-                                    </View>
-                                </View>
+                            <View className="mt-2">
+                                <CardForOptions options={Logout} />
                             </View>
 
                         </View>

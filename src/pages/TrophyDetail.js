@@ -24,7 +24,6 @@ export default function TrophyDetail({ navigation }) {
                             >
                                 <Ionicons name="arrow-back" size={24} color="black" />
                             </TouchableOpacity>
-                            <View className="flex-1"></View>
                         </View>
 
                         <View className="flex-1 justify-center items-center mb-16">
