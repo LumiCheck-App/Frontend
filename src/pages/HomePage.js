@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Task from "../components/Task";
+import Lumi from "../../assets/Lumi.svg";
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
@@ -147,11 +148,7 @@ export default function HomePage() {
                 }}
                 className="flex-1 items-center"
             >
-                <Image
-                    source={require("../../assets/Lumi.png")}
-                    className="w-40 h-40"
-                    resizeMode="contain"
-                />
+                <Lumi width={140} height={140} />
             </Animated.View>
 
             {/* Conteúdo rolável */}
@@ -165,7 +162,7 @@ export default function HomePage() {
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1 items-center pt-60">
                         {/* Texto de boas-vindas */}
-                        <Text className="text-2xl font-bold text-gray-800 mt-6">
+                        <Text className="text-2xl font-bold text-gray-800 mt-4">
                             Olá, Rodrigo!
                         </Text>
 
