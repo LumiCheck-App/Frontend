@@ -56,20 +56,33 @@ export default function HomePage() {
 
     // Animação para Lumi
     const lumiPositionY = scrollY.interpolate({
-        inputRange: [0, 150], // Distância de scroll para começar a animação
-        outputRange: [0, -80], // Translação no eixo Y
+        inputRange: [0, 150],
+        outputRange: [0, -80],
         extrapolate: "clamp",
     });
 
     const lumiPositionX = scrollY.interpolate({
-        inputRange: [0, 150], // Distância de scroll para começar a animação
-        outputRange: [0, -160], // Translação no eixo X
+        inputRange: [0, 150],
+        outputRange: [0, -160],
         extrapolate: "clamp",
     });
 
     const lumiScale = scrollY.interpolate({
         inputRange: [0, 150],
-        outputRange: [1, 0.25], // Diminui a escala de Lumi
+        outputRange: [1, 0.25],
+        extrapolate: "clamp",
+    });
+
+    // Animação para os ícones e números
+    const questionIconPositionX = scrollY.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, -65], // Move o ícone de "?" para a esquerda
+        extrapolate: "clamp",
+    });
+
+    const trophyIconPositionY = scrollY.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, -32], // Move o ícone de troféu para cima
         extrapolate: "clamp",
     });
 
@@ -80,20 +93,31 @@ export default function HomePage() {
             style={{ flex: 1 }}
         >
             {/* Ícones fixos no topo */}
-            <View className="absolute top-8 right-5 items-end z-10">
+            <View className="absolute top-20 right-10 z-10 items-end">
                 {/* Ícone de "?" */}
-                <View className="flex-row items-center mb-2">
+                <Animated.View
+                    style={{
+                        transform: [{ translateX: questionIconPositionX }],
+                    }}
+                    className="flex-row items-center mb-2"
+                >
                     <Text className="text-lg font-bold mr-2">14</Text>
                     <QuestionIcon width={24} height={24} />
-                </View>
+                </Animated.View>
 
                 {/* Ícone de troféu */}
-                <View className="flex-row items-center">
+                <Animated.View
+                    style={{
+                        transform: [{ translateY: trophyIconPositionY }],
+                    }}
+                    className="flex-row items-center"
+                >
                     <Text className="text-lg font-bold mr-2">2</Text>
                     <TrophyGoldIcon width={24} height={24} />
-                </View>
+                </Animated.View>
             </View>
 
+            {/* Animação para Lumi */}
             <Animated.View
                 style={{
                     position: "absolute",
@@ -112,7 +136,7 @@ export default function HomePage() {
                 />
             </Animated.View>
 
-            {/* Conteúdo que pode rolar */}
+            {/* Conteúdo rolável */}
             <Animated.ScrollView
                 onScroll={Animated.event(
                     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
