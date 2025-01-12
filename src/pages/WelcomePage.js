@@ -27,7 +27,7 @@ export default function WelcomePage({ navigation }) {
     const currentIndex = Math.round(offsetX / SCREEN_WIDTH);
     setCurrentStep(currentIndex);
     if (currentStep === steps.length - 1) {
-      navigation.replace("Login");
+      navigation.replace("HomeTabs");
     }
   };
 
@@ -47,9 +47,8 @@ export default function WelcomePage({ navigation }) {
               </View>
               {/* Imagem */}
               <View
-                className={`justify-center items-center ${
-                  item.id === steps.length - 1 ? "hidden" : "block"
-                }`}
+                className={`justify-center items-center ${item.id === steps.length - 1 ? "hidden" : "block"
+                  }`}
               >
                 <Image source={require("../../assets/Lumi.png")} />
               </View>
@@ -70,18 +69,16 @@ export default function WelcomePage({ navigation }) {
           {steps.map((_, index) => (
             <View
               key={index}
-              className={`w-3 h-3 rounded-full mx-1 ${
-                index === currentStep ? "bg-orange" : "bg-white"
-              }`}
+              className={`w-3 h-3 rounded-full mx-1 ${index === currentStep ? "bg-orange" : "bg-white"
+                }`}
             />
           ))}
         </View>
 
         {/* Texto fixo indicando para deslizar */}
         <View
-          className={`flex items-end w-screen px-12 mt-1 transition-opacity ${
-            currentStep === 0 ? "opacity-1" : "opacity-0"
-          }`}
+          className={`flex items-end w-screen px-12 mt-1 transition-opacity ${currentStep === 0 ? "opacity-1" : "opacity-0"
+            }`}
         >
           <Image
             id="swipe_Icon"

@@ -12,6 +12,7 @@ module.exports = {
         violet: "#aa82da",
         "dark-gray": "#686868",
         "light-gray": "#d0d0d0",
+        red: "#da6f6f",
       },
       fontFamily: {
         regular: ["Quicksand_Regular"],
