@@ -94,9 +94,23 @@ export default function App() {
       })}
       >
         <Tab.Screen name="Home" component={HomePage} />
-        <Tab.Screen name="Troféus" component={TrophiesPageStack} />
+        <Tab.Screen name="Troféus" component={TrophiesPageStack} listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Troféus", {
+              screen: "TrophiesPage",
+            });
+          },
+        })} />
         <Tab.Screen name="Dados" component={DataPage} />
-        <Tab.Screen name="Perfil" component={ProfilePageStack} />
+        <Tab.Screen name="Perfil" component={ProfilePageStack} listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Perfil", {
+              screen: "ProfilePage",
+            });
+          },
+        })} />
         <Tab.Screen name="Ajuda" component={HelpPage} />
       </Tab.Navigator>
     );
