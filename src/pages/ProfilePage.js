@@ -89,7 +89,7 @@ export default function ProfilePage() {
                                 </View>
 
                                 {/* Ver todas */}
-                                <TouchableOpacity onPress={() => navigation.navigate("AllTrophyDetail")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Troféus", { screen: "AllTrophies" })}>
                                     <View className="mb-4 flex-row justify-end">
                                         <Text className="text-md font-bold text-orange">VER TODOS</Text>
                                     </View>

@@ -31,6 +31,7 @@ import FirstQuestionnaire from "./pages/FirstQuestionnaire";
 import Settings from "./pages/Settings";
 import EditProfile from "./pages/EditProfile";
 import AllLumiQuestions from "./pages/AllLumiQuestions";
+import AllTrophies from "./pages/AllTrophies";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -107,6 +108,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TrophiesPage" component={TrophiesPage} />
         <Stack.Screen name="AllTasks" component={AllTasks} />
+        <Stack.Screen name="AllTrophies" component={AllTrophies} />
       </Stack.Navigator>
     );
   }

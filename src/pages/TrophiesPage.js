@@ -88,36 +88,18 @@ export default function TrophiesPage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">As Minhas Conquistas</Text>
+                                    <Text className="text-xl font-bold text-black">Sala de Trofeus</Text>
                                 </View>
 
                                 {/* Icon exclusivo */}
-                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
-                                    <Achievements
-                                        text="Adeus Instagram"
-                                        description="Desinstalar o Instagram"
-                                        icon={TrophyRed}
-                                    />
-                                </View>
+                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyRed} />
 
-                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
-                                    <Achievements
-                                        text="Adeus Instagram"
-                                        description="Desinstalar o Instagram"
-                                        icon={TrophyRed}
-                                    />
-                                </View>
+                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyRed} />
 
-                                <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
-                                    <Achievements
-                                        text="Adeus Instagram"
-                                        description="Desinstalar o Instagram"
-                                        icon={TrophyRed}
-                                    />
-                                </View>
+                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyRed} />
 
                                 {/* Ver todas */}
-                                <TouchableOpacity onPress={() => console.log("Ver todas as conquistas clicado")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("AllTrophies")}>
                                     <View className="mb-4 flex-row justify-end">
                                         <Text className="text-md font-bold text-orange">VER TODAS</Text>
                                     </View>
