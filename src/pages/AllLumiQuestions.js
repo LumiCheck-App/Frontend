@@ -5,6 +5,7 @@ import Task from "../components/Task";
 import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
 import LumiQuestion from "../components/LumiQuestion.js";
+import Lumi3Colors from "../components/Lumi3Colors.js";
 
 export default function AllLumiQuestions({ navigation }) {
 
@@ -36,6 +37,8 @@ export default function AllLumiQuestions({ navigation }) {
                                     <Ionicons name="arrow-back" size={24} color="black" />
                                 </TouchableOpacity>
                             </View>
+
+                            <Lumi3Colors negative="2" neutral="1" positive="5" />
 
                             {perguntas.map((pergunta, index) => (
                                 <LumiQuestion key={index} index={index + 1} text={pergunta.question} score={pergunta.score} />
