@@ -1,19 +1,17 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import BlockedTrophy from '../../assets/blocked-trophy.png';
+import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 const Achievements = ({ text, description, icon }) => {
-    if (!icon) {
-        icon = BlockedTrophy;
-    }
+    const IconComponent = icon || BlockedTrophy;
 
     return (
         <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
             <View className="flex-row items-center w-full">
                 {/* Ícone */}
                 <View className="mr-4">
-                    <Image source={icon} className="w-12 h-12 mr-3" resizeMode="contain" />
+                    <IconComponent width={50} height={50} />
                 </View>
 
                 {/* Conteúdo de progresso */}

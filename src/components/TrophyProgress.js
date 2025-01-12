@@ -1,14 +1,30 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
+import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
+import ChestIcon from "../../assets/chest.png";
 
 const TrophyProgress = ({ text, progress, total, icon }) => {
     const progressWidth = `${(progress / total) * 100}%`;
+    let IconComponent = icon || BlockedTrophy;
+
+    if (icon === "Chest") {
+        IconComponent = ChestIcon;
+    }
 
     return (
         <View className="flex-row items-center w-full">
             {/* Ícone */}
             <View className="mr-4">
-                <Image source={icon} className="w-12 h-12 mr-3" resizeMode="contain" />
+                {/* se for chest mete Image se for outro mete o svg */}
+                {icon === "Chest" ? (
+                    <Image
+                        source={IconComponent}
+                        className="w-12 h-12"
+                        resizeMode="contain"
+                    />
+                ) : (
+                    <IconComponent width={50} height={50} />
+                )}
             </View>
 
             {/* Conteúdo de progresso */}

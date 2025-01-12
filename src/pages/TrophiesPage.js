@@ -6,9 +6,7 @@ import Task from "../components/Task";
 import TrophyProgress from "../components/TrophyProgress";
 import Achievements from "../components/Achievements";
 
-// Importar os ícones diretamente
-import TrophyRed from "../../assets/trofeu-vermelho.png";
-import TrophyBlue from "../../assets/trofeu-azul.png";
+import TrophyAutoConsciente from "../../assets/trophies/autoconsciente.svg";
 import ChestIcon from "../../assets/chest.png";
 
 export default function TrophiesPage() {
@@ -57,7 +55,7 @@ export default function TrophiesPage() {
                                         text="Complete 30 tarefas diárias"
                                         progress={7}
                                         total={30}
-                                        icon={ChestIcon}
+                                        icon={"Chest"}
                                     />
                                 </View>
 
@@ -71,7 +69,7 @@ export default function TrophiesPage() {
                                             text="Responda a 3 perguntas num dia"
                                             progress={1}
                                             total={3}
-                                            icon={TrophyRed}
+                                            icon={TrophyAutoConsciente}
                                         />
                                     </View>
                                     <View className="mb-4">
@@ -79,7 +77,7 @@ export default function TrophiesPage() {
                                             text="Aprenda mais em Eu Sinto-Me"
                                             progress={0}
                                             total={1}
-                                            icon={TrophyBlue}
+                                            icon={TrophyAutoConsciente}
                                         />
                                     </View>
                                 </View>
@@ -92,11 +90,11 @@ export default function TrophiesPage() {
                                 </View>
 
                                 {/* Icon exclusivo */}
-                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyRed} />
+                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyAutoConsciente} />
 
-                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyRed} />
+                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyAutoConsciente} />
 
-                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyRed} />
+                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyAutoConsciente} />
 
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("AllTrophies")}>
