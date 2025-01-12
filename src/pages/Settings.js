@@ -1,10 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import CardForOptions from "../components/CardForOptions";
 
@@ -12,18 +9,21 @@ export default function Settings({ navigation }) {
 
     const Conta = [
         {
+            link: "EditProfile",
             text: "Editar Perfil",
             textColor: "text-black",
             arrowColor: "#000000",
             icon: null,
         },
         {
+            link: "EditProfile",
             text: "Opções de Monitorização",
             textColor: "text-black",
             arrowColor: "#000000",
             icon: null,
         },
         {
+            link: "EditProfile",
             text: "Termos e Condições",
             textColor: "text-black",
             arrowColor: "#000000",
@@ -33,12 +33,14 @@ export default function Settings({ navigation }) {
 
     const Suporte = [
         {
+            link: "EditProfile",
             text: "Onboarding",
             textColor: "text-black",
             arrowColor: "#000000",
             icon: null,
         },
         {
+            link: "EditProfile",
             text: "Enviar Feedback",
             textColor: "text-black",
             arrowColor: "#000000",
@@ -49,6 +51,7 @@ export default function Settings({ navigation }) {
 
     const Logout = [
         {
+            link: "Login",
             text: "Log Out",
             textColor: "text-red",
             arrowColor: "#da6f6f",
@@ -69,9 +72,7 @@ export default function Settings({ navigation }) {
                         <View className="flex-1 items-center pt-12">
                             {/* Botão de voltar */}
                             <View className="w-11/12 flex-row items-center">
-                                <TouchableOpacity
-                                    onPress={() => navigation.goBack()}
-                                >
+                                <TouchableOpacity onPress={() => navigation.goBack()}>
                                     <Ionicons name="arrow-back" size={24} color="black" />
                                 </TouchableOpacity>
                             </View>
@@ -87,7 +88,7 @@ export default function Settings({ navigation }) {
                                 Rodrigo
                             </Text>
                             <Text className="text-md font-bold text-dark-gray">
-                                @rodrigograc4
+                                rodrigograca@gmail.com
                             </Text>
 
                             <View className="w-11/12 mt-8 mb-4">

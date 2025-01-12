@@ -29,6 +29,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FirstQuestionnaire from "./pages/FirstQuestionnaire";
 import Settings from "./pages/Settings";
+import EditProfile from "./pages/EditProfile";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -115,6 +116,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="ProfilePage" component={ProfilePage} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
     );
   }

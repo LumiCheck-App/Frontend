@@ -8,11 +8,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
-
 
 import TrophyRed from "../../assets/trofeu-vermelho.png";
-import TrophyBlue from "../../assets/trofeu-azul.png";
 
 export default function ProfilePage() {
     const navigation = useNavigation();
@@ -28,11 +25,6 @@ export default function ProfilePage() {
                     <View className="flex-1">
 
                         <View className="flex-1 items-center pt-12">
-                            <TouchableOpacity
-                                onPress={() => navigation.goBack()}
-                            >
-                                <Ionicons name="arrow-back" size={24} color="black" />
-                            </TouchableOpacity>
 
                             {/* Ícone PNG */}
                             <Image
@@ -46,7 +38,7 @@ export default function ProfilePage() {
                                 Rodrigo
                             </Text>
                             <Text className="text-md font-bold text-dark-gray">
-                                @rodrigograc4
+                                rodrigograca@gmail.com
                             </Text>
                             {/* Informações */}
                             <View className="flex-row justify-between w-11/12 mt-12">
