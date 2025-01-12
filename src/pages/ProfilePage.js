@@ -97,7 +97,7 @@ export default function ProfilePage() {
                             </View>
 
                             <View className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray px-4 py-2 items-center">
-                                <TouchableOpacity className="flex-row items-center w-full py-3" onPress={() => navigation.navigate("Settings")}>
+                                <TouchableOpacity className="flex-row items-center w-full py-3" onPress={() => navigation.navigate("AllLumiQuestions")}>
                                     {/* Ícone */}
                                     <View className="mr-4" style={{ width: 40, alignItems: 'center' }}>
                                         <FontAwesome6 name="clipboard-question" size={25} color="#fcc766" />

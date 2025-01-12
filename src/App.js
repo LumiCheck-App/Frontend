@@ -30,6 +30,7 @@ import RegisterPage from "./pages/RegisterPage";
 import FirstQuestionnaire from "./pages/FirstQuestionnaire";
 import Settings from "./pages/Settings";
 import EditProfile from "./pages/EditProfile";
+import AllLumiQuestions from "./pages/AllLumiQuestions";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -117,6 +118,7 @@ export default function App() {
         <Stack.Screen name="ProfilePage" component={ProfilePage} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="AllLumiQuestions" component={AllLumiQuestions} />
       </Stack.Navigator>
     );
   }
