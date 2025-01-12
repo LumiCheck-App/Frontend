@@ -5,6 +5,7 @@ import Task from "../components/Task";
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
+import { BlurView } from "expo-blur";
 
 export default function HomePage() {
     const [dailyTasks, setDailyTasks] = useState([]);
@@ -86,15 +87,33 @@ export default function HomePage() {
         extrapolate: "clamp",
     });
 
+    const blurOpacity = scrollY.interpolate({
+        inputRange: [150, 200],
+        outputRange: [0, 1],
+        extrapolate: "clamp",
+    });
+
     return (
         <LinearGradient
             colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
             locations={[0, 0.5, 1]}
             style={{ flex: 1 }}
         >
+            {/* Efeito de blur no topo da tela */}
+            <Animated.View style={{
+                opacity: blurOpacity,
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 110,
+                zIndex: 5,
+            }}>
+                <BlurView intensity={50} tint="light" style={{ flex: 1, borderRadius: 20, backgroundColor: "#ffdc9b", opacity: 0.8 }} />
+            </Animated.View>
+
             {/* Ícones fixos no topo */}
             <View className="absolute top-20 right-10 z-10 items-end">
-                {/* Ícone de "?" */}
                 <Animated.View
                     style={{
                         transform: [{ translateX: questionIconPositionX }],
@@ -105,7 +124,6 @@ export default function HomePage() {
                     <QuestionIcon width={24} height={24} />
                 </Animated.View>
 
-                {/* Ícone de troféu */}
                 <Animated.View
                     style={{
                         transform: [{ translateY: trophyIconPositionY }],
