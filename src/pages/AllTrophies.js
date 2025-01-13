@@ -67,7 +67,12 @@ export default function AllTrophies({ navigation }) {
                                 </View>
 
                                 {trophieswon.map((trophy, index) => (
-                                    <Achievements key={index} text={trophy.text} description={trophy.description} icon={trophy.icon} />
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => navigation.navigate("TrophyDetail", { trophy })}
+                                    >
+                                        <Achievements key={index} text={trophy.text} description={trophy.description} icon={trophy.icon} />
+                                    </TouchableOpacity>
                                 ))}
 
                             </View>
@@ -79,7 +84,12 @@ export default function AllTrophies({ navigation }) {
                                 </View>
 
                                 {trophiesblocked.map((trophy, index) => (
-                                    <Achievements key={index} text={"???????"} description={trophy.description} icon={null} />
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => navigation.navigate("TrophyDetail", { trophy })}
+                                    >
+                                        <Achievements key={index} text={"???????"} description={trophy.description} icon={null} />
+                                    </TouchableOpacity>
                                 ))}
 
                             </View>
