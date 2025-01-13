@@ -110,7 +110,7 @@ export default function HomePage() {
                 height: 110,
                 zIndex: 5,
             }}>
-                <BlurView intensity={50} tint="light" style={{ flex: 1, borderRadius: 20, backgroundColor: "#ffe5b4", opacity: 0.9 }} />
+                <View style={{ flex: 1, borderRadius: 20, backgroundColor: "#ffebc6", opacity: 0.9 }} />
             </Animated.View>
 
             {/* Ícones fixos no topo */}

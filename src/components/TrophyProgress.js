@@ -11,6 +11,9 @@ const TrophyProgress = ({ text, progress, total, icon }) => {
         IconComponent = ChestIcon;
     }
 
+
+    const textCutted = text.length > 32 ? `${text.substring(0, 30)}...` : text;
+
     return (
         <View className="flex-row items-center w-full">
             {/* Ícone */}
@@ -30,7 +33,7 @@ const TrophyProgress = ({ text, progress, total, icon }) => {
             {/* Conteúdo de progresso */}
             <View className="flex-1">
                 {/* Texto */}
-                <Text className="text-lg font-regular mb-2">{text}</Text>
+                <Text className="text-lg font-regular mb-2">{textCutted}</Text>
 
                 {/* Barra de progresso */}
                 <View className="h-3 bg-white rounded-full overflow-hidden border border-light-gray">

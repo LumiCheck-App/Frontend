@@ -6,7 +6,9 @@ import Task from "../components/Task";
 import TrophyProgress from "../components/TrophyProgress";
 import Achievements from "../components/Achievements";
 
-import TrophyAutoConsciente from "../../assets/trophies/autoconsciente.svg";
+import PrimeiroPasso from "../../assets/trophies/primeiropasso.svg";
+import BomDiaAlegria from "../../assets/trophies/bomdiaalegria.svg";
+import BomProgresso from "../../assets/trophies/bomprogresso.svg";
 import ChestIcon from "../../assets/chest.png";
 
 export default function TrophiesPage() {
@@ -42,7 +44,7 @@ export default function TrophiesPage() {
                                 </TouchableOpacity>
                             </View>
 
-                            {/* Secção de Trofeus */}
+                            {/* Secção de Troféus */}
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
@@ -52,7 +54,7 @@ export default function TrophiesPage() {
                                 {/* Icon exclusivo */}
                                 <View className="bg-white rounded-lg border border-light-gray p-4 items-center">
                                     <TrophyProgress
-                                        text="Complete 30 tarefas diárias"
+                                        text="Complete 30 Tarefas Diárias"
                                         progress={7}
                                         total={30}
                                         icon={"Chest"}
@@ -66,18 +68,18 @@ export default function TrophiesPage() {
                                     </View>
                                     <View className="mb-4">
                                         <TrophyProgress
-                                            text="Responda a 3 perguntas num dia"
-                                            progress={1}
-                                            total={3}
-                                            icon={TrophyAutoConsciente}
+                                            text="Ver o relatório das apps mais usadas todos os dias de uma semana"
+                                            progress={4}
+                                            total={7}
+                                            icon={null}
                                         />
                                     </View>
                                     <View className="mb-4">
                                         <TrophyProgress
-                                            text="Aprenda mais em Eu Sinto-Me"
-                                            progress={0}
-                                            total={1}
-                                            icon={TrophyAutoConsciente}
+                                            text="Responder a 20 perguntas da Lumi"
+                                            progress={7}
+                                            total={20}
+                                            icon={null}
                                         />
                                     </View>
                                 </View>
@@ -86,20 +88,20 @@ export default function TrophiesPage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Sala de Trofeus</Text>
+                                    <Text className="text-xl font-bold text-black">Sala de Troféus</Text>
                                 </View>
 
                                 {/* Icon exclusivo */}
-                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyAutoConsciente} />
+                                <Achievements text="Primeiro Passo" description="Completar o teste inicial" icon={PrimeiroPasso} />
 
-                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyAutoConsciente} />
+                                <Achievements text="Bom Dia Alegria" description="Não usar o telemóvel nos primeiros 30 minutos após acordar durante 3 dias consecutivos" icon={BomDiaAlegria} />
 
-                                <Achievements text="Adeus Instagram" description="Desinstalar o Instagram" icon={TrophyAutoConsciente} />
+                                <Achievements text="Bom Progresso" description="Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana" icon={BomProgresso} />
 
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("AllTrophies")}>
                                     <View className="mb-4 flex-row justify-end">
-                                        <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                        <Text className="text-md font-bold text-orange">VER SALA</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

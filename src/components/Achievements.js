@@ -6,6 +6,8 @@ import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 const Achievements = ({ text, description, icon }) => {
     const IconComponent = icon || BlockedTrophy;
 
+    const descriptionCutted = description.length > 28 ? `${description.substring(0, 26)}...` : description;
+
     return (
         <View className="bg-white rounded-lg border border-light-gray p-4 items-center mb-4">
             <View className="flex-row items-center w-full">
@@ -18,7 +20,7 @@ const Achievements = ({ text, description, icon }) => {
                 <View className="flex-1">
                     {/* Texto */}
                     <Text className="text-lg font-bold">{text}</Text>
-                    <Text className="text-lg font-regular text-light-gray">{description}</Text>
+                    <Text className="text-lg font-regular text-light-gray">{descriptionCutted}</Text>
                 </View>
 
                 <View className="ml-auto">
