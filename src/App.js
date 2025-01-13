@@ -20,9 +20,9 @@ import HelpIcon from "../assets/icons/help.svg";
 import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import TrophiesPage from "./pages/TrophiesPage";
+import ReportPage from "./pages/ReportPage";
 import AllTasks from "./pages/AllTasks";
 import TrophyDetail from "./pages/TrophyDetail";
-import DataPage from "./pages/DataPage";
 import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/LoginPage";
@@ -61,25 +61,25 @@ export default function App() {
           let IconComponent;
           let color = focused ? "#fcc766" : "#d0d0d0";
 
-          switch (route.name) {
-            case "Home":
-              IconComponent = HomeIcon;
-              break;
-            case "Troféus":
-              IconComponent = TrophyIcon;
-              break;
-            case "Dados":
-              IconComponent = StatsIcon;
-              break;
-            case "Perfil":
-              IconComponent = ProfileIcon;
-              break;
-            case "Ajuda":
-              IconComponent = HelpIcon;
-              break;
-            default:
-              IconComponent = null;
-          }
+            switch (route.name) {
+              case "Home":
+                IconComponent = HomeIcon;
+                break;
+              case "Troféus":
+                IconComponent = TrophyIcon;
+                break;
+              case "Report":
+                IconComponent = StatsIcon;
+                break;
+              case "Perfil":
+                IconComponent = ProfileIcon;
+                break;
+              case "Ajuda":
+                IconComponent = HelpIcon;
+                break;
+              default:
+                IconComponent = null;
+            }
 
           return (
             <IconComponent
@@ -102,7 +102,7 @@ export default function App() {
             });
           },
         })} />
-        <Tab.Screen name="Dados" component={DataPage} />
+        <Tab.Screen name="Report" component={ReportPage} />
         <Tab.Screen name="Perfil" component={ProfilePageStack} listeners={({ navigation }) => ({
           tabPress: (e) => {
             e.preventDefault();
