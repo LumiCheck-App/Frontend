@@ -88,7 +88,7 @@ export default function HomePage() {
         extrapolate: "clamp",
     });
 
-    const blurOpacity = scrollY.interpolate({
+    const backgroundOpacity = scrollY.interpolate({
         inputRange: [150, 200],
         outputRange: [0, 1],
         extrapolate: "clamp",
@@ -102,7 +102,7 @@ export default function HomePage() {
         >
             {/* Efeito de blur no topo da tela */}
             <Animated.View style={{
-                opacity: blurOpacity,
+                opacity: backgroundOpacity,
                 position: "absolute",
                 top: 0,
                 left: 0,
