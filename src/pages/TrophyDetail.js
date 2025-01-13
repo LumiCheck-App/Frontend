@@ -1,14 +1,20 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
+import ChestIcon from "../../assets/chest.png";
 
 export default function TrophyDetail({ route, navigation }) {
     const { trophy } = route.params;
-    let text, description;
+    let text, description, IconComponent;
 
-    const IconComponent = trophy.icon || BlockedTrophy;
+    if (trophy.icon === "Chest") {
+        IconComponent = ChestIcon;
+    } else {
+        IconComponent = trophy.icon || BlockedTrophy;
+    }
+
     if (IconComponent === BlockedTrophy) {
         text = "????????"
         description = trophy.description;
@@ -36,7 +42,15 @@ export default function TrophyDetail({ route, navigation }) {
                         </View>
 
                         <View className="flex-1 justify-center items-center mb-16">
-                            <IconComponent width={300} height={300} style={{ marginBottom: 50 }} />
+                            {trophy.icon === "Chest" ? (
+                                <Image
+                                    source={IconComponent}
+                                    className="w-72 h-72 mb-14"
+                                    resizeMode="contain"
+                                />
+                            ) : (
+                                <IconComponent width={300} height={300} style={{ marginBottom: 50 }} />
+                            )}
                             <Text className="text-2xl text-center font-bold">{text}</Text>
                             <Text className="mt-4 mb-16 px-16 text-lg text-center font-bold text-dark-gray">
                                 {description}

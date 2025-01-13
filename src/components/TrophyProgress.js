@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native';
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 import ChestIcon from "../../assets/chest.png";
 
-const TrophyProgress = ({ text, progress, total, icon }) => {
+const TrophyProgress = ({ text, description, progress, total, icon }) => {
     const progressWidth = `${(progress / total) * 100}%`;
     let IconComponent = icon || BlockedTrophy;
 
@@ -12,7 +12,7 @@ const TrophyProgress = ({ text, progress, total, icon }) => {
     }
 
 
-    const textCutted = text.length > 32 ? `${text.substring(0, 30)}...` : text;
+    const descriptionCutted = description.length > 32 ? `${description.substring(0, 30)}...` : description;
 
     return (
         <View className="flex-row items-center w-full">
@@ -33,7 +33,7 @@ const TrophyProgress = ({ text, progress, total, icon }) => {
             {/* Conteúdo de progresso */}
             <View className="flex-1">
                 {/* Texto */}
-                <Text className="text-lg font-regular mb-2">{textCutted}</Text>
+                <Text className="text-lg font-regular mb-2">{descriptionCutted}</Text>
 
                 {/* Barra de progresso */}
                 <View className="h-3 bg-white rounded-full overflow-hidden border border-light-gray">

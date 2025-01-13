@@ -28,8 +28,7 @@ export default function TrophiesPage() {
         text: "Bom Progresso",
         description: "Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana",
         icon: BomProgresso
-    }
-    ];
+    }];
 
     const trophiesblocked = [{
         text: "Autoconsciênte",
@@ -44,8 +43,15 @@ export default function TrophiesPage() {
         progress: 7,
         total: 20,
         icon: null
-    }
-    ];
+    }];
+
+    const chest = {
+        text: "Icon Exclusivo",
+        description: "Complete 30 Tarefas Diárias",
+        progress: 6,
+        total: 30,
+        icon: "Chest"
+    };
 
     return (
         <LinearGradient
@@ -86,12 +92,17 @@ export default function TrophiesPage() {
 
                                 {/* Icon exclusivo */}
                                 <View className="bg-white rounded-lg border border-light-gray p-4 items-center">
-                                    <TrophyProgress
-                                        text="Complete 30 Tarefas Diárias"
-                                        progress={7}
-                                        total={30}
-                                        icon={"Chest"}
-                                    />
+                                    <TouchableOpacity
+                                        onPress={() => navigation.navigate("TrophyDetail", { trophy: chest })}
+                                    >
+                                        <TrophyProgress
+                                            text={chest.text}
+                                            description={chest.description}
+                                            progress={chest.progress}
+                                            total={chest.total}
+                                            icon={chest.icon}
+                                        />
+                                    </TouchableOpacity>
                                 </View>
 
 
@@ -106,7 +117,8 @@ export default function TrophiesPage() {
                                             className="mb-4"
                                         >
                                             <TrophyProgress
-                                                text={trophy.description}
+                                                text={trophy.text}
+                                                description={trophy.description}
                                                 progress={trophy.progress}
                                                 total={trophy.total}
                                                 icon={trophy.icon}
