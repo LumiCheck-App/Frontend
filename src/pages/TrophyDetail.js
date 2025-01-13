@@ -45,7 +45,7 @@ export default function TrophyDetail({ route, navigation }) {
                             {trophy.icon === "Chest" ? (
                                 <Image
                                     source={IconComponent}
-                                    className="w-72 h-72 mb-14"
+                                    className="w-72 h-72 mb-16"
                                     resizeMode="contain"
                                 />
                             ) : (
@@ -58,7 +58,7 @@ export default function TrophyDetail({ route, navigation }) {
                         </View>
                     </View>
 
-                    {IconComponent !== BlockedTrophy && (
+                    {IconComponent !== BlockedTrophy && IconComponent !== ChestIcon && (
                         <TouchableOpacity className="bg-yellow rounded-lg w-11/12 py-3" style={{ position: 'absolute', bottom: 100, alignSelf: 'center' }}>
                             <Text className="text-xl text-white font-bold text-center">Partilhar</Text>
                         </TouchableOpacity>
