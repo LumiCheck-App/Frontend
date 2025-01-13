@@ -27,26 +27,65 @@ export default function ReportPage() {
 
   // Animação para Lumi
   const lumiPositionY = scrollY.interpolate({
-    inputRange: [0, 150],
+    inputRange: [0, 270],
     outputRange: [0, -80],
     extrapolate: "clamp",
   });
 
   const lumiPositionX = scrollY.interpolate({
-    inputRange: [0, 150],
+    inputRange: [0, 270],
     outputRange: [0, -160],
     extrapolate: "clamp",
   });
 
   const lumiScale = scrollY.interpolate({
-    inputRange: [0, 150],
+    inputRange: [0, 270],
     outputRange: [1, 0.25],
     extrapolate: "clamp",
   });
 
+
+  const number34PositionY = scrollY.interpolate({
+    inputRange: [0, 270],
+    outputRange: [0, -147],
+    extrapolate: "clamp",
+  });
+
+  // Animações para números e ScoreIcon
+  const number34PositionX = scrollY.interpolate({
+    inputRange: [0, 270],
+    outputRange: [0, 192],
+    extrapolate: "clamp",
+  });
+
+  const numberPositionY = scrollY.interpolate({
+    inputRange: [0, 270],
+    outputRange: [0, -240],
+    extrapolate: "clamp",
+  });
+
+  // Animações para números e ScoreIcon
+  const numberPositionX = scrollY.interpolate({
+    inputRange: [0, 270],
+    outputRange: [0, 80],
+    extrapolate: "clamp",
+  });
+
   const backgroundOpacity = scrollY.interpolate({
-    inputRange: [150, 200],
+    inputRange: [150, 270],
     outputRange: [0, 1],
+    extrapolate: "clamp",
+  });
+
+  const textOpacity = scrollY.interpolate({
+    inputRange: [150, 270],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+
+  const numberFontSize = scrollY.interpolate({
+    inputRange: [0, 270],
+    outputRange: [110, 16],
     extrapolate: "clamp",
   });
 
@@ -77,7 +116,11 @@ export default function ReportPage() {
       <Animated.View
         style={{
           position: "absolute",
-          transform: [{ translateX: lumiPositionX }, { translateY: lumiPositionY }, { scale: lumiScale }],
+          transform: [
+            { translateX: lumiPositionX },
+            { translateY: lumiPositionY },
+            { scale: lumiScale },
+          ],
           zIndex: 10,
           left: "50%",
           top: 90,
@@ -88,18 +131,55 @@ export default function ReportPage() {
         <Lumi width={140} height={140} />
       </Animated.View>
 
+      {/* Animação para números e ScoreIcon */}
       <Animated.View
         style={{
           position: "absolute",
-          transform: [{ translateX: lumiPositionX }, { translateY: lumiPositionY }, { scale: lumiScale }],
+          transform: [
+            { translateX: number34PositionX },
+            { translateY: number34PositionY }],
           zIndex: 10,
-          left: "50%",
-          top: 90,
-          marginLeft: -75,
+          left: "25%",
+          top: 220,
+          flexDirection: "row",
+          alignItems: "flex-end",
         }}
-        className="flex-1 items-center"
       >
-        <Lumi width={140} height={140} />
+        <Animated.Text style={{ fontSize: numberFontSize }} className="font-bold text-yellow">
+          34
+        </Animated.Text>
+      </Animated.View>
+
+      <Animated.View
+        style={{
+          position: "absolute",
+          transform: [{ translateX: numberPositionX }, { translateY: numberPositionY },],
+          zIndex: 10,
+          left: "57%",
+          top: 310,
+          flexDirection: "row",
+          alignItems: "flex-end",
+        }}
+      >
+        <Text className="text-lg font-bold">
+          /100
+        </Text>
+        <ScoreIcon width={24} height={24} style={{ marginLeft: 4 }} />
+      </Animated.View>
+
+      {/* Texto "Uso regular do telemóvel" com opacidade animada */}
+      <Animated.View
+        style={{
+          transform: [{ translateY: numberPositionY },],
+          opacity: textOpacity,
+          alignItems: "center",
+          zIndex: 10,
+          top: 350,
+        }}
+      >
+        <Text className="text-2xl font-bold text-yellow">
+          Uso regular do telemóvel
+        </Text>
       </Animated.View>
 
       <Animated.ScrollView
@@ -109,19 +189,8 @@ export default function ReportPage() {
         )}
         scrollEventThrottle={16}
       >
-        <View className="flex-1 py-8 px-4">
-          <View className="flex-1 justify-center items-center pt-12 gap-10">
-            <View className="flex-row items-end gap-2">
-              <Text className="text-9xl font-bold text-yellow">34</Text>
-              <Text className="text-lg font-bold text-black">/100</Text>
-              <ScoreIcon width={24} height={24} />
-            </View>
-            <Text className="text-2xl font-bold text-yellow">
-              Uso regular do telemóvel
-            </Text>
-          </View>
-        </View>
-        <View className="flex-1 items-center pt-9 px-4 relative mt-60">
+
+        <View className="flex-1 items-center pt-9 px-4 relative" style={{ marginTop: 350 }}>
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
             <ArcProgressBar />
             <Text className="text-lg font-regular">
