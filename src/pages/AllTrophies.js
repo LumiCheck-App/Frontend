@@ -1,27 +1,35 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Task from "../components/Task";
-import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
+import Achievements from "../components/Achievements";
 
-export default function AllTasksPage({ navigation }) {
-    // Lista de tarefas
-    const tasksdiarias = [
-        "Estar apenas 2 horas no Insta hoje",
-        "Falar com os amigos"
+export default function AllTrophies({ navigation }) {
+
+    const trophieswon = [{
+        text: "Troféu 1",
+        description: "Descrição do troféu 1",
+        icon: require("../../assets/trofeu-vermelho.png")
+    },
+    {
+        text: "Troféu 2",
+        description: "Descrição do troféu 2",
+        icon: require("../../assets/trofeu-azul.png")
+    }
     ];
 
-    const tasksconcluidas = [
-        "Ler um livro",
-        "Fazer exercício físico",
-        "Aprender algo novo",
-        "Meditar por 10 minutos",
-        "Desconectar do celular por 1 hora",
-        "Passar tempo com a família",
-        "Planejar a próxima semana",
-        "Escrever um diário sobre o dia"
+    const trophiesblocked = [{
+        text: "Troféu 3",
+        description: "Descrição do troféu 3",
+        icon: require("../../assets/trofeu-vermelho.png")
+    },
+    {
+        text: "Troféu 4",
+        description: "Descrição do troféu 4",
+        icon: require("../../assets/trofeu-azul.png")
+    }
     ];
+
 
     return (
         <LinearGradient
@@ -40,34 +48,29 @@ export default function AllTasksPage({ navigation }) {
                                 >
                                     <Ionicons name="arrow-back" size={24} color="black" />
                                 </TouchableOpacity>
-                                <View className="flex-1"></View>
                             </View>
 
                             {/* Secção de Tarefas Diárias */}
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="flex-row items-center justify-between mb-4">
-                                    <Text className="text-xl font-bold text-black">Tarefas Diárias</Text>
-                                    <Text className="text-md font-bold text-orange self-end">7 HORAS</Text>
+                                    <Text className="text-xl font-bold text-black">Trofeus conquistados</Text>
                                 </View>
 
-                                {/* Lista de tarefas */}
-                                {tasksdiarias.map((task, index) => (
-                                    <Task key={index} taskText={task} isCompleted={index % 2 === 0} />
+                                {trophieswon.map((trophy, index) => (
+                                    <Achievements key={index} text={trophy.text} description={trophy.description} icon={trophy.icon} />
                                 ))}
 
                             </View>
 
-                            {/* Secção de Tarefas Concluidas */}
                             <View className="w-11/12 mt-8">
-                                {/* Cabeçalho */}
-                                <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Tarefas Concluidas</Text>
+
+                                <View className="flex-row items-center justify-between mb-4">
+                                    <Text className="text-xl font-bold text-black">Trofeus bloqueados</Text>
                                 </View>
 
-                                {/* Lista de tarefas */}
-                                {tasksconcluidas.map((task, index) => (
-                                    <TaskFinished key={index} taskText={task} />
+                                {trophiesblocked.map((trophy, index) => (
+                                    <Achievements key={index} text={"???????"} description={trophy.description} icon={null} />
                                 ))}
 
                             </View>

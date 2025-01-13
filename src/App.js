@@ -20,13 +20,18 @@ import HelpIcon from "../assets/icons/help.svg";
 import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import TrophiesPage from "./pages/TrophiesPage";
-import AllTasksPage from "./pages/AllTasksPage";
 import ReportPage from "./pages/ReportPage";
+import AllTasks from "./pages/AllTasks";
+import TrophyDetail from "./pages/TrophyDetail";
 import ProfilePage from "./pages/ProfilePage";
 import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FirstQuestionnaire from "./pages/FirstQuestionnaire";
+import Settings from "./pages/Settings";
+import EditProfile from "./pages/EditProfile";
+import AllLumiQuestions from "./pages/AllLumiQuestions";
+import AllTrophies from "./pages/AllTrophies";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -48,18 +53,13 @@ export default function App() {
   // Tab Navigator (navbar embaixo)
   function HomeTabs() {
     return (
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarShowLabel: false,
-          tabBarStyle: {
-            paddingTop: 5, // Espaçamento superior dentro da barra
-            paddingBottom: 5, // Espaçamento inferior dentro da barra
-            backgroundColor: "#fff", // Cor de fundo da barra
-          },
-          tabBarIcon: ({ focused, size }) => {
-            let IconComponent;
-            let color = focused ? "#fcc766" : "#d0d0d0";
+      <Tab.Navigator screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" },
+        tabBarIcon: ({ focused, size }) => {
+          let IconComponent;
+          let color = focused ? "#fcc766" : "#d0d0d0";
 
             switch (route.name) {
               case "Home":
@@ -81,63 +81,92 @@ export default function App() {
                 IconComponent = null;
             }
 
-            return (
-              <IconComponent
-                width={size * 1.2}
-                height={size * 1.2}
-                fill={color}
-              />
-            );
-          },
-          tabBarActiveTintColor: "#fcc766",
-          tabBarInactiveTintColor: "#d0d0d0",
-        })}
+          return (
+            <IconComponent
+              width={size * 1.2}
+              height={size * 1.2}
+              fill={color}
+            />
+          );
+        },
+        tabBarActiveTintColor: "#fcc766",
+        tabBarInactiveTintColor: "#d0d0d0",
+      })}
       >
         <Tab.Screen name="Home" component={HomePage} />
-        <Tab.Screen name="Troféus" component={TrophiesPage} />
+        <Tab.Screen name="Troféus" component={TrophiesPageStack} listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Troféus", {
+              screen: "TrophiesPage",
+            });
+          },
+        })} />
         <Tab.Screen name="Report" component={ReportPage} />
-        <Tab.Screen name="Perfil" component={ProfilePage} />
+        <Tab.Screen name="Perfil" component={ProfilePageStack} listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Perfil", {
+              screen: "ProfilePage",
+            });
+          },
+        })} />
         <Tab.Screen name="Ajuda" component={HelpPage} />
       </Tab.Navigator>
     );
   }
 
-  // Stack Navigator (para gerenciar Welcome e HomeTabs)
+  // Stack Navigator para Troféus e AllTasks
+  function TrophiesPageStack() {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="TrophiesPage" component={TrophiesPage} />
+        <Stack.Screen name="AllTasks" component={AllTasks} />
+        <Stack.Screen name="AllTrophies" component={AllTrophies} />
+      </Stack.Navigator>
+    );
+  }
+
+  // Stack Navigator para ProfilePage e Settings
+  function ProfilePageStack() {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="ProfilePage" component={ProfilePage} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="AllLumiQuestions" component={AllLumiQuestions} />
+      </Stack.Navigator>
+    );
+  }
+
+  // Stack Navigator principal
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator>
-          {/* Tela de boas-vindas sem navbar */}
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
             name="Welcome"
             component={WelcomePage}
-            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Login"
             component={LoginPage}
-            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Register"
             component={RegisterPage}
-            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="FirstQuestionnaire"
             component={FirstQuestionnaire}
-            options={{ headerShown: false }}
           />
-          {/* Tela HomeTabs com navbar */}
           <Stack.Screen
             name="HomeTabs"
             component={HomeTabs}
-            options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="AllTasks"
-            component={AllTasksPage}
-            options={{ headerShown: false }}
+            name="TrophyDetail"
+            component={TrophyDetail}
           />
         </Stack.Navigator>
       </NavigationContainer>
