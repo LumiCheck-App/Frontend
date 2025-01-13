@@ -89,6 +89,12 @@ export default function ReportPage() {
     extrapolate: "clamp",
   });
 
+  const numberColor = scrollY.interpolate({
+    inputRange: [250, 270],
+    outputRange: ["#fcc766", "#000000"], // De amarelo para preto
+    extrapolate: "clamp",
+  });
+
   return (
     <LinearGradient
       colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
@@ -145,7 +151,7 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Animated.Text style={{ fontSize: numberFontSize }} className="font-bold text-yellow">
+        <Animated.Text style={{ fontSize: numberFontSize, color: numberColor }} className="font-bold">
           34
         </Animated.Text>
       </Animated.View>
