@@ -55,7 +55,7 @@ export default function ReportPage() {
         </View>
 
         <View className="flex-1 items-center pt-9 px-4">
-          <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4">
+          <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative">
             <Text className="text-lg font-bold">Tempo de ecrã</Text>
             <ScreenTimeChart />
           </View>
