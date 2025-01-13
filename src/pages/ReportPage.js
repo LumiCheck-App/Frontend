@@ -5,8 +5,23 @@ import { LinearGradient } from "expo-linear-gradient";
 import ArcProgressBar from "../components/ArcProgressBar";
 import MostUsedApps from "../components/MostUsedApps";
 import ScreenTimeChart from "../components/ScreenTimeChart";
+import Lumi3Colors from "../components/Lumi3Colors";
+import LumiQuestion from "../components/LumiQuestion";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ReportPage() {
+  const navigation = useNavigation();
+
+  const perguntas = [
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "4" },
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+  ];
+
   return (
     <LinearGradient
       colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
@@ -67,12 +82,23 @@ export default function ReportPage() {
           </View>
         </View>
 
-        <View className="flex-1 items-center pt-9 px-4 mb-10">
-          <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
-            <Text className="text-lg font-regular">Perguntas da Lumi</Text>
-          </View>
+        <View className="flex-1 items-center px-4">
+          <Lumi3Colors negative="2" neutral="1" positive="5" />
         </View>
+
+        <View className="flex-1 items-center px-4">
+          {perguntas.slice(0, 3).map((pergunta, index) => (
+            <LumiQuestion key={index} index={index + 1} text={pergunta.question} score={pergunta.score} />
+          ))}
+
+          <TouchableOpacity onPress={() => navigation.navigate("Perfil", { screen: "AllLumiQuestions" })}>
+            <View className="mt-2 mb-4 flex-row justify-end w-11/12">
+              <Text className="text-md font-bold text-right text-orange pb-20">VER TODAS</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
       </ScrollView>
-    </LinearGradient>
+    </LinearGradient >
   );
 }
