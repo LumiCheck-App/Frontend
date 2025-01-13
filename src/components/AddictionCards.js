@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, Image } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, Image, Animated, Easing } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SwipeableCard from "./SwipeableCard";
 import FQFirstMessage from "./FQFirstMessage";
@@ -8,6 +8,7 @@ import RedesSociais from "../../assets/RedesSociais.png";
 import JogosOnline from "../../assets/JogosOnline.png";
 import Jogos from "../../assets/Jogos.png";
 import ComprasOnline from "../../assets/ComprasOnline.png";
+import SwipeIndicator from "../../assets/SwipeIndicator.svg";
 
 export default function AddictionCards({
   onCardSwipe,
@@ -36,6 +37,42 @@ export default function AddictionCards({
     CloseModal();
   }
 
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+  const rotateAnim2 = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    startAnimation();
+  }, []);
+
+  const startAnimation = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(rotateAnim, {
+          toValue: 50, // Rotate 50 degrees
+          duration: 800,
+          easing: Easing.ease,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: 0, // Rotate back to 0 degrees
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  };
+
+  const rotateInterpolation = rotateAnim.interpolate({
+    inputRange: [0, 50],
+    outputRange: ['0deg', '50deg'],
+  });
+
+  const rotateInterpolation2 = rotateAnim.interpolate({
+    inputRange: [0, 50],
+    outputRange: ['0deg', '-50deg'], // Rotação espelhada
+  });
+
+
   return (
     <View className="flex-1 ">
       <FQFirstMessage modalVisible={modalVisible} CloseModal={CloseFQMModal} />
@@ -61,23 +98,38 @@ export default function AddictionCards({
       {/* Bottom Actions */}
       <View className="w-screen h-2/5 px-4 flex-row justify-around items-center">
         <View className="flex-row items-center gap-3">
-          <Text className="text-lg text-red-600 font-semibold">NÃO</Text>
-          <Image
-            source={require("../../assets/Swipe_Icon.png")}
-            className={`${!modalVisible ? "swipe_anime" : "dont_swipe"}`}
-          />
+          <Text className="text-lg text-red font-bold">NÃO</Text>
+          <Animated.View
+            style={{
+              transform: [
+                { translateY: 15 },
+                { rotate: rotateInterpolation },
+                { translateY: -15 },
+              ],
+              height: 40,
+            }}
+          >
+            <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
+          </Animated.View>
         </View>
-        <Text className="text-gray-600 font-medium">
+        <Text className="text-gray-600 font-medium font-regular">
           Desliza para responder
         </Text>
         <View className="flex-row items-center gap-3">
-          <Image
-            source={require("../../assets/Swipe_Icon.png")}
-            className={`${
-              !modalVisible ? "swipe_anime flip" : "dont_swipe flip"
-            }`}
-          />
-          <Text className="text-lg text-green-600 font-semibold">SIM</Text>
+          <Animated.View
+            style={{
+              transform: [
+                { translateY: 15 },
+                { rotate: rotateInterpolation2 },
+                { translateY: -15 },
+                { scaleX: -1 },
+              ],
+              height: 40,
+            }}
+          >
+            <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
+          </Animated.View>
+          <Text className="text-lg text-green-600 font-bold">SIM</Text>
         </View>
       </View>
     </View>

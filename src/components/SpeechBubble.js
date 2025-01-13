@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Lumi from "../../assets/Lumi.svg";
 
 export default function SpeechBubble() {
   const navigation = useNavigation();
@@ -10,11 +11,7 @@ export default function SpeechBubble() {
   return (
     <View className="flex-row items-center gap-2">
       {/* Imagem */}
-      <Image
-        className="w-28 h-28"
-        resizeMode="contain"
-        source={require("../../assets/Lumi.png")}
-      />
+      <Lumi width={100} height={100} />
       {/* Bubble */}
       <View className="bg-white px-4 py-6 rounded-2xl relative border border-light-gray">
         <Text className="font-regular text-black text-xl text-center">
