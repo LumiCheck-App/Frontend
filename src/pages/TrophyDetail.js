@@ -44,9 +44,11 @@ export default function TrophyDetail({ route, navigation }) {
                         </View>
                     </View>
 
-                    <TouchableOpacity className="bg-yellow rounded-lg w-11/12 py-3" style={{ position: 'absolute', bottom: 100, alignSelf: 'center' }}>
-                        <Text className="text-xl text-white font-bold text-center">Partilhar</Text>
-                    </TouchableOpacity>
+                    {IconComponent !== BlockedTrophy && (
+                        <TouchableOpacity className="bg-yellow rounded-lg w-11/12 py-3" style={{ position: 'absolute', bottom: 100, alignSelf: 'center' }}>
+                            <Text className="text-xl text-white font-bold text-center">Partilhar</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             </ScrollView>
         </LinearGradient>

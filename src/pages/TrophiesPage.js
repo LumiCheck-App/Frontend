@@ -99,22 +99,20 @@ export default function TrophiesPage() {
                                     <View className="mb-4">
                                         <Text className="text-xl font-bold text-black">Outros Prémios</Text>
                                     </View>
-                                    <View className="mb-4">
-                                        <TrophyProgress
-                                            text="Ver o relatório das apps mais usadas todos os dias de uma semana"
-                                            progress={4}
-                                            total={7}
-                                            icon={null}
-                                        />
-                                    </View>
-                                    <View className="mb-4">
-                                        <TrophyProgress
-                                            text="Responder a 20 perguntas da Lumi"
-                                            progress={7}
-                                            total={20}
-                                            icon={null}
-                                        />
-                                    </View>
+                                    {trophiesblocked.map((trophy, index) => (
+                                        <TouchableOpacity
+                                            key={index}
+                                            onPress={() => navigation.navigate("TrophyDetail", { trophy })}
+                                            className="mb-4"
+                                        >
+                                            <TrophyProgress
+                                                text={trophy.description}
+                                                progress={trophy.progress}
+                                                total={trophy.total}
+                                                icon={trophy.icon}
+                                            />
+                                        </TouchableOpacity>
+                                    ))}
                                 </View>
                             </View>
 
@@ -123,14 +121,18 @@ export default function TrophiesPage() {
                                 <View className="mb-4">
                                     <Text className="text-xl font-bold text-black">Sala de Troféus</Text>
                                 </View>
-
-                                {/* Icon exclusivo */}
-                                <Achievements text="Primeiro Passo" description="Completar o teste inicial" icon={PrimeiroPasso} />
-
-                                <Achievements text="Bom Dia Alegria" description="Não usar o telemóvel nos primeiros 30 minutos após acordar durante 3 dias consecutivos" icon={BomDiaAlegria} />
-
-                                <Achievements text="Bom Progresso" description="Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana" icon={BomProgresso} />
-
+                                {trophieswon.map((trophy, index) => (
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => navigation.navigate("TrophyDetail", { trophy })}
+                                    >
+                                        <Achievements
+                                            text={trophy.text}
+                                            description={trophy.description}
+                                            icon={trophy.icon}
+                                        />
+                                    </TouchableOpacity>
+                                ))}
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("AllTrophies")}>
                                     <View className="mb-4 flex-row justify-end">
