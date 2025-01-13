@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, TouchableOpacity, ScrollView, Animated } from "react-native";
+import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Task from "../components/Task";
 import Lumi from "../../assets/Lumi.svg";
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
-import { BlurView } from "expo-blur";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function HomePage() {
     const [dailyTasks, setDailyTasks] = useState([]);
@@ -174,6 +174,29 @@ export default function HomePage() {
                         <TouchableOpacity className="bg-yellow rounded-lg w-11/12 py-3 mt-12 items-center">
                             <Text className="text-xl text-white font-bold">Começar Monitorização</Text>
                         </TouchableOpacity>
+
+
+                        <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 flex-row items-center">
+                            {/* Ícone circular à esquerda */}
+                            <View className="flex-row items-center flex-1">
+                                <Image
+                                    source={require("../../assets/Lumi.png")} // Substitua pelo caminho correto do arquivo
+                                    className="w-16 h-16 ml-2"
+                                    resizeMode="contain"
+                                />
+                                <View className="flex-1 mr-4 py-8">
+                                    <Text className="font-bold text-md text-black text-center">
+                                        O seu relatório está quase terminado!
+                                    </Text>
+                                </View>
+                            </View>
+
+                            {/* Ícone de engrenagem à direita */}
+                            <View className="absolute right-4 top-4">
+                                <FontAwesome name="gear" size={25} color="#d0d0d0" />
+                            </View>
+                        </TouchableOpacity>
+
 
                         {/* Secção de Tarefas Diárias */}
                         <View className="w-11/12 mt-8">
