@@ -3,10 +3,10 @@ import {
   View,
   Text,
   Image,
-  Animated,
   FlatList,
   Dimensions,
 } from "react-native";
+import Lumi from "../../assets/Lumi.svg";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -25,14 +25,16 @@ export default function WelcomePage({ navigation }) {
   const handleScroll = (event) => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const currentIndex = Math.round(offsetX / SCREEN_WIDTH);
-    setCurrentStep(currentIndex);
-    if (currentStep === steps.length - 1) {
+    if (currentIndex !== currentStep) {
+      setCurrentStep(currentIndex);
+    }
+    if (currentIndex === steps.length - 1) {
       navigation.replace("HomeTabs");
     }
   };
 
   return (
-    <Animated.View className="flex-1 justify-between items-center p-20 bg-yellow">
+    <View className="flex-1 justify-between items-center p-20 bg-yellow">
       {/* Texto principal */}
       <View className="w-screen h-screen">
         <FlatList
@@ -50,7 +52,7 @@ export default function WelcomePage({ navigation }) {
                 className={`justify-center items-center ${item.id === steps.length - 1 ? "hidden" : "block"
                   }`}
               >
-                <Image source={require("../../assets/Lumi.png")} />
+                <Lumi width={200} height={200} />
               </View>
             </View>
           )}
@@ -76,18 +78,21 @@ export default function WelcomePage({ navigation }) {
         </View>
 
         {/* Texto fixo indicando para deslizar */}
-        <View
-          className={`flex items-end w-screen px-12 mt-1 transition-opacity ${currentStep === 0 ? "opacity-1" : "opacity-0"
-            }`}
-        >
-          <Image
-            id="swipe_Icon"
-            source={require("../../assets/Swipe_Icon.png")}
-            className={`${currentStep === 0 ? "swipe_anime" : "dont_swipe"}`}
-          />
-          <Text className="text-lg font-bold">Desliza</Text>
-        </View>
+        {currentStep === 0 ? (
+          <View className="flex items-end w-screen px-12 mt-1">
+            <Image
+              id="swipe_Icon"
+              source={require("../../assets/Swipe_Icon.png")}
+              className="swipe_anime"
+            />
+            <Text className="text-lg font-bold">Desliza</Text>
+          </View>
+        ) : (
+          <View className="flex items-end w-screen px-12 mt-1">
+            <View style={{ height: 67.5 }} />
+          </View>
+        )}
       </View>
-    </Animated.View>
+    </View>
   );
 }
