@@ -107,10 +107,14 @@ export default function HomePage() {
                 top: 0,
                 left: 0,
                 right: 0,
-                height: 110,
+                height: 160,
                 zIndex: 5,
             }}>
-                <View style={{ flex: 1, borderRadius: 20, backgroundColor: "#ffebc6", opacity: 0.9 }} />
+                <LinearGradient
+                    colors={["#ffe5b4", "#ffe5b4", "#fff9ef00"]}
+                    locations={[0, 0.60, 1]}
+                    style={{ flex: 1, opacity: 0.9 }}
+                />
             </Animated.View>
 
             {/* Ícones fixos no topo */}
