@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, ScrollView, Image, TouchableOpacity, Animated } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import ArcProgressBar from "../components/ArcProgressBar";
@@ -8,9 +8,12 @@ import ScreenTimeChart from "../components/ScreenTimeChart";
 import Lumi3Colors from "../components/Lumi3Colors";
 import LumiQuestion from "../components/LumiQuestion";
 import { useNavigation } from "@react-navigation/native";
+import Lumi from "../../assets/Lumi.svg";
+import ScoreIcon from "../../assets/icons/scoreicon.svg";
 
 export default function ReportPage() {
   const navigation = useNavigation();
+  const [scrollY] = useState(new Animated.Value(0));
 
   const perguntas = [
     { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
@@ -22,39 +25,103 @@ export default function ReportPage() {
     { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
   ];
 
+  // Animação para Lumi
+  const lumiPositionY = scrollY.interpolate({
+    inputRange: [0, 150],
+    outputRange: [0, -80],
+    extrapolate: "clamp",
+  });
+
+  const lumiPositionX = scrollY.interpolate({
+    inputRange: [0, 150],
+    outputRange: [0, -160],
+    extrapolate: "clamp",
+  });
+
+  const lumiScale = scrollY.interpolate({
+    inputRange: [0, 150],
+    outputRange: [1, 0.25],
+    extrapolate: "clamp",
+  });
+
+  const backgroundOpacity = scrollY.interpolate({
+    inputRange: [150, 200],
+    outputRange: [0, 1],
+    extrapolate: "clamp",
+  });
+
   return (
     <LinearGradient
       colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
       locations={[0, 0.5, 1]}
       style={{ flex: 1 }}
     >
-      <ScrollView>
+      {/* Efeito de blur no topo da tela */}
+      <Animated.View style={{
+        opacity: backgroundOpacity,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 160,
+        zIndex: 5,
+      }}>
+        <LinearGradient
+          colors={["#ffe5b4", "#ffe5b4", "#fff9ef00"]}
+          locations={[0, 0.60, 1]}
+          style={{ flex: 1, opacity: 0.9 }}
+        />
+      </Animated.View>
+
+      {/* Animação para Lumi */}
+      <Animated.View
+        style={{
+          position: "absolute",
+          transform: [{ translateX: lumiPositionX }, { translateY: lumiPositionY }, { scale: lumiScale }],
+          zIndex: 10,
+          left: "50%",
+          top: 90,
+          marginLeft: -75,
+        }}
+        className="flex-1 items-center"
+      >
+        <Lumi width={140} height={140} />
+      </Animated.View>
+
+      <Animated.View
+        style={{
+          position: "absolute",
+          transform: [{ translateX: lumiPositionX }, { translateY: lumiPositionY }, { scale: lumiScale }],
+          zIndex: 10,
+          left: "50%",
+          top: 90,
+          marginLeft: -75,
+        }}
+        className="flex-1 items-center"
+      >
+        <Lumi width={140} height={140} />
+      </Animated.View>
+
+      <Animated.ScrollView
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={16}
+      >
         <View className="flex-1 py-8 px-4">
           <View className="flex-1 justify-center items-center pt-12 gap-10">
-            <Image
-              source={require("../../assets/Lumi.png")}
-              className="w-40 h-40"
-              resizeMode="contain"
-            />
-            <View className="flex-row items-end gap-1 ">
-              <Text
-                className="text-9xl font-bold text-light-yellow"
-                style={{
-                  textShadowColor: "#ff9d00",
-                  textShadowOffset: { width: 2, height: 1 },
-                  textShadowRadius: 5,
-                }}
-              >
-                34
-              </Text>
-              <Text className="text-2xl font-bold text-black">/100</Text>
+            <View className="flex-row items-end gap-2">
+              <Text className="text-9xl font-bold text-yellow">34</Text>
+              <Text className="text-lg font-bold text-black">/100</Text>
+              <ScoreIcon width={24} height={24} />
             </View>
             <Text className="text-2xl font-bold text-yellow">
               Uso regular do telemóvel
             </Text>
           </View>
         </View>
-        <View className="flex-1 items-center pt-9 px-4 relative">
+        <View className="flex-1 items-center pt-9 px-4 relative mt-60">
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
             <ArcProgressBar />
             <Text className="text-lg font-regular">
@@ -98,7 +165,7 @@ export default function ReportPage() {
           </TouchableOpacity>
         </View>
 
-      </ScrollView>
+      </Animated.ScrollView>
     </LinearGradient >
   );
 }
