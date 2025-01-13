@@ -36,7 +36,7 @@ export default function HomePage() {
             // Filtrar tarefas não concluídas e selecionar 2 aleatoriamente
             const selectedTasks = tasks
                 .sort(() => 0.5 - Math.random())
-                .slice(0, 2);
+                .slice(0, 3);
 
             setDailyTasks(selectedTasks);
         } catch (error) {
@@ -196,9 +196,9 @@ export default function HomePage() {
                         </View>
 
                         {/* Literacia */}
-                        <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border-2 border-violet p-4">
+                        <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-6 border-2 border-violet p-4">
                             <Text className="text-xl font-regular text-dark-gray">Sabias que</Text>
-                            <Text className="text-md font-bold my-2">Ter uma adição pode prejudicar seriamente o nosso trabalho e as nossas relações.</Text>
+                            <Text className="text-md font-bold my-3">Ter uma adição pode prejudicar seriamente o nosso trabalho e as nossas relações.</Text>
                             <View className="flex-row items-center justify-end">
                                 <Text className="text-sm font-regular text-light-gray">Aprender mais em</Text>
                                 <Image
@@ -212,19 +212,9 @@ export default function HomePage() {
                         {/* Informação de contactos */}
                         <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
                             <HelpContactsIcon width={100} height={100} />
-                            <Text className="text-md font-bold my-2">Existem 4270 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
+                            <Text className="text-md font-bold my-3">Existem 4270 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
                         </TouchableOpacity>
 
-
-                        <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
-                            <HelpContactsIcon width={100} height={100} />
-                            <Text className="text-md font-bold my-2">Todos eles querem te ajudar da melhor forma que podem.</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
-                            <HelpContactsIcon width={100} height={100} />
-                            <Text className="text-md font-bold my-2">Todos eles querem te ajudar da melhor forma que podem.</Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
             </Animated.ScrollView>
