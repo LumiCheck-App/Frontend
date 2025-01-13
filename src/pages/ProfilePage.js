@@ -9,10 +9,30 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-import TrophyRed from "../../assets/trofeu-vermelho.png";
+import PrimeiroPasso from "../../assets/trophies/primeiropasso.svg";
+import BomDiaAlegria from "../../assets/trophies/bomdiaalegria.svg";
+import BomProgresso from "../../assets/trophies/bomprogresso.svg";
+import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 export default function ProfilePage() {
     const navigation = useNavigation();
+
+    const trophieswon = [{
+        text: "Primeiro Passo",
+        description: "Completar o teste inicial",
+        icon: PrimeiroPasso,
+    },
+    {
+        text: "Bom Dia Alegria",
+        description: "Não usar o telemóvel nos primeiros 30 minutos após acordar durante 3 dias consecutivos",
+        icon: BomDiaAlegria
+    },
+    {
+        text: "Bom Progresso",
+        description: "Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana",
+        icon: BomProgresso
+    }
+    ];
 
     return (
         <LinearGradient
@@ -70,28 +90,38 @@ export default function ProfilePage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Tarefas Diárias</Text>
+                                    <Text className="text-xl font-bold text-black">Sala de Troféus</Text>
                                 </View>
 
                                 <View className="flex-row items-center justify-around bg-white rounded-lg mb-2 border border-light-gray">
-                                    {/* Texto da tarefa */}
-                                    <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail")}>
-                                        <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
-                                    </TouchableOpacity>
-                                    <View className="w-px h-full bg-light-gray" />
-                                    <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail")}>
-                                        <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
-                                    </TouchableOpacity>
-                                    <View className="w-px h-full bg-light-gray" />
-                                    <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail")}>
-                                        <Image source={TrophyRed} className="w-20 h-20 m-6" resizeMode="contain" />
-                                    </TouchableOpacity>
+                                    {/* Troféus disponíveis */}
+                                    {trophieswon.slice(0, 3).map((trophy, index) => (
+                                        <React.Fragment key={index}>
+                                            <TouchableOpacity onPress={() => navigation.navigate("TrophyDetail", { trophy })}>
+                                                <trophy.icon width={80} height={80} style={{ margin: 16 }} />
+                                            </TouchableOpacity>
+
+                                            {index < 2 && <View className="w-px h-full bg-light-gray" />}
+                                        </React.Fragment>
+                                    ))}
+
+                                    {/* Troféu bloqueado caso não hajam 3 trofeus */}
+                                    {Array.from({ length: 3 - trophieswon.length }).map((_, index) => (
+                                        <React.Fragment key={`blocked-${index}`}>
+                                            <TouchableOpacity disabled>
+                                                <BlockedTrophy width={80} height={80} style={{ margin: 16 }} />
+                                            </TouchableOpacity>
+
+                                            {trophieswon.length + index < 2 && <View className="w-px h-full bg-light-gray" />}
+                                        </React.Fragment>
+                                    ))}
                                 </View>
+
 
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("Troféus", { screen: "AllTrophies" })}>
                                     <View className="mb-4 flex-row justify-end">
-                                        <Text className="text-md font-bold text-orange">VER TODOS</Text>
+                                        <Text className="text-md font-bold text-orange">VER SALA</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
