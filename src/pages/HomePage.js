@@ -7,6 +7,7 @@ import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
 import { FontAwesome } from "@expo/vector-icons";
+import ArcProgressBar from "../components/ArcProgressBar";
 
 export default function HomePage() {
     const [dailyTasks, setDailyTasks] = useState([]);
@@ -179,11 +180,7 @@ export default function HomePage() {
                         <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 flex-row items-center">
                             {/* Ícone circular à esquerda */}
                             <View className="flex-row items-center flex-1">
-                                <Image
-                                    source={require("../../assets/Lumi.png")} // Substitua pelo caminho correto do arquivo
-                                    className="w-16 h-16 ml-2"
-                                    resizeMode="contain"
-                                />
+                                <ArcProgressBar size={80} strokeWidth={8} progress={35} />
                                 <View className="flex-1 mr-4 py-8">
                                     <Text className="font-bold text-md text-black text-center">
                                         O seu relatório está quase terminado!
@@ -191,10 +188,9 @@ export default function HomePage() {
                                 </View>
                             </View>
 
-                            {/* Ícone de engrenagem à direita */}
-                            <View className="absolute right-4 top-4">
-                                <FontAwesome name="gear" size={25} color="#d0d0d0" />
-                            </View>
+                            <TouchableOpacity className="absolute top-2 right-2">
+                                <FontAwesome name="gear" size={20} color="#d0d0d0" />
+                            </TouchableOpacity>
                         </TouchableOpacity>
 
 
