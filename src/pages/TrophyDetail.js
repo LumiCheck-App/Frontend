@@ -1,12 +1,21 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Task from "../components/Task";
-import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "react-native";
+import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
-export default function TrophyDetail({ navigation }) {
+export default function TrophyDetail({ route, navigation }) {
+    const { trophy } = route.params;
+    let text, description;
+
+    const IconComponent = trophy.icon || BlockedTrophy;
+    if (IconComponent === BlockedTrophy) {
+        text = "????????"
+        description = trophy.description;
+    } else {
+        text = trophy.text;
+        description = trophy.description;
+    }
 
     return (
         <LinearGradient
@@ -27,14 +36,10 @@ export default function TrophyDetail({ navigation }) {
                         </View>
 
                         <View className="flex-1 justify-center items-center mb-16">
-                            <Image
-                                source={require("../../assets/trophydetail.png")}
-                                className="w-72 h-72 mb-16"
-                                resizeMode="contain"
-                            />
-                            <Text className="text-2xl text-center font-bold">A Penantes</Text>
+                            <IconComponent width={300} height={300} style={{ marginBottom: 50 }} />
+                            <Text className="text-2xl text-center font-bold">{text}</Text>
                             <Text className="mt-4 mb-16 px-16 text-lg text-center font-bold text-dark-gray">
-                                Sair à rua para fazer uma caminhada em 5 dias distintos
+                                {description}
                             </Text>
                         </View>
                     </View>

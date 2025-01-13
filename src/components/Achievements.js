@@ -24,7 +24,7 @@ const Achievements = ({ text, description, icon }) => {
                 </View>
 
                 <View className="ml-auto">
-                    <MaterialIcons name="chevron-right" size={30} color="#aa82da" />
+                    <MaterialIcons name="chevron-right" size={30} color="#000000" />
                 </View>
             </View>
         </View >

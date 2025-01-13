@@ -163,7 +163,7 @@ export default function HomePage() {
                 )}
                 scrollEventThrottle={16}
             >
-                <View className="flex-1 py-8 px-4">
+                <View className="flex-1 pt-8 pb-20 px-4">
                     <View className="flex-1 items-center pt-60">
                         {/* Texto de boas-vindas */}
                         <Text className="text-2xl font-bold text-gray-800 mt-4">

@@ -9,10 +9,43 @@ import Achievements from "../components/Achievements";
 import PrimeiroPasso from "../../assets/trophies/primeiropasso.svg";
 import BomDiaAlegria from "../../assets/trophies/bomdiaalegria.svg";
 import BomProgresso from "../../assets/trophies/bomprogresso.svg";
-import ChestIcon from "../../assets/chest.png";
 
 export default function TrophiesPage() {
     const navigation = useNavigation();
+
+    const trophieswon = [{
+        text: "Primeiro Passo",
+        description: "Completar o teste inicial",
+        icon: PrimeiroPasso,
+    },
+    {
+        text: "Bom Dia Alegria",
+        description: "Não usar o telemóvel nos primeiros 30 minutos após acordar durante 3 dias consecutivos",
+        icon: BomDiaAlegria
+    },
+
+    {
+        text: "Bom Progresso",
+        description: "Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana",
+        icon: BomProgresso
+    }
+    ];
+
+    const trophiesblocked = [{
+        text: "Autoconsciênte",
+        description: "Ver o relatório das apps mais usadas todos os dias de uma semana",
+        progress: 4,
+        total: 7,
+        icon: null
+    },
+    {
+        text: "Marco das 20",
+        description: "Responder a 20 perguntas da Lumi",
+        progress: 7,
+        total: 20,
+        icon: null
+    }
+    ];
 
     return (
         <LinearGradient
