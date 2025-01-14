@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Modal, Image } from "react-native";
+import Lumi from "../../assets/lumis/Lumi.svg";
 
 export default function FQFirstMessage({ modalVisible, CloseModal }) {
   const sentence =
@@ -42,8 +43,8 @@ export default function FQFirstMessage({ modalVisible, CloseModal }) {
             </Text>
           </View>
         </View>
-        <Image source={require("../../assets/Lumi.png")} />
-        <Text className="text-white font-regular text-xl absolute bottom-3">
+        <Lumi width={200} height={200} />
+        <Text className="text-white font-regular text-xl absolute bottom-10">
           Tap to close
         </Text>
       </TouchableOpacity>

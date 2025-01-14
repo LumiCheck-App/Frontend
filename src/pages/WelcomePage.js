@@ -1,12 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
-  Image,
+  Animated,
+  Easing,
   FlatList,
   Dimensions,
 } from "react-native";
-import Lumi from "../../assets/Lumi.svg";
+import Lumi from "../../assets/lumis/Lumi.svg";
+import SwipeIndicator from "../../assets/icons/SwipeIndicator.svg";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -29,9 +31,41 @@ export default function WelcomePage({ navigation }) {
       setCurrentStep(currentIndex);
     }
     if (currentIndex === steps.length - 1) {
-      navigation.replace("HomeTabs");
+      navigation.replace("Login");
     }
   };
+
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (currentStep === 0) {
+      startAnimation();
+    }
+  }, [currentStep]);
+
+  const startAnimation = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(rotateAnim, {
+          toValue: 50, // Rotate 50 degrees
+          duration: 800,
+          easing: Easing.ease,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: 0, // Rotate back to 0 degrees
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  };
+
+  const rotateInterpolation = rotateAnim.interpolate({
+    inputRange: [0, 50],
+    outputRange: ['0deg', '50deg'],
+  });
+
 
   return (
     <View className="flex-1 justify-between items-center p-20 bg-yellow">
@@ -80,17 +114,23 @@ export default function WelcomePage({ navigation }) {
         {/* Texto fixo indicando para deslizar */}
         {currentStep === 0 ? (
           <View className="flex items-end w-screen px-12 mt-1">
-            <Image
-              id="swipe_Icon"
-              source={require("../../assets/Swipe_Icon.png")}
-              className="swipe_anime"
-            />
+            <Animated.View
+              style={{
+                transform: [
+                  { translateY: 15 },
+                  { rotate: rotateInterpolation },
+                  { translateY: -15 },
+                ],
+                height: 40,
+              }}
+            >
+              <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
+            </Animated.View>
+
             <Text className="text-lg font-bold">Desliza</Text>
           </View>
         ) : (
-          <View className="flex items-end w-screen px-12 mt-1">
-            <View style={{ height: 67.5 }} />
-          </View>
+          <View style={{ height: 68 }} />
         )}
       </View>
     </View>

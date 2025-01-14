@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
-import ChestIcon from "../../assets/chest.png";
+import ChestIcon from "../../assets/trophies/chest.png";
 
 const TrophyProgress = ({ text, description, progress, total, icon }) => {
     const progressWidth = `${(progress / total) * 100}%`;

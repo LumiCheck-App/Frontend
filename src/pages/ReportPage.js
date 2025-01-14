@@ -8,7 +8,7 @@ import ScreenTimeChart from "../components/ScreenTimeChart";
 import Lumi3Colors from "../components/Lumi3Colors";
 import LumiQuestion from "../components/LumiQuestion";
 import { useNavigation } from "@react-navigation/native";
-import Lumi from "../../assets/Lumi.svg";
+import Lumi from "../../assets/lumis/Lumi.svg";
 import ScoreIcon from "../../assets/icons/scoreicon.svg";
 
 export default function ReportPage() {
@@ -198,7 +198,7 @@ export default function ReportPage() {
 
         <View className="flex-1 items-center pt-9 px-4 relative" style={{ marginTop: 350 }}>
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
-            <ArcProgressBar />
+            <ArcProgressBar size={160} strokeWidth={16} progress={35} />
             <Text className="text-lg font-regular">
               O seu relatório está quase terminado.
             </Text>

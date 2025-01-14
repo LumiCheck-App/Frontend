@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Task from "../components/Task";
-import Lumi from "../../assets/Lumi.svg";
+import Lumi from "../../assets/lumis/Lumi.svg";
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
 import { FontAwesome } from "@expo/vector-icons";
+import ArcProgressBar from "../components/ArcProgressBar";
 
 export default function HomePage() {
     const [dailyTasks, setDailyTasks] = useState([]);
     const [timeLeft, setTimeLeft] = useState("");
     const [scrollY] = useState(new Animated.Value(0));
+    const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
 
     // Função para calcular o tempo restante até a meia-noite
     const calculateTimeLeft = () => {
@@ -170,33 +172,31 @@ export default function HomePage() {
                             Olá, Rodrigo!
                         </Text>
 
-                        {/* Botão de Monitorização */}
-                        <TouchableOpacity className="bg-yellow rounded-lg w-11/12 py-3 mt-12 items-center">
-                            <Text className="text-xl text-white font-bold">Começar Monitorização</Text>
-                        </TouchableOpacity>
-
-
-                        <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 flex-row items-center">
-                            {/* Ícone circular à esquerda */}
-                            <View className="flex-row items-center flex-1">
-                                <Image
-                                    source={require("../../assets/Lumi.png")} // Substitua pelo caminho correto do arquivo
-                                    className="w-16 h-16 ml-2"
-                                    resizeMode="contain"
-                                />
-                                <View className="flex-1 mr-4 py-8">
-                                    <Text className="font-bold text-md text-black text-center">
-                                        O seu relatório está quase terminado!
-                                    </Text>
+                        {/* Mostrar o botão ou o card baseado no estado */}
+                        {!isMonitoring ? (
+                            <TouchableOpacity
+                                className="bg-yellow rounded-lg w-11/12 py-3 mt-12 items-center"
+                                onPress={() => setIsMonitoring(true)}
+                            >
+                                <Text className="text-xl text-white font-bold">Começar Monitorização</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 flex-row items-center">
+                                {/* Ícone circular à esquerda */}
+                                <View className="flex-row items-center flex-1">
+                                    <ArcProgressBar size={80} strokeWidth={8} progress={35} />
+                                    <View className="flex-1 mr-4 py-8">
+                                        <Text className="font-bold text-md text-black text-center">
+                                            O seu relatório está quase terminado!
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
 
-                            {/* Ícone de engrenagem à direita */}
-                            <View className="absolute right-4 top-4">
-                                <FontAwesome name="gear" size={25} color="#d0d0d0" />
-                            </View>
-                        </TouchableOpacity>
-
+                                <TouchableOpacity className="absolute top-2 right-2">
+                                    <FontAwesome name="gear" size={20} color="#d0d0d0" />
+                                </TouchableOpacity>
+                            </TouchableOpacity>
+                        )}
 
                         {/* Secção de Tarefas Diárias */}
                         <View className="w-11/12 mt-8">

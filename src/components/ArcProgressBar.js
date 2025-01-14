@@ -2,10 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-export default function ArcProgressBar() {
-  const size = 150;
-  const strokeWidth = 16;
-  const progress = 35; // ir buscar á DB
+export default function ArcProgressBar({ size, strokeWidth, progress }) {
 
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius * 0.8; // 80% of the circle
@@ -44,7 +41,7 @@ export default function ArcProgressBar() {
 
   return (
     <View style={styles.container}>
-      <Svg width={size} height={size}>
+      <Svg width={size} height={size} style={{ transform: [{ rotateX: "180deg" }] }}>
         {/* Background Arc */}
         <Path
           d={createArcPath(size / 2, size / 2, radius, 40, 320)} // 80% of the circle (from 40° to 320°)
@@ -78,9 +75,9 @@ export default function ArcProgressBar() {
       </Svg>
       {/* Text in the center */}
       <Text
-        className="font-regular text-black text-2xl absolute"
+        className="font-regular text-black absolute"
         style={{
-          transform: [{ rotateX: "180deg" }],
+          fontSize: size / 4 > 30 ? 30 : size / 4,
         }}
       >
         {`${progress}%`}
@@ -93,7 +90,6 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     alignItems: "center",
-    justifyContent: "center",
-    transform: [{ rotateX: "180deg" }],
+    justifyContent: "center"
   },
 });
