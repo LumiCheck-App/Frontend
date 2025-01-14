@@ -1,5 +1,8 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
+import Lumi from "../../assets/lumis/Lumi.svg";
+import LumiLaranja from "../../assets/lumis/LumiLaranja.svg";
+import LumiVermelha from "../../assets/lumis/LumiVermelha.svg";
 
 const Lumi3Colors = ({ negative, neutral, positive }) => {
 
@@ -45,11 +48,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
                         <View className="flex-col items-center">
                             <Text className="text-sm text-dark-gray mb-2">Negativas</Text>
                             <View className="flex-row items-center justify-center">
-                                <Image
-                                    source={require("../../assets/Lumi.png")}
-                                    className="w-6 h-6"
-                                    resizeMode="contain"
-                                />
+                                <LumiVermelha width={24} height={24} />
                                 <Text className="text-lg font-bold ml-2">{negative}</Text>
                             </View>
                         </View>
@@ -57,11 +56,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
                         <View className="flex-col items-center">
                             <Text className="text-sm text-dark-gray mb-2">Neutras</Text>
                             <View className="flex-row items-center justify-center">
-                                <Image
-                                    source={require("../../assets/Lumi.png")}
-                                    className="w-6 h-6"
-                                    resizeMode="contain"
-                                />
+                                <LumiLaranja width={24} height={24} />
                                 <Text className="text-lg font-bold ml-2">{neutral}</Text>
                             </View>
                         </View>
@@ -69,11 +64,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
                         <View className="flex-col items-center">
                             <Text className="text-sm text-dark-gray mb-2">Positivas</Text>
                             <View className="flex-row items-center justify-center">
-                                <Image
-                                    source={require("../../assets/Lumi.png")}
-                                    className="w-6 h-6"
-                                    resizeMode="contain"
-                                />
+                                <Lumi width={24} height={24} />
                                 <Text className="text-lg font-bold ml-2">{positive}</Text>
                             </View>
                         </View>

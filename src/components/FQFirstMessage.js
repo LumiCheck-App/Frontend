@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Modal, Image } from "react-native";
-import Lumi from "../../assets/Lumi.svg";
+import Lumi from "../../assets/lumis/Lumi.svg";
 
 export default function FQFirstMessage({ modalVisible, CloseModal }) {
   const sentence =

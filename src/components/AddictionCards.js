@@ -8,7 +8,7 @@ import RedesSociais from "../../assets/RedesSociais.png";
 import JogosOnline from "../../assets/JogosOnline.png";
 import Jogos from "../../assets/Jogos.png";
 import ComprasOnline from "../../assets/ComprasOnline.png";
-import SwipeIndicator from "../../assets/SwipeIndicator.svg";
+import SwipeIndicator from "../../assets/icons/SwipeIndicator.svg";
 
 export default function AddictionCards({
   onCardSwipe,

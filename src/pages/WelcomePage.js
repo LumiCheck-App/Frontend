@@ -7,8 +7,8 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import Lumi from "../../assets/Lumi.svg";
-import SwipeIndicator from "../../assets/SwipeIndicator.svg";
+import Lumi from "../../assets/lumis/Lumi.svg";
+import SwipeIndicator from "../../assets/icons/SwipeIndicator.svg";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 

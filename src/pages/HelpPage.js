@@ -110,16 +110,16 @@ export default function HelpPage() {
   const filteredMarkers = selectedDistrito
     ? selectedDistrito === "Outros"
       ? markersOnMap.filter(
-          (marker) =>
-            !distritos.some(
-              (distrito) =>
-                marker.Distrito?.toLowerCase() === distrito.toLowerCase()
-            )
-        )
+        (marker) =>
+          !distritos.some(
+            (distrito) =>
+              marker.Distrito?.toLowerCase() === distrito.toLowerCase()
+          )
+      )
       : markersOnMap.filter(
-          (marker) =>
-            marker.Distrito?.toLowerCase() === selectedDistrito.toLowerCase()
-        )
+        (marker) =>
+          marker.Distrito?.toLowerCase() === selectedDistrito.toLowerCase()
+      )
     : [];
 
   const handleShowMore = () => {
@@ -163,7 +163,7 @@ export default function HelpPage() {
               <Marker
                 coordinate={location}
                 title="Você"
-                image={require("../../assets/Lumi-Mapa.png")}
+                image={require("../../assets/lumis/LumiMapa.png")}
               />
             )}
 
@@ -335,9 +335,8 @@ export default function HelpPage() {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <TouchableOpacity
-                className={`rounded-lg ${
-                  index === 0 ? "ml-[2.25rem] mr-4" : ""
-                } ${index === 4 ? "mr-[2.25rem]" : "mr-4"}`}
+                className={`rounded-lg ${index === 0 ? "ml-[2.25rem] mr-4" : ""
+                  } ${index === 4 ? "mr-[2.25rem]" : "mr-4"}`}
               >
                 <ImageBackground
                   source={item.image}

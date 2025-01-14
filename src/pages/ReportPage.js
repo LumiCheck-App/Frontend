@@ -8,7 +8,7 @@ import ScreenTimeChart from "../components/ScreenTimeChart";
 import Lumi3Colors from "../components/Lumi3Colors";
 import LumiQuestion from "../components/LumiQuestion";
 import { useNavigation } from "@react-navigation/native";
-import Lumi from "../../assets/Lumi.svg";
+import Lumi from "../../assets/lumis/Lumi.svg";
 import ScoreIcon from "../../assets/icons/scoreicon.svg";
 
 export default function ReportPage() {
