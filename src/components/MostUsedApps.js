@@ -94,12 +94,12 @@ export default function MostUsedApps() {
 
       <View className="w-full px-2 h-5 flex-row items-end justify-end mt-6">
         <View className=" w-10/12 h-5 flex-row items-center justify-between">
-          <Text className="font-bold">0h</Text>
-          <Text className="font-bold">1h</Text>
-          <Text className="font-bold">2h</Text>
-          <Text className="font-bold">3h</Text>
-          <Text className="font-bold">4h</Text>
-          <Text className="font-bold">5h +</Text>
+          <Text className="font-quickbold">0h</Text>
+          <Text className="font-quickbold">1h</Text>
+          <Text className="font-quickbold">2h</Text>
+          <Text className="font-quickbold">3h</Text>
+          <Text className="font-quickbold">4h</Text>
+          <Text className="font-quickbold">5h +</Text>
         </View>
       </View>
     </View>

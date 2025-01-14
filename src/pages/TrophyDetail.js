@@ -47,8 +47,8 @@ export default function TrophyDetail({ route, navigation }) {
                             ) : (
                                 <IconComponent width={300} height={300} style={{ marginBottom: 50 }} />
                             )}
-                            <Text className="text-2xl text-center font-bold">{text}</Text>
-                            <Text className="mt-4 mb-16 px-16 text-lg text-center font-bold text-dark-gray">
+                            <Text className="text-2xl text-center font-quickbold">{text}</Text>
+                            <Text className="mt-4 mb-16 px-16 text-lg text-center font-quickbold text-dark-gray">
                                 {description}
                             </Text>
                         </View>
@@ -56,7 +56,7 @@ export default function TrophyDetail({ route, navigation }) {
 
                     {IconComponent !== BlockedTrophy && IconComponent !== ChestIcon && (
                         <TouchableOpacity className="bg-yellow rounded-lg w-11/12 py-3" style={{ position: 'absolute', bottom: 100, alignSelf: 'center' }}>
-                            <Text className="text-xl text-white font-bold text-center">Partilhar</Text>
+                            <Text className="text-xl text-white font-quickbold text-center">Partilhar</Text>
                         </TouchableOpacity>
                     )}
                 </View>

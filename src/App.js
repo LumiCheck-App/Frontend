@@ -35,8 +35,8 @@ import AllTrophies from "./pages/AllTrophies";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Quicksand_Regular: Quicksand_400Regular,
-    Quicksand_Bold: Quicksand_700Bold,
+    Quicksand_400Regular: Quicksand_400Regular,
+    Quicksand_700Bold: Quicksand_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -61,25 +61,25 @@ export default function App() {
           let IconComponent;
           let color = focused ? "#fcc766" : "#d0d0d0";
 
-            switch (route.name) {
-              case "Home":
-                IconComponent = HomeIcon;
-                break;
-              case "Troféus":
-                IconComponent = TrophyIcon;
-                break;
-              case "Report":
-                IconComponent = StatsIcon;
-                break;
-              case "Perfil":
-                IconComponent = ProfileIcon;
-                break;
-              case "Ajuda":
-                IconComponent = HelpIcon;
-                break;
-              default:
-                IconComponent = null;
-            }
+          switch (route.name) {
+            case "Home":
+              IconComponent = HomeIcon;
+              break;
+            case "Troféus":
+              IconComponent = TrophyIcon;
+              break;
+            case "Report":
+              IconComponent = StatsIcon;
+              break;
+            case "Perfil":
+              IconComponent = ProfileIcon;
+              break;
+            case "Ajuda":
+              IconComponent = HelpIcon;
+              break;
+            default:
+              IconComponent = null;
+          }
 
           return (
             <IconComponent

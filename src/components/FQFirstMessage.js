@@ -38,13 +38,13 @@ export default function FQFirstMessage({ modalVisible, CloseModal }) {
         <View className="w-screen px-6">
           <View className="bg-white px-4 py-6 rounded-2xl relative border border-light-gray">
             {/* Animated Typewriter Text */}
-            <Text className="text-black text-lg font-regular">
+            <Text className="text-black text-lg font-quickregular">
               {displayedText}
             </Text>
           </View>
         </View>
         <Lumi width={200} height={200} />
-        <Text className="text-white font-regular text-xl absolute bottom-10">
+        <Text className="text-white font-quickregular text-xl absolute bottom-10">
           Tap to close
         </Text>
       </TouchableOpacity>

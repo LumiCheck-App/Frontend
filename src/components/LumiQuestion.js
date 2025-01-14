@@ -8,14 +8,14 @@ const LumiQuestion = ({ index, text, score }) => {
         <View className="w-11/12 mt-8">
             <View className="bg-white rounded-lg border border-light-gray p-4">
                 <View className="mb-2">
-                    <Text className="text-xl font-bold text-black">Pergunta {index}</Text>
+                    <Text className="text-xl font-quickbold text-black">Pergunta {index}</Text>
                 </View>
                 <View className="flex-row items-center w-full">
                     <View className="flex-1">
                         {/* Texto */}
-                        <Text className="text-lg font-regular mb-6">{text}</Text>
+                        <Text className="text-lg font-quickregular mb-6">{text}</Text>
 
-                        <Text className="text-lg text-dark-gray font-bold">Resposta</Text>
+                        <Text className="text-lg text-dark-gray font-quickbold">Resposta</Text>
 
                         {/* Barra de progresso */}
                         <View className="flex-row items-center w-full">
@@ -29,7 +29,7 @@ const LumiQuestion = ({ index, text, score }) => {
 
                             {/* Contador */}
                             <View className="w-1/6">
-                                <Text className="text-lg text-violet font-bold text-right mr-4">{score}</Text>
+                                <Text className="text-lg text-violet font-quickbold text-right mr-4">{score}</Text>
                             </View>
                         </View>
                     </View>

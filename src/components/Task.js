@@ -32,7 +32,7 @@ const Task = ({ taskId, taskText, isCompleted: initialIsCompleted, onTaskUpdate 
     return (
         <View className="flex-row items-center justify-between bg-white rounded-lg px-4 mb-2 border border-light-gray">
             {/* Texto da tarefa */}
-            <Text className={`text-lg font-regular flex-1 py-3 ${isCompleted ? "text-gray-400 line-through" : ""}`}>
+            <Text className={`text-lg font-quickregular flex-1 py-3 ${isCompleted ? "text-gray-400 line-through" : ""}`}>
                 {taskText}
             </Text>
 

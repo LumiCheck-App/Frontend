@@ -189,7 +189,7 @@ export default function HelpPage() {
                 <View className="mb-4 p-3 bg-white rounded-md border border-light-gray">
                   <View className="flex-row">
                     <View className="w-1/2">
-                      <Text className="text-lg font-bold">
+                      <Text className="text-lg font-quickbold">
                         {selectedMarker.Nome}
                       </Text>
                     </View>
@@ -197,7 +197,7 @@ export default function HelpPage() {
                       <TouchableOpacity
                         onPress={() => makeCall(marker.Telefone)}
                       >
-                        <Text className="text-lg self-end text-violet font-bold">
+                        <Text className="text-lg self-end text-violet font-quickbold">
                           {selectedMarker.Telefone}
                         </Text>
                       </TouchableOpacity>
@@ -216,12 +216,12 @@ export default function HelpPage() {
           {/* Dropdown para distritos */}
           <View className="flex-1 px-4 items-center">
             <View className="w-11/12 mt-6">
-              <Text className="text-xl font-bold mb-2">Contactos</Text>
+              <Text className="text-xl font-quickbold mb-2">Contactos</Text>
               <TouchableOpacity
                 className="p-3 bg-yellow rounded-md items-center"
                 onPress={() => setDropdownVisible(true)}
               >
-                <Text className="text-lg font-bold text-white">
+                <Text className="text-lg font-quickbold text-white">
                   {selectedDistrito || "Selecione um Distrito"}
                 </Text>
               </TouchableOpacity>
@@ -268,13 +268,13 @@ export default function HelpPage() {
                   >
                     <View className="flex-row">
                       <View className="w-1/2">
-                        <Text className="text-lg font-bold">{marker.Nome}</Text>
+                        <Text className="text-lg font-quickbold">{marker.Nome}</Text>
                       </View>
                       <View className="w-1/2">
                         <TouchableOpacity
                           onPress={() => makeCall(marker.Telefone)}
                         >
-                          <Text className="text-lg self-end text-violet font-bold">
+                          <Text className="text-lg self-end text-violet font-quickbold">
                             {marker.Telefone}
                           </Text>
                         </TouchableOpacity>
@@ -307,7 +307,7 @@ export default function HelpPage() {
                   }}
                   onPress={handleShowMore}
                 >
-                  <Text className="text-md font-bold text-orange">
+                  <Text className="text-md font-quickbold text-orange">
                     {visibleCount >= filteredMarkers.length
                       ? "VER MENOS"
                       : "VER MAIS"}
@@ -319,7 +319,7 @@ export default function HelpPage() {
             {/* Secção de Tarefas Diárias */}
             <View className="w-11/12 mt-8">
               <View className="flex-row items-center justify-between mb-4">
-                <Text className="text-xl font-bold text-black">Posts</Text>
+                <Text className="text-xl font-quickbold text-black">Posts</Text>
               </View>
             </View>
           </View>
@@ -344,7 +344,7 @@ export default function HelpPage() {
                     colors={["transparent", "rgba(0, 0, 0, 0.7)"]}
                     style={{ flex: 1, justifyContent: "flex-end", padding: 10 }}
                   >
-                    <Text className="text-md font-bold text-white">
+                    <Text className="text-md font-quickbold text-white">
                       {item.title}
                     </Text>
                     <Text className="text-sm text-white">{item.link}</Text>

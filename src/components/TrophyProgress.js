@@ -33,7 +33,7 @@ const TrophyProgress = ({ text, description, progress, total, icon }) => {
             {/* Conteúdo de progresso */}
             <View className="flex-1">
                 {/* Texto */}
-                <Text className="text-lg font-regular mb-2">{descriptionCutted}</Text>
+                <Text className="text-lg font-quickregular mb-2">{descriptionCutted}</Text>
 
                 {/* Barra de progresso */}
                 <View className="h-3 bg-white rounded-full overflow-hidden border border-light-gray">

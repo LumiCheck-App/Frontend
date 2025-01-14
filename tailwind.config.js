@@ -15,8 +15,8 @@ module.exports = {
         red: "#da6f6f",
       },
       fontFamily: {
-        regular: ["Quicksand_Regular"],
-        bold: ["Quicksand_Bold"],
+        quickregular: ["Quicksand_400Regular"],
+        quickbold: ["Quicksand_700Bold"],
       },
     },
   },

@@ -48,14 +48,14 @@ export default function ReportPage() {
 
   const number34PositionY = scrollY.interpolate({
     inputRange: [0, 270],
-    outputRange: [0, -147],
+    outputRange: [0, -148],
     extrapolate: "clamp",
   });
 
   // Animações para números e ScoreIcon
   const number34PositionX = scrollY.interpolate({
     inputRange: [0, 270],
-    outputRange: [0, 192],
+    outputRange: [0, 195],
     extrapolate: "clamp",
   });
 
@@ -148,7 +148,7 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Animated.Text style={{ fontSize: numberFontSize, color: numberColor }} className="font-bold">
+        <Animated.Text style={{ fontSize: numberFontSize, color: numberColor }} className="font-quickbold">
           34
         </Animated.Text>
       </Animated.View>
@@ -164,7 +164,7 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Text className="text-lg font-bold">
+        <Text className="text-lg font-quickbold">
           /100
         </Text>
         <ScoreIcon width={24} height={24} style={{ marginLeft: 4 }} />
@@ -180,7 +180,7 @@ export default function ReportPage() {
           top: 350,
         }}
       >
-        <Text className="text-2xl font-bold text-yellow">
+        <Text className="text-2xl font-quickbold text-yellow">
           Uso regular do telemóvel
         </Text>
       </Animated.View>
@@ -196,10 +196,10 @@ export default function ReportPage() {
         <View className="flex-1 items-center pt-9 px-4 relative" style={{ marginTop: 350 }}>
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
             <ArcProgressBar size={160} strokeWidth={16} progress={35} />
-            <Text className="text-lg font-regular">
+            <Text className="text-lg font-quickregular">
               O seu relatório está quase terminado.
             </Text>
-            <Text className="text-lg font-bold">
+            <Text className="text-lg font-quickbold">
               O LumiScore é apenas uma previsão!
             </Text>
             <TouchableOpacity className="absolute top-2 right-2">
@@ -210,13 +210,13 @@ export default function ReportPage() {
 
         <View className="flex-1 items-center pt-9 px-4">
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative">
-            <Text className="text-lg font-bold">Tempo de ecrã</Text>
+            <Text className="text-lg font-quickbold">Tempo de ecrã</Text>
             <ScreenTimeChart />
           </View>
         </View>
         <View className="flex-1 items-center pt-9 px-4">
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4">
-            <Text className="text-lg font-bold">Apps mais usadas</Text>
+            <Text className="text-lg font-quickbold">Apps mais usadas</Text>
             <MostUsedApps />
           </View>
         </View>
@@ -232,7 +232,7 @@ export default function ReportPage() {
 
           <TouchableOpacity onPress={() => navigation.navigate("Perfil", { screen: "AllLumiQuestions" })}>
             <View className="mt-2 mb-4 flex-row justify-end w-11/12">
-              <Text className="text-md font-bold text-right text-orange pb-20">VER TODAS</Text>
+              <Text className="text-md font-quickbold text-right text-orange pb-20">VER TODAS</Text>
             </View>
           </TouchableOpacity>
         </View>

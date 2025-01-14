@@ -84,7 +84,7 @@ export default function PasswordResetModal({
           {/* Email Form */}
           {emailForm && (
             <View className="w-full gap-4 justify-center items-center">
-              <Text className="text-2xl font-bold text-yellow">
+              <Text className="text-2xl font-quickbold text-yellow">
                 Insere o teu e-mail
               </Text>
               <Text className="mb-10">
@@ -92,13 +92,13 @@ export default function PasswordResetModal({
               </Text>
 
               <TextInput
-                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
                 onChangeText={setEmail}
                 value={email}
                 placeholder="E-mail"
               />
               {error && (
-                <Text className="text-red-500 font-bold">
+                <Text className="text-red-500 font-quickbold">
                   Este email não está registado
                 </Text>
               )}
@@ -106,7 +106,7 @@ export default function PasswordResetModal({
                 className="bg-yellow rounded-lg w-full py-3 items-center"
                 onPress={SendEmail}
               >
-                <Text className="text-xl text-white font-bold">Enviar</Text>
+                <Text className="text-xl text-white font-quickbold">Enviar</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -114,26 +114,26 @@ export default function PasswordResetModal({
           {/* New Password Form */}
           {!emailForm && (
             <View className="w-full gap-4 justify-center items-center">
-              <Text className="text-2xl font-bold text-yellow mb-10">
+              <Text className="text-2xl font-quickbold text-yellow mb-10">
                 Cria a tua nova password
               </Text>
               <TextInput
                 secureTextEntry
-                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
                 onChangeText={setNewPass}
                 value={Newpass}
                 placeholder="New Password"
               />
               <TextInput
                 secureTextEntry
-                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
                 onChangeText={setPassConfirm}
                 value={PassConfirm}
                 placeholder="Confirm Password"
               />
-              <Text className="font-regular">Código</Text>
+              <Text className="font-quickregular">Código</Text>
               <TextInput
-                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+                className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
                 keyboardType="numeric"
                 maxLength={4}
                 placeholder="Email Code"
@@ -142,13 +142,13 @@ export default function PasswordResetModal({
               />
 
               {error && (
-                <Text className="text-red-500 font-bold">
+                <Text className="text-red-500 font-quickbold">
                   Algo não correu bem
                 </Text>
               )}
 
               {PassChangeVal && (
-                <Text className="text-green-400 font-bold">
+                <Text className="text-green-400 font-quickbold">
                   Palavra passe mudada com sucesso
                 </Text>
               )}
@@ -157,7 +157,7 @@ export default function PasswordResetModal({
                 className="bg-yellow rounded-lg w-full py-3 items-center"
                 onPress={ChangePass}
               >
-                <Text className="text-xl text-white font-bold">
+                <Text className="text-xl text-white font-quickbold">
                   Mudar Password
                 </Text>
               </TouchableOpacity>

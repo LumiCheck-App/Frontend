@@ -50,10 +50,10 @@ export default function ProfilePage() {
                             />
 
                             {/* Texto de boas-vindas */}
-                            <Text className="text-2xl font-bold text-black mt-6">
+                            <Text className="text-2xl font-quickbold text-black mt-6">
                                 Rodrigo
                             </Text>
-                            <Text className="text-md font-bold text-dark-gray">
+                            <Text className="text-md font-quickbold text-dark-gray">
                                 rodrigograca@gmail.com
                             </Text>
                             {/* Informações */}
@@ -63,7 +63,7 @@ export default function ProfilePage() {
                                     {/* Linha superior: Ícone e número */}
                                     <View className="flex-row ml-2 mb-2 items-center">
                                         <QuestionIcon width={24} height={24} />
-                                        <Text className="text-2xl font-bold ml-2">14</Text>
+                                        <Text className="text-2xl font-quickbold ml-2">14</Text>
                                     </View>
                                     {/* Linha inferior: Texto */}
                                     <Text className="text-sm text-dark-gray text-center">Perguntas respondidas</Text>
@@ -74,7 +74,7 @@ export default function ProfilePage() {
                                     {/* Linha superior: Ícone e número */}
                                     <View className="flex-row ml-2 mb-2 items-center">
                                         <TrophyGoldIcon width={24} height={24} />
-                                        <Text className="text-2xl font-bold ml-2">4</Text>
+                                        <Text className="text-2xl font-quickbold ml-2">4</Text>
                                     </View>
                                     {/* Linha inferior: Texto */}
                                     <Text className="text-sm text-dark-gray text-center">Conquistas obtidas</Text>
@@ -86,7 +86,7 @@ export default function ProfilePage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Sala de Troféus</Text>
+                                    <Text className="text-xl font-quickbold text-black">Sala de Troféus</Text>
                                 </View>
 
                                 <View className="flex-row items-center justify-around bg-white rounded-lg mb-2 border border-light-gray">
@@ -117,7 +117,7 @@ export default function ProfilePage() {
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("Troféus", { screen: "AllTrophies" })}>
                                     <View className="mb-4 flex-row justify-end">
-                                        <Text className="text-md font-bold text-orange">VER SALA</Text>
+                                        <Text className="text-md font-quickbold text-orange">VER SALA</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -132,7 +132,7 @@ export default function ProfilePage() {
                                     {/* Conteúdo de progresso */}
                                     <View className="flex-1">
                                         {/* Texto */}
-                                        <Text className="text-lg font-bold">Perguntas da Lumi</Text>
+                                        <Text className="text-lg font-quickbold">Perguntas da Lumi</Text>
                                     </View>
 
                                     <View className="ml-auto">
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                                     {/* Conteúdo de progresso */}
                                     <View className="flex-1">
                                         {/* Texto */}
-                                        <Text className="text-lg font-bold">Definições</Text>
+                                        <Text className="text-lg font-quickbold">Definições</Text>
                                     </View>
 
                                     <View className="ml-auto">
@@ -166,7 +166,7 @@ export default function ProfilePage() {
                                     {/* Conteúdo de progresso */}
                                     <View className="flex-1">
                                         {/* Texto */}
-                                        <Text className="text-lg font-bold text-red">Log Out</Text>
+                                        <Text className="text-lg font-quickbold text-red">Log Out</Text>
                                     </View>
 
                                     <View className="ml-auto">

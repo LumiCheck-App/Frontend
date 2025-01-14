@@ -124,7 +124,7 @@ export default function HomePage() {
                     }}
                     className="flex-row items-center mb-2"
                 >
-                    <Text className="text-lg font-bold mr-2">14</Text>
+                    <Text className="text-lg font-quickbold mr-2">14</Text>
                     <QuestionIcon width={24} height={24} />
                 </Animated.View>
 
@@ -134,7 +134,7 @@ export default function HomePage() {
                     }}
                     className="flex-row items-center"
                 >
-                    <Text className="text-lg font-bold mr-2">2</Text>
+                    <Text className="text-lg font-quickbold mr-2">2</Text>
                     <TrophyGoldIcon width={24} height={24} />
                 </Animated.View>
             </View>
@@ -165,7 +165,7 @@ export default function HomePage() {
                 <View className="flex-1 pt-8 pb-20 px-4">
                     <View className="flex-1 items-center pt-60">
                         {/* Texto de boas-vindas */}
-                        <Text className="text-2xl font-bold text-gray-800 mt-4">
+                        <Text className="text-2xl font-quickbold text-gray-800 mt-4">
                             Olá, Rodrigo!
                         </Text>
 
@@ -175,7 +175,7 @@ export default function HomePage() {
                                 className="bg-yellow rounded-lg w-11/12 py-3 mt-12 items-center"
                                 onPress={() => setIsMonitoring(true)}
                             >
-                                <Text className="text-xl text-white font-bold">Começar Monitorização</Text>
+                                <Text className="text-xl text-white font-quickbold">Começar Monitorização</Text>
                             </TouchableOpacity>
                         ) : (
                             <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 flex-row items-center">
@@ -183,7 +183,7 @@ export default function HomePage() {
                                 <View className="flex-row items-center flex-1">
                                     <ArcProgressBar size={80} strokeWidth={8} progress={35} />
                                     <View className="flex-1 mr-4 py-8">
-                                        <Text className="font-bold text-md text-black text-center">
+                                        <Text className="font-quickbold text-md text-black text-center">
                                             O seu relatório está quase terminado!
                                         </Text>
                                     </View>
@@ -199,8 +199,8 @@ export default function HomePage() {
                         <View className="w-11/12 mt-8">
                             {/* Cabeçalho da seção */}
                             <View className="flex-row items-center justify-between mb-4">
-                                <Text className="text-xl font-bold text-black">Tarefas Diárias</Text>
-                                <Text className="text-md font-bold text-orange self-end">{timeLeft}</Text>
+                                <Text className="text-xl font-quickbold text-black">Tarefas Diárias</Text>
+                                <Text className="text-md font-quickbold text-orange self-end">{timeLeft}</Text>
                             </View>
 
                             {dailyTasks.map(task => (
@@ -217,10 +217,10 @@ export default function HomePage() {
 
                         {/* Literacia */}
                         <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-6 border-2 border-violet p-4">
-                            <Text className="text-xl font-regular text-dark-gray">Sabias que</Text>
-                            <Text className="text-md font-bold my-3">Ter uma adição pode prejudicar seriamente o nosso trabalho e as nossas relações.</Text>
+                            <Text className="text-xl font-quickregular text-dark-gray">Sabias que</Text>
+                            <Text className="text-md font-quickbold my-3">Ter uma adição pode prejudicar seriamente o nosso trabalho e as nossas relações.</Text>
                             <View className="flex-row items-center justify-end">
-                                <Text className="text-sm font-regular text-light-gray">Aprender mais em</Text>
+                                <Text className="text-sm font-quickregular text-light-gray">Aprender mais em</Text>
                                 <Image
                                     source={require("../../assets/sintome.png")}
                                     className="w-16 ml-2"
@@ -232,7 +232,7 @@ export default function HomePage() {
                         {/* Informação de contactos */}
                         <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
                             <HelpContactsIcon width={100} height={100} />
-                            <Text className="text-md font-bold my-3">Existem 4270 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
+                            <Text className="text-md font-quickbold my-3">Existem 4270 profissionais de saúde à tua disposição. Não hesites em contacta-los.</Text>
                         </TouchableOpacity>
 
                     </View>

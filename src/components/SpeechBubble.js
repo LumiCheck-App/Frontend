@@ -14,12 +14,12 @@ export default function SpeechBubble() {
       <Lumi width={100} height={100} />
       {/* Bubble */}
       <View className="bg-white px-4 py-6 rounded-2xl relative border border-light-gray">
-        <Text className="font-regular text-black text-xl text-center">
+        <Text className="font-quickregular text-black text-xl text-center">
           Ainda não estás registado?
         </Text>
         <TouchableOpacity>
           <Text
-            className="font-bold text-orange underline underline-offset-1 text-2xl text-center"
+            className="font-quickbold text-orange underline underline-offset-1 text-2xl text-center"
             onPress={RedirectToRegister}
           >
             Clica aqui

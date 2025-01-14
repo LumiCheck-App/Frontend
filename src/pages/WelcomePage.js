@@ -77,7 +77,7 @@ export default function WelcomePage({ navigation }) {
           renderItem={({ item }) => (
             <View>
               <View className="h-2/6 justify-center items-center">
-                <Text className="text-4xl font-bold text-center mb-6 w-screen px-12">
+                <Text className="text-4xl font-quickbold text-center mb-6 w-screen px-12">
                   {item.text}
                 </Text>
               </View>
@@ -127,7 +127,7 @@ export default function WelcomePage({ navigation }) {
               <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
             </Animated.View>
 
-            <Text className="text-lg font-bold">Desliza</Text>
+            <Text className="text-lg font-quickbold">Desliza</Text>
           </View>
         ) : (
           <View style={{ height: 68 }} />

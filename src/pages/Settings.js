@@ -80,20 +80,20 @@ export default function Settings({ navigation }) {
                             />
 
                             {/* Texto de boas-vindas */}
-                            <Text className="text-2xl font-bold text-black mt-6">
+                            <Text className="text-2xl font-quickbold text-black mt-6">
                                 Rodrigo
                             </Text>
-                            <Text className="text-md font-bold text-dark-gray">
+                            <Text className="text-md font-quickbold text-dark-gray">
                                 rodrigograca@gmail.com
                             </Text>
 
                             <View className="w-11/12 mt-8 mb-4">
-                                <Text className="text-xl font-bold text-black">Conta</Text>
+                                <Text className="text-xl font-quickbold text-black">Conta</Text>
                             </View>
                             <CardForOptions options={Conta} />
 
                             <View className="w-11/12 mb-4">
-                                <Text className="text-xl font-bold text-black">Suporte</Text>
+                                <Text className="text-xl font-quickbold text-black">Suporte</Text>
                             </View>
                             <CardForOptions options={Suporte} />
 

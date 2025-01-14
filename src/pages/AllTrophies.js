@@ -59,7 +59,7 @@ export default function AllTrophies({ navigation }) {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="flex-row items-center justify-between mb-4">
-                                    <Text className="text-xl font-bold text-black">Troféus conquistados</Text>
+                                    <Text className="text-xl font-quickbold text-black">Troféus conquistados</Text>
                                 </View>
 
                                 {trophieswon.map((trophy, index) => (
@@ -76,7 +76,7 @@ export default function AllTrophies({ navigation }) {
                             <View className="w-11/12 mt-8">
 
                                 <View className="flex-row items-center justify-between mb-4">
-                                    <Text className="text-xl font-bold text-black">Troféus bloqueados</Text>
+                                    <Text className="text-xl font-quickbold text-black">Troféus bloqueados</Text>
                                 </View>
 
                                 {trophiesblocked.map((trophy, index) => (

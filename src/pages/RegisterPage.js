@@ -72,7 +72,7 @@ export default function RegisterPage() {
 
         {/* Page Title*/}
         <View className="h-1/3 justify-center items-center relative">
-          <Text className=" text-5xl font-bold text-yellow">Register</Text>
+          <Text className=" text-5xl font-quickbold text-yellow">Register</Text>
           <TouchableOpacity
             className="absolute top-12 left-6"
             onPress={RedirectToLogin}
@@ -85,21 +85,21 @@ export default function RegisterPage() {
         <View className="w-screen px-16 flex-col gap-6 items-start justify-end">
           {/* Input do username */}
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             placeholder="Username"
             onChangeText={setUname}
             value={username}
           />
 
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             placeholder="Email"
             onChangeText={setEmail}
             value={email}
           />
 
           <TextInput
-            className="bg-white w-2/4 text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-2/4 text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             placeholder="Idade"
             keyboardType="numeric"
             maxLength={2}
@@ -109,7 +109,7 @@ export default function RegisterPage() {
 
           {/* Input da password */}
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             placeholder="Password"
             secureTextEntry
             onChangeText={setPass}
@@ -118,7 +118,7 @@ export default function RegisterPage() {
 
           {/* Input da Confirm password */}
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             placeholder="Confirm Password"
             secureTextEntry
             onChangeText={setPassConf}
@@ -134,19 +134,19 @@ export default function RegisterPage() {
               size={20}
             />
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Text className="text-dark-gray font-bold underline">
+              <Text className="text-dark-gray font-quickbold underline">
                 Termos e condições
               </Text>
             </TouchableOpacity>
           </View>
-          {hasError && <Text className="text-red-500 font-bold">{error}</Text>}
+          {hasError && <Text className="text-red-500 font-quickbold">{error}</Text>}
 
           {/* Botão do form */}
           <TouchableOpacity
             className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
             onPress={handleRegistration}
           >
-            <Text className="text-xl font-regular text-white font-bold">
+            <Text className="text-xl font-quickregular text-white font-quickbold">
               Criar Conta
             </Text>
           </TouchableOpacity>
