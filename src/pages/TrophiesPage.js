@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { useNavigation } from "@react-navigation/native";
 import Task from "../components/Task";
 import TrophyProgress from "../components/TrophyProgress";
@@ -54,11 +54,7 @@ export default function TrophiesPage() {
     };
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -158,6 +154,6 @@ export default function TrophiesPage() {
 
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }

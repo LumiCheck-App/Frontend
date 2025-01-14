@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View, ScrollView, Image, TouchableOpacity, Animated } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import ArcProgressBar from "../components/ArcProgressBar";
 import MostUsedApps from "../components/MostUsedApps";
 import ScreenTimeChart from "../components/ScreenTimeChart";
@@ -96,11 +97,7 @@ export default function ReportPage() {
   });
 
   return (
-    <LinearGradient
-      colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-      locations={[0, 0.5, 1]}
-      style={{ flex: 1 }}
-    >
+    <BackgroundGradient>
       {/* Efeito de blur no topo da tela */}
       <Animated.View style={{
         opacity: backgroundOpacity,
@@ -241,6 +238,6 @@ export default function ReportPage() {
         </View>
 
       </Animated.ScrollView>
-    </LinearGradient >
+    </BackgroundGradient >
   );
 }

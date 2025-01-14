@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import Task from "../components/Task";
-import TaskFinished from "../components/TaskFinished";
+import { View, TouchableOpacity, ScrollView } from "react-native";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { Ionicons } from "@expo/vector-icons";
 import LumiQuestion from "../components/LumiQuestion.js";
 import Lumi3Colors from "../components/Lumi3Colors.js";
@@ -20,11 +18,7 @@ export default function AllLumiQuestions({ navigation }) {
     ];
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -49,6 +43,6 @@ export default function AllLumiQuestions({ navigation }) {
 
                 </View>
             </ScrollView >
-        </LinearGradient >
+        </BackgroundGradient >
     );
 }

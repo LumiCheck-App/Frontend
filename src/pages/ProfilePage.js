@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
 import QuestionIcon from "../../assets/icons/question.svg";
 import { MaterialIcons } from '@expo/vector-icons';
@@ -35,11 +35,7 @@ export default function ProfilePage() {
     ];
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -184,6 +180,6 @@ export default function ProfilePage() {
 
                 </View>
             </ScrollView>
-        </LinearGradient >
+        </BackgroundGradient >
     );
 }

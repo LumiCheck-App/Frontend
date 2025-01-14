@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import CardForOptions from "../components/CardForOptions";
@@ -61,11 +61,7 @@ export default function Settings({ navigation }) {
 
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -109,6 +105,6 @@ export default function Settings({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }	

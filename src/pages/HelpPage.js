@@ -10,6 +10,7 @@ import {
   ImageBackground,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Location from "expo-location";
 import { markersOnMap } from "../psicologos_fakes";
@@ -137,11 +138,7 @@ export default function HelpPage() {
   };
 
   return (
-    <LinearGradient
-      colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-      locations={[0, 0.5, 1]}
-      style={{ flex: 1 }}
-    >
+    <BackgroundGradient>
       <ScrollView>
         <View style={{ flex: 1 }}>
           {/* Mapa */}
@@ -358,6 +355,6 @@ export default function HelpPage() {
           />
         </View>
       </ScrollView>
-    </LinearGradient>
+    </BackgroundGradient>
   );
 }

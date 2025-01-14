@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import Task from "../components/Task";
 import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,11 +24,7 @@ export default function AllTasks({ navigation }) {
     ];
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -75,6 +71,6 @@ export default function AllTasks({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }	

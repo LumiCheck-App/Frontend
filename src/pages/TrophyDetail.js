@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { Ionicons } from "@expo/vector-icons";
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 import ChestIcon from "../../assets/trophies/chest.png";
@@ -24,11 +24,7 @@ export default function TrophyDetail({ route, navigation }) {
     }
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1 items-center pt-12">
@@ -65,6 +61,6 @@ export default function TrophyDetail({ route, navigation }) {
                     )}
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { Ionicons } from "@expo/vector-icons";
 import Achievements from "../components/Achievements";
 import PrimeiroPasso from "../../assets/trophies/primeiropasso.svg";
@@ -41,11 +41,7 @@ export default function AllTrophies({ navigation }) {
 
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -98,6 +94,6 @@ export default function AllTrophies({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }	

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import Task from "../components/Task";
 import Lumi from "../../assets/lumis/Lumi.svg";
 import TrophyGoldIcon from "../../assets/icons/trophygold.svg";
@@ -97,11 +98,7 @@ export default function HomePage() {
     });
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             {/* Efeito de blur no topo da tela */}
             <Animated.View style={{
                 opacity: backgroundOpacity,
@@ -241,6 +238,6 @@ export default function HomePage() {
                     </View>
                 </View>
             </Animated.ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }

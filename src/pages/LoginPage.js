@@ -18,7 +18,7 @@ export default function LoginPage() {
     },
     {
       id: 1,
-      User_name: "eng_gracicha",
+      User_name: "gracinha",
       Pass: "123",
       Email: "reistiago64@gmail.com",
       Idade: 21,
