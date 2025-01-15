@@ -10,6 +10,7 @@ import { CheckBox } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import TermsAndContitionsModal from "../components/TermsAndConditionsModal";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function RegisterPage() {
   const navigation = useNavigation();
@@ -21,7 +22,6 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [passConf, setPassConf] = useState("");
-  const [idade, setIdade] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
@@ -35,7 +35,6 @@ export default function RegisterPage() {
     if (
       username != "" &&
       email != "" &&
-      idade != "" &&
       pass != "" &&
       passConf != ""
     ) {
@@ -46,7 +45,6 @@ export default function RegisterPage() {
             User_name: username,
             Pass: pass,
             Email: email,
-            Idade: idade,
           };
           Users.push(user);
           navigation.replace("Login");
@@ -71,14 +69,15 @@ export default function RegisterPage() {
         />
 
         {/* Page Title*/}
-        <View className="h-1/3 justify-center items-center relative">
-          <Text className=" text-5xl font-quickbold text-yellow">Register</Text>
+        <View className="w-11/12 flex-row items-center pt-12 px-8">
           <TouchableOpacity
-            className="absolute top-12 left-6"
             onPress={RedirectToLogin}
           >
-            <FontAwesome name="arrow-left" size={20} color="#686868" />
+            <Ionicons name="arrow-back" size={24} color="black" />
           </TouchableOpacity>
+        </View>
+        <View className="h-1/3 justify-center items-center">
+          <Text className=" text-5xl font-quickbold text-yellow">Register</Text>
         </View>
 
         {/*Form*/}
@@ -96,15 +95,6 @@ export default function RegisterPage() {
             placeholder="Email"
             onChangeText={setEmail}
             value={email}
-          />
-
-          <TextInput
-            className="bg-white w-2/4 text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
-            placeholder="Idade"
-            keyboardType="numeric"
-            maxLength={2}
-            onChangeText={setIdade}
-            value={idade}
           />
 
           {/* Input da password */}
@@ -125,9 +115,9 @@ export default function RegisterPage() {
             value={passConf}
           />
 
-          <View className="flex-row items-center justify-end gap-2">
+          <View className="flex-row items-center gap-2">
             <CheckBox
-              containerStyle={{ width: "0" }}
+              containerStyle={{ width: "0", paddingLeft: 0 }}
               checked={isChecked}
               onPress={() => setIsChecked(!isChecked)}
               checkedColor="#ff9d00"
@@ -146,7 +136,7 @@ export default function RegisterPage() {
             className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
             onPress={handleRegistration}
           >
-            <Text className="text-xl font-quickregular text-white font-quickbold">
+            <Text className="text-xl font-quickbold text-white font-quickbold">
               Criar Conta
             </Text>
           </TouchableOpacity>

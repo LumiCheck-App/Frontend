@@ -13,15 +13,13 @@ export default function LoginPage() {
       User_name: "reistiago",
       Pass: "123",
       Email: "reistiago64@gmail.com",
-      Idade: 26,
       FirstEntry: true,
     },
     {
       id: 1,
       User_name: "gracinha",
       Pass: "123",
-      Email: "reistiago64@gmail.com",
-      Idade: 21,
+      Email: "rodrigomgraca@gmail.com",
       FirstEntry: false,
     },
     {
@@ -29,7 +27,6 @@ export default function LoginPage() {
       User_name: "maezinhaVani",
       Pass: "123",
       Email: "reistiago64@gmail.com",
-      Idade: 23,
       FirstEntry: false,
     },
   ];
