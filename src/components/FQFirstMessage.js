@@ -4,9 +4,9 @@ import Lumi from "../../assets/lumis/Lumi.svg";
 
 export default function FQFirstMessage({ modalVisible, CloseModal }) {
   const sentence =
-    "  Para começar vou te fazer umas perguntinhas para saber o que te mais preocupa e te conhecer melhor! Vamos a isso?";
+    "Para começar vou te fazer umas perguntinhas para saber o que te mais preocupa e te conhecer melhor! Vamos a isso?";
   const [displayedText, setDisplayedText] = useState(""); // Text displayed progressively
-  const typingSpeed = 70; // Typing speed in milliseconds
+  const typingSpeed = 50; // Typing speed in milliseconds
 
   useEffect(() => {
     let currentIndex = 0;
