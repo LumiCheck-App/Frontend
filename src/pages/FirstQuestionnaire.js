@@ -20,7 +20,7 @@ export default function FirstQuestionnaire() {
   const [AddiCards, setAddiCards] = useState(true);
   const [questions, setQuestions] = useState(false);
   const [finalmessage, setFinalMessage] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleProgress = (quantity, array_id, part) => {
     progress.value = withTiming(progress.value + quantity, { duration: 500 });

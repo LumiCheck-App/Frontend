@@ -38,7 +38,6 @@ export default function AddictionCards({
   }
 
   const rotateAnim = useRef(new Animated.Value(0)).current;
-  const rotateAnim2 = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     startAnimation();
