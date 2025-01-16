@@ -4,9 +4,9 @@ Bem-vindo ao Frontend da LumiCheck!
 
 ---
 
-## Como Rodar o Projeto
+## Como Executar o Projet
 
-1. Ter o Node.js instalado.
+1. Ter uma versão recente do Node.js instalada.
 2. Instala as dependências:
    ```bash
    npm install
@@ -24,16 +24,14 @@ Bem-vindo ao Frontend da LumiCheck!
 - Após rodar `npm start`, um QR Code vai aparecer no terminal.
 - Dá Scan do QR Code no app Expo Go.
   
-> **Nota:** Sempre que fizeres alterações no código, tens de atualizar manualmente o app no telemóvel (clicando na tecla 'r' no terminal).
+### 2. No Android Studio
+- Quando `npm start` é executado, podes clicar no 'a' para abrir o simulador de smartphone do Android Studio.
+- Isto só funciona se já o tiveres instalado e configurado com o SDK correto.
 
-### 2. Versão Web
-- Quando `npm start` é executado, podes clicar no 'w' para abrir a versão web.
-- Pressiona `F12` para acessar as ferramentas de dev.
-- No painel de ferramentas, seleciona o modo "Dispositivo Móvel" para veres o projeto na resolução de telemóvel.
 
-> **Nota:** Na versão web, para veres as atualizações após alterações no código, tens de abrir uma nova tab.
+> **Nota:** Sempre que se fizer alterações no código, tem de se atualizar manualmente o app no telemóvel (clicando na tecla 'r' no terminal).
 
 ---
 
-GL Bro!
+Alguma dúvida não hesite em contactar algum dos desenvolvedores.
 
