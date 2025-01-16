@@ -70,7 +70,7 @@ export default function FirstFiveQuestions({ onButtonClick }) {
 
   return (
     <View className="h-5/6 w-screen px-6 items-center">
-      <Text className="text-2xl font-bold text-dark-gray">
+      <Text className="text-2xl font-quickbold text-dark-gray">
         Para cada uma das afirmações seguintes, sobre o teu uso da internet,
         seleciona um número onde 1 é Raramente e 5 Sempre
       </Text>
@@ -94,7 +94,7 @@ export default function FirstFiveQuestions({ onButtonClick }) {
           className="bg-yellow rounded-lg w-full py-3 items-center"
           onPress={handleAnswers}
         >
-          <Text className="text-xl text-white font-bold">Próxima pergunta</Text>
+          <Text className="text-xl text-white font-quickbold">Próxima pergunta</Text>
         </TouchableOpacity>
       </View>
     </View>

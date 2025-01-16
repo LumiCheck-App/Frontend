@@ -65,7 +65,7 @@ export default function SwipeableCard({ card, index, onSwipe }) {
         style={animatedStyle}
       >
         <Image source={card.image} />
-        <Text className="text-lg font-medium font-regular">{card.text}</Text>
+        <Text className="text-lg font-medium font-quickregular">{card.text}</Text>
       </Animated.View>
     </PanGestureHandler>
   );

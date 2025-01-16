@@ -23,7 +23,7 @@ export default function CardForOptions({ options }) {
 
                     {/* Conteúdo de progresso */}
                     <View className="flex-1">
-                        <Text className={`text-lg font-bold ${option.textColor} ${!option.icon ? "ml-2" : ""}`}>
+                        <Text className={`text-lg font-quickbold ${option.textColor} ${!option.icon ? "ml-2" : ""}`}>
                             {option.text}
                         </Text>
                     </View>

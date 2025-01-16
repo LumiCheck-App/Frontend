@@ -20,7 +20,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
             <View className="bg-white rounded-lg border border-light-gray p-4">
                 {/* Título */}
                 <View className="mb-4">
-                    <Text className="text-xl font-bold text-black">Perguntas da Lumi</Text>
+                    <Text className="text-xl font-quickbold text-black">Perguntas da Lumi</Text>
                 </View>
 
                 {/* Barras combinadas */}
@@ -49,7 +49,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
                             <Text className="text-sm text-dark-gray mb-2">Negativas</Text>
                             <View className="flex-row items-center justify-center">
                                 <LumiVermelha width={24} height={24} />
-                                <Text className="text-lg font-bold ml-2">{negative}</Text>
+                                <Text className="text-lg font-quickbold ml-2">{negative}</Text>
                             </View>
                         </View>
 
@@ -57,7 +57,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
                             <Text className="text-sm text-dark-gray mb-2">Neutras</Text>
                             <View className="flex-row items-center justify-center">
                                 <LumiLaranja width={24} height={24} />
-                                <Text className="text-lg font-bold ml-2">{neutral}</Text>
+                                <Text className="text-lg font-quickbold ml-2">{neutral}</Text>
                             </View>
                         </View>
 
@@ -65,7 +65,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
                             <Text className="text-sm text-dark-gray mb-2">Positivas</Text>
                             <View className="flex-row items-center justify-center">
                                 <Lumi width={24} height={24} />
-                                <Text className="text-lg font-bold ml-2">{positive}</Text>
+                                <Text className="text-lg font-quickbold ml-2">{positive}</Text>
                             </View>
                         </View>
 

@@ -38,7 +38,6 @@ export default function AddictionCards({
   }
 
   const rotateAnim = useRef(new Animated.Value(0)).current;
-  const rotateAnim2 = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     startAnimation();
@@ -78,7 +77,7 @@ export default function AddictionCards({
       <FQFirstMessage modalVisible={modalVisible} CloseModal={CloseFQMModal} />
       {/* Question Section */}
       <View className="w-screen px-6 mb-16 items-center">
-        <Text className="font-bold text-yellow text-center text-4xl">
+        <Text className="font-quickbold text-yellow text-center text-4xl">
           Que dependências queres monitorizar?
         </Text>
       </View>
@@ -98,7 +97,7 @@ export default function AddictionCards({
       {/* Bottom Actions */}
       <View className="w-screen h-2/5 px-4 flex-row justify-around items-center">
         <View className="flex-row items-center gap-3">
-          <Text className="text-lg text-red font-bold">NÃO</Text>
+          <Text className="text-lg text-red font-quickbold">NÃO</Text>
           <Animated.View
             style={{
               transform: [
@@ -112,7 +111,7 @@ export default function AddictionCards({
             <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
           </Animated.View>
         </View>
-        <Text className="text-gray-600 font-medium font-regular">
+        <Text className="text-gray-600 font-medium font-quickregular">
           Desliza para responder
         </Text>
         <View className="flex-row items-center gap-3">
@@ -129,7 +128,7 @@ export default function AddictionCards({
           >
             <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
           </Animated.View>
-          <Text className="text-lg text-green-600 font-bold">SIM</Text>
+          <Text className="text-lg text-green-600 font-quickbold">SIM</Text>
         </View>
       </View>
     </View>

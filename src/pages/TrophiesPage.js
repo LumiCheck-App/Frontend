@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { useNavigation } from "@react-navigation/native";
 import Task from "../components/Task";
 import TrophyProgress from "../components/TrophyProgress";
@@ -54,11 +54,7 @@ export default function TrophiesPage() {
     };
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -68,7 +64,7 @@ export default function TrophiesPage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Tarefas Diárias</Text>
+                                    <Text className="text-xl font-quickbold text-black">Tarefas Diárias</Text>
                                 </View>
 
                                 {/* Tarefas */}
@@ -78,7 +74,7 @@ export default function TrophiesPage() {
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("AllTasks")}>
                                     <View className="mb-4 flex-row justify-end">
-                                        <Text className="text-md font-bold text-orange">VER TODAS</Text>
+                                        <Text className="text-md font-quickbold text-orange">VER TODAS</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -87,7 +83,7 @@ export default function TrophiesPage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Icon Exclusivo</Text>
+                                    <Text className="text-xl font-quickbold text-black">Icon Exclusivo</Text>
                                 </View>
 
                                 {/* Icon exclusivo */}
@@ -108,7 +104,7 @@ export default function TrophiesPage() {
 
                                 <View className="bg-white rounded-lg border border-light-gray p-4 mt-8">
                                     <View className="mb-4">
-                                        <Text className="text-xl font-bold text-black">Outros Prémios</Text>
+                                        <Text className="text-xl font-quickbold text-black">Outros Prémios</Text>
                                     </View>
                                     {trophiesblocked.map((trophy, index) => (
                                         <TouchableOpacity
@@ -131,7 +127,7 @@ export default function TrophiesPage() {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Sala de Troféus</Text>
+                                    <Text className="text-xl font-quickbold text-black">Sala de Troféus</Text>
                                 </View>
                                 {trophieswon.map((trophy, index) => (
                                     <TouchableOpacity
@@ -148,7 +144,7 @@ export default function TrophiesPage() {
                                 {/* Ver todas */}
                                 <TouchableOpacity onPress={() => navigation.navigate("AllTrophies")}>
                                     <View className="mb-4 flex-row justify-end">
-                                        <Text className="text-md font-bold text-orange">VER SALA</Text>
+                                        <Text className="text-md font-quickbold text-orange">VER SALA</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -158,6 +154,6 @@ export default function TrophiesPage() {
 
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }

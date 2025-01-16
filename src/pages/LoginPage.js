@@ -13,15 +13,13 @@ export default function LoginPage() {
       User_name: "reistiago",
       Pass: "123",
       Email: "reistiago64@gmail.com",
-      Idade: 26,
       FirstEntry: true,
     },
     {
       id: 1,
-      User_name: "eng_gracicha",
+      User_name: "gracinha",
       Pass: "123",
-      Email: "reistiago64@gmail.com",
-      Idade: 21,
+      Email: "rodrigomgraca@gmail.com",
       FirstEntry: false,
     },
     {
@@ -29,7 +27,6 @@ export default function LoginPage() {
       User_name: "maezinhaVani",
       Pass: "123",
       Email: "reistiago64@gmail.com",
-      Idade: 23,
       FirstEntry: false,
     },
   ];
@@ -87,14 +84,14 @@ export default function LoginPage() {
       />
       {/* Page Title*/}
       <View className="h-1/3 justify-center items-center">
-        <Text className=" text-5xl font-bold text-yellow">Login</Text>
+        <Text className=" text-5xl font-quickbold text-yellow">Login</Text>
       </View>
 
       {/*Form*/}
       <View className="w-screen px-16 flex-col gap-6 items-end justify-end">
         {/* Input do username */}
         <TextInput
-          className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+          className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
           onChangeText={setUname}
           value={username}
           placeholder="Username"
@@ -103,7 +100,7 @@ export default function LoginPage() {
           {/* Input da password */}
           <TextInput
             secureTextEntry={securePass}
-            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             onChangeText={setPass}
             value={pass}
             placeholder="Password"
@@ -124,7 +121,7 @@ export default function LoginPage() {
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text className="text-dark-gray font-bold underline underline-offset-1">
+          <Text className="text-dark-gray font-quickbold underline underline-offset-1">
             Esqueceste-te da password?
           </Text>
         </TouchableOpacity>
@@ -134,7 +131,7 @@ export default function LoginPage() {
           className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
           onPress={handleLoginForm}
         >
-          <Text className="text-xl text-white font-bold">Entrar</Text>
+          <Text className="text-xl text-white font-quickbold">Entrar</Text>
         </TouchableOpacity>
       </View>
 

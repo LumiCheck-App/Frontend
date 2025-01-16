@@ -75,7 +75,7 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
       </Svg>
       {/* Text in the center */}
       <Text
-        className="font-regular text-black absolute"
+        className="font-quickregular text-black absolute"
         style={{
           fontSize: size / 4 > 30 ? 30 : size / 4,
         }}

@@ -20,12 +20,12 @@ export default function TermsAndContitionsModal({
       <View className="bg-black opacity-50 absolute w-full h-full top-0"></View>
       <View className="h-screen justify-center items-center w-screen px-5">
         <View className="relative max-h-96 bg-off-white pt-20 pb-10 px-6 flex-col justify-center items-center w-full border-x border-y border-light-gray rounded-lg gap-8">
-          <Text className="text-2xl font-bold text-yellow">
+          <Text className="text-2xl font-quickbold text-yellow">
             Termos e Condições
           </Text>
           <ScrollView persistentScrollbar className="w-full">
-            <Text className="font-bold my-3 text-lg"> Lorem ipsum </Text>
-            <Text className="font-regular">
+            <Text className="font-quickbold my-3 text-lg"> Lorem ipsum </Text>
+            <Text className="font-quickregular">
               Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -34,8 +34,8 @@ export default function TermsAndContitionsModal({
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
             </Text>
-            <Text className="font-bold mb-3 text-lg"> Lorem ipsum </Text>
-            <Text className="font-regular">
+            <Text className="font-quickbold mb-3 text-lg"> Lorem ipsum </Text>
+            <Text className="font-quickregular">
               Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -44,8 +44,8 @@ export default function TermsAndContitionsModal({
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
             </Text>
-            <Text className="font-bold mb-3 text-lg"> Lorem ipsum </Text>
-            <Text className="font-regular">
+            <Text className="font-quickbold mb-3 text-lg"> Lorem ipsum </Text>
+            <Text className="font-quickregular">
               Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip

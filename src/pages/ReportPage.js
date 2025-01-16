@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, Image, TouchableOpacity, Animated } from "react-native";
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import ArcProgressBar from "../components/ArcProgressBar";
 import MostUsedApps from "../components/MostUsedApps";
 import ScreenTimeChart from "../components/ScreenTimeChart";
@@ -16,13 +24,34 @@ export default function ReportPage() {
   const [scrollY] = useState(new Animated.Value(0));
 
   const perguntas = [
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "4" },
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
-    { question: "Mexeste mais no insta hoje do que achas que devias?", score: "3" },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "3",
+    },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "4",
+    },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "3",
+    },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "3",
+    },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "3",
+    },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "3",
+    },
+    {
+      question: "Mexeste mais no insta hoje do que achas que devias?",
+      score: "3",
+    },
   ];
 
   // Animação para Lumi
@@ -44,17 +73,16 @@ export default function ReportPage() {
     extrapolate: "clamp",
   });
 
-
   const number34PositionY = scrollY.interpolate({
     inputRange: [0, 270],
-    outputRange: [0, -147],
+    outputRange: [0, -148],
     extrapolate: "clamp",
   });
 
   // Animações para números e ScoreIcon
   const number34PositionX = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [0, 192],
+    inputRange: [0, 240],
+    outputRange: [0, 185],
     extrapolate: "clamp",
   });
 
@@ -96,24 +124,22 @@ export default function ReportPage() {
   });
 
   return (
-    <LinearGradient
-      colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-      locations={[0, 0.5, 1]}
-      style={{ flex: 1 }}
-    >
+    <BackgroundGradient>
       {/* Efeito de blur no topo da tela */}
-      <Animated.View style={{
-        opacity: backgroundOpacity,
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 160,
-        zIndex: 5,
-      }}>
+      <Animated.View
+        style={{
+          opacity: backgroundOpacity,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 160,
+          zIndex: 5,
+        }}
+      >
         <LinearGradient
           colors={["#ffe5b4", "#ffe5b4", "#fff9ef00"]}
-          locations={[0, 0.60, 1]}
+          locations={[0, 0.6, 1]}
           style={{ flex: 1, opacity: 0.9 }}
         />
       </Animated.View>
@@ -143,7 +169,8 @@ export default function ReportPage() {
           position: "absolute",
           transform: [
             { translateX: number34PositionX },
-            { translateY: number34PositionY }],
+            { translateY: number34PositionY },
+          ],
           zIndex: 10,
           left: "25%",
           top: 220,
@@ -151,7 +178,10 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Animated.Text style={{ fontSize: numberFontSize, color: numberColor }} className="font-bold">
+        <Animated.Text
+          style={{ fontSize: numberFontSize, color: numberColor }}
+          className="font-quickbold"
+        >
           34
         </Animated.Text>
       </Animated.View>
@@ -159,7 +189,10 @@ export default function ReportPage() {
       <Animated.View
         style={{
           position: "absolute",
-          transform: [{ translateX: numberPositionX }, { translateY: numberPositionY },],
+          transform: [
+            { translateX: numberPositionX },
+            { translateY: numberPositionY },
+          ],
           zIndex: 10,
           left: "57%",
           top: 310,
@@ -167,23 +200,21 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Text className="text-lg font-bold">
-          /100
-        </Text>
+        <Text className="text-lg font-quickbold">/100</Text>
         <ScoreIcon width={24} height={24} style={{ marginLeft: 4 }} />
       </Animated.View>
 
       {/* Texto "Uso regular do telemóvel" com opacidade animada */}
       <Animated.View
         style={{
-          transform: [{ translateY: numberPositionY },],
+          transform: [{ translateY: numberPositionY }],
           opacity: textOpacity,
           alignItems: "center",
           zIndex: 10,
           top: 350,
         }}
       >
-        <Text className="text-2xl font-bold text-yellow">
+        <Text className="text-2xl font-quickbold text-yellow">
           Uso regular do telemóvel
         </Text>
       </Animated.View>
@@ -195,14 +226,16 @@ export default function ReportPage() {
         )}
         scrollEventThrottle={16}
       >
-
-        <View className="flex-1 items-center pt-9 px-4 relative" style={{ marginTop: 350 }}>
+        <View
+          className="flex-1 items-center pt-9 px-4 relative"
+          style={{ marginTop: 350 }}
+        >
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
             <ArcProgressBar size={160} strokeWidth={16} progress={35} />
-            <Text className="text-lg font-regular">
+            <Text className="text-lg font-quickregular">
               O seu relatório está quase terminado.
             </Text>
-            <Text className="text-lg font-bold">
+            <Text className="text-lg font-quickbold">
               O LumiScore é apenas uma previsão!
             </Text>
             <TouchableOpacity className="absolute top-2 right-2">
@@ -213,13 +246,13 @@ export default function ReportPage() {
 
         <View className="flex-1 items-center pt-9 px-4">
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative">
-            <Text className="text-lg font-bold">Tempo de ecrã</Text>
+            <Text className="text-lg font-quickbold">Tempo de ecrã</Text>
             <ScreenTimeChart />
           </View>
         </View>
         <View className="flex-1 items-center pt-9 px-4">
           <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4">
-            <Text className="text-lg font-bold">Apps mais usadas</Text>
+            <Text className="text-lg font-quickbold">Apps mais usadas</Text>
             <MostUsedApps />
           </View>
         </View>
@@ -230,17 +263,27 @@ export default function ReportPage() {
 
         <View className="flex-1 items-center px-4">
           {perguntas.slice(0, 3).map((pergunta, index) => (
-            <LumiQuestion key={index} index={index + 1} text={pergunta.question} score={pergunta.score} />
+            <LumiQuestion
+              key={index}
+              index={index + 1}
+              text={pergunta.question}
+              score={pergunta.score}
+            />
           ))}
 
-          <TouchableOpacity onPress={() => navigation.navigate("Perfil", { screen: "AllLumiQuestions" })}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Perfil", { screen: "AllLumiQuestions" })
+            }
+          >
             <View className="mt-2 mb-4 flex-row justify-end w-11/12">
-              <Text className="text-md font-bold text-right text-orange pb-20">VER TODAS</Text>
+              <Text className="text-md font-quickbold text-right text-orange pb-20">
+                VER TODAS
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
-
       </Animated.ScrollView>
-    </LinearGradient >
+    </BackgroundGradient>
   );
 }

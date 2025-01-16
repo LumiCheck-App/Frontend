@@ -13,7 +13,18 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "remote-notification"
+        ],
+        "NSUserTrackingUsageDescription": "Este app utiliza notificações para manter você informado sobre atualizações importantes.",
+        "UIUserNotificationSettings": {
+          "UIUserNotificationTypeAlert": true,
+          "UIUserNotificationTypeBadge": true,
+          "UIUserNotificationTypeSound": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -4,9 +4,9 @@ import Lumi from "../../assets/lumis/Lumi.svg";
 
 export default function FQFirstMessage({ modalVisible, CloseModal }) {
   const sentence =
-    "  Para começar vou te fazer umas perguntinhas para saber o que te mais preocupa e te conhecer melhor! Vamos a isso?";
+    "Para começar vou te fazer umas perguntinhas para saber o que te mais preocupa e te conhecer melhor! Vamos a isso?";
   const [displayedText, setDisplayedText] = useState(""); // Text displayed progressively
-  const typingSpeed = 70; // Typing speed in milliseconds
+  const typingSpeed = 50; // Typing speed in milliseconds
 
   useEffect(() => {
     let currentIndex = 0;
@@ -38,13 +38,13 @@ export default function FQFirstMessage({ modalVisible, CloseModal }) {
         <View className="w-screen px-6">
           <View className="bg-white px-4 py-6 rounded-2xl relative border border-light-gray">
             {/* Animated Typewriter Text */}
-            <Text className="text-black text-lg font-regular">
+            <Text className="text-black text-lg font-quickregular">
               {displayedText}
             </Text>
           </View>
         </View>
         <Lumi width={200} height={200} />
-        <Text className="text-white font-regular text-xl absolute bottom-10">
+        <Text className="text-white font-quickregular text-xl absolute bottom-10">
           Tap to close
         </Text>
       </TouchableOpacity>

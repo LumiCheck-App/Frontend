@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import Task from "../components/Task";
 import TaskFinished from "../components/TaskFinished";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,11 +24,7 @@ export default function AllTasks({ navigation }) {
     ];
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -46,8 +42,8 @@ export default function AllTasks({ navigation }) {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="flex-row items-center justify-between mb-4">
-                                    <Text className="text-xl font-bold text-black">Tarefas Diárias</Text>
-                                    <Text className="text-md font-bold text-orange self-end">7 HORAS</Text>
+                                    <Text className="text-xl font-quickbold text-black">Tarefas Diárias</Text>
+                                    <Text className="text-md font-quickbold text-orange self-end">7 HORAS</Text>
                                 </View>
 
                                 {/* Lista de tarefas */}
@@ -61,7 +57,7 @@ export default function AllTasks({ navigation }) {
                             <View className="w-11/12 mt-8">
                                 {/* Cabeçalho */}
                                 <View className="mb-4">
-                                    <Text className="text-xl font-bold text-black">Tarefas Concluidas</Text>
+                                    <Text className="text-xl font-quickbold text-black">Tarefas Concluidas</Text>
                                 </View>
 
                                 {/* Lista de tarefas */}
@@ -75,6 +71,6 @@ export default function AllTasks({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }	

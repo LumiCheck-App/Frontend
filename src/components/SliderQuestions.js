@@ -61,7 +61,7 @@ export default function SliderQuestions({
       style={animatedStyle}
       className="absolute w-full h-72 py-8 bg-white rounded-3xl border border-gray-300 px-4 items-center justify-center"
     >
-      <Text className="font-regular text-lg text-dark-gray">{question}</Text>
+      <Text className="font-quickregular text-lg text-dark-gray">{question}</Text>
       <Slider
         style={{ width: "100%", height: 70, zIndex: 0 }}
         step={1}
@@ -75,7 +75,7 @@ export default function SliderQuestions({
         upperLimit={20}
         lowerLimit={0}
       />
-      <Text className="font-bold text-lg text-black">
+      <Text className="font-quickbold text-lg text-black">
         {value} : {getFeedback(value)}
       </Text>
     </Animated.View>

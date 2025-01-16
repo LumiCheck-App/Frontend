@@ -7,7 +7,7 @@ import {
     ScrollView,
     Image,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import BackgroundGradient from "../components/BackgroundGradient";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
@@ -40,11 +40,7 @@ export default function EditProfile({ navigation }) {
     };
 
     return (
-        <LinearGradient
-            colors={["#ffe5b4", "#fff9ef", "#fff9ef"]}
-            locations={[0, 0.5, 1]}
-            style={{ flex: 1 }}
-        >
+        <BackgroundGradient>
             <ScrollView>
                 <View className="flex-1 py-8 px-4">
                     <View className="flex-1">
@@ -77,9 +73,9 @@ export default function EditProfile({ navigation }) {
                             </TouchableOpacity>
 
                             <View className="w-11/12 mt-6">
-                                <Text className="text-xl font-bold text-black mb-4">Username</Text>
+                                <Text className="text-xl font-quickbold text-black mb-4">Username</Text>
                                 <TextInput
-                                    className="bg-white text-dark-gray border border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+                                    className="bg-white text-dark-gray border border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
                                     onChangeText={setUname}
                                     value={username}
                                     placeholder="Username"
@@ -87,9 +83,9 @@ export default function EditProfile({ navigation }) {
                             </View>
 
                             <View className="w-11/12 mt-6">
-                                <Text className="text-xl font-bold text-black mb-4">Email</Text>
+                                <Text className="text-xl font-quickbold text-black mb-4">Email</Text>
                                 <TextInput
-                                    className="bg-white text-dark-gray border border-light-gray rounded-lg p-4 placeholder:font-bold placeholder:text-xl placeholder:text-light-gray"
+                                    className="bg-white text-dark-gray border border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
                                     onChangeText={setMail}
                                     value={mail}
                                     placeholder="Username"
@@ -100,7 +96,7 @@ export default function EditProfile({ navigation }) {
                                 className="w-11/12 bg-yellow rounded-lg py-3 mt-20"
                                 onPress={handleSaveChanges}
                             >
-                                <Text className="text-xl text-white font-bold text-center">
+                                <Text className="text-xl text-white font-quickbold text-center">
                                     Guardar Alterações
                                 </Text>
                             </TouchableOpacity>
@@ -108,6 +104,6 @@ export default function EditProfile({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </BackgroundGradient>
     );
 }

@@ -19,8 +19,8 @@ const Achievements = ({ text, description, icon }) => {
                 {/* Conteúdo de progresso */}
                 <View className="flex-1">
                     {/* Texto */}
-                    <Text className="text-lg font-bold">{text}</Text>
-                    <Text className="text-lg font-regular text-light-gray">{descriptionCutted}</Text>
+                    <Text className="text-lg font-quickbold">{text}</Text>
+                    <Text className="text-lg font-quickregular text-light-gray">{descriptionCutted}</Text>
                 </View>
 
                 <View className="ml-auto">
