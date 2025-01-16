@@ -9,12 +9,32 @@ import QuestionIcon from "../../assets/icons/question.svg";
 import HelpContactsIcon from "../../assets/icons/helpcontacts.svg";
 import { FontAwesome } from "@expo/vector-icons";
 import ArcProgressBar from "../components/ArcProgressBar";
+import { requestNotificationPermission, sendPushNotification } from "../components/NotificationSetup";
+import * as Notifications from "expo-notifications";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function HomePage() {
+    const navigation = useNavigation();
     const [dailyTasks, setDailyTasks] = useState([]);
     const [timeLeft, setTimeLeft] = useState("");
     const [scrollY] = useState(new Animated.Value(0));
     const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
+    const [progress, setProgress] = useState(0); // Estado do progresso
+
+    useEffect(() => {
+        const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+            const { screen } = response.notification.request.content.data;
+            if (screen && navigation) {
+                //adiconar tempo de espera de 30 segundos
+                setProgress(35)
+                navigation.navigate(screen); // Redirecionar para a tela especificada
+            }
+        });
+
+        return () => subscription.remove(); // Limpar o listener ao desmontar o componente
+    }, [navigation]); // Adicione `navigation` como dependência
+
 
     // Função para calcular o tempo restante até a meia-noite
     const calculateTimeLeft = () => {
@@ -173,15 +193,29 @@ export default function HomePage() {
                         {!isMonitoring ? (
                             <TouchableOpacity
                                 className="bg-yellow rounded-lg w-11/12 py-3 mt-12 items-center"
-                                onPress={() => setIsMonitoring(true)}
+                                onPress={async () => {
+                                    const permissionGranted = await requestNotificationPermission();
+                                    if (permissionGranted) {
+                                        // Configurar progresso inicial como 0%
+                                        setIsMonitoring(true);
+
+                                        // Agendar notificação com 30 segundos de atraso
+                                        sendPushNotification(
+                                            "Pergunta da Lumi",
+                                            "A Lumi tem uma nova pergunta para tu responderes!",
+                                            { screen: "QuestionPage" } // Dados para redirecionamento
+                                        );
+                                    }
+                                }}
                             >
                                 <Text className="text-xl text-white font-quickbold">Começar Monitorização</Text>
                             </TouchableOpacity>
+
                         ) : (
                             <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 flex-row items-center">
                                 {/* Ícone circular à esquerda */}
                                 <View className="flex-row items-center flex-1">
-                                    <ArcProgressBar size={80} strokeWidth={8} progress={35} />
+                                    <ArcProgressBar size={80} strokeWidth={8} progress={progress} />
                                     <View className="flex-1 mr-4 py-8">
                                         <Text className="font-quickbold text-md text-black text-center">
                                             O seu relatório está quase terminado!

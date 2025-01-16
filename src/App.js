@@ -32,6 +32,7 @@ import Settings from "./pages/Settings";
 import EditProfile from "./pages/EditProfile";
 import AllLumiQuestions from "./pages/AllLumiQuestions";
 import AllTrophies from "./pages/AllTrophies";
+import QuestionPage from "./pages/QuestionPage";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -163,6 +164,10 @@ export default function App() {
           <Stack.Screen
             name="HomeTabs"
             component={HomeTabs}
+          />
+          <Stack.Screen
+            name="QuestionPage"
+            component={QuestionPage}
           />
           <Stack.Screen
             name="TrophyDetail"
