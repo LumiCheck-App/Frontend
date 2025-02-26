@@ -73,12 +73,17 @@ export default function MostUsedApps() {
         }
 
         return (
-          <View key={`data_${index}`} className="flex-row mt-3">
+          <View
+            key={`data_${index}`}
+            className="flex-row mt-3"
+            accessibilityLabel="Tempo de uso da aplicação"
+          >
             <View className="w-1/6">
               <Image
                 source={Data.image}
                 className="w-6 h-6"
                 resizeMode="contain"
+                accessibilityRole="image"
               />
             </View>
 

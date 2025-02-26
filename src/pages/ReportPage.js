@@ -160,7 +160,7 @@ export default function ReportPage() {
         }}
         className="flex-1 items-center"
       >
-        <Lumi width={140} height={140} />
+        <Lumi width={140} height={140} accessibilityRole="image" />
       </Animated.View>
 
       {/* Animação para números e ScoreIcon */}
@@ -181,6 +181,7 @@ export default function ReportPage() {
         <Animated.Text
           style={{ fontSize: numberFontSize, color: numberColor }}
           className="font-quickbold"
+          accessibilityRole="text"
         >
           34
         </Animated.Text>
@@ -200,8 +201,15 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Text className="text-lg font-quickbold">/100</Text>
-        <ScoreIcon width={24} height={24} style={{ marginLeft: 4 }} />
+        <Text className="text-lg font-quickbold" accessibilityRole="text">
+          /100
+        </Text>
+        <ScoreIcon
+          width={24}
+          height={24}
+          style={{ marginLeft: 4 }}
+          accessibilityRole="image"
+        />
       </Animated.View>
 
       {/* Texto "Uso regular do telemóvel" com opacidade animada */}
@@ -214,7 +222,10 @@ export default function ReportPage() {
           top: 350,
         }}
       >
-        <Text className="text-2xl font-quickbold text-yellow">
+        <Text
+          className="text-2xl font-quickbold text-yellow"
+          accessibilityRole="text"
+        >
           Uso regular do telemóvel
         </Text>
       </Animated.View>
@@ -229,30 +240,56 @@ export default function ReportPage() {
         <View
           className="flex-1 items-center pt-9 px-4 relative"
           style={{ marginTop: 350 }}
+          accessible={true}
         >
-          <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4">
+          <View
+            className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4"
+            accessible={true}
+          >
             <ArcProgressBar size={160} strokeWidth={16} progress={35} />
-            <Text className="text-lg font-quickregular">
+            <Text
+              className="text-lg font-quickregular"
+              accessibilityRole="text"
+            >
               O seu relatório está quase terminado.
             </Text>
-            <Text className="text-lg font-quickbold">
+            <Text className="text-lg font-quickbold" accessibilityRole="text">
               O LumiScore é apenas uma previsão!
             </Text>
-            <TouchableOpacity className="absolute top-2 right-2">
+            <TouchableOpacity
+              className="absolute top-2 right-2"
+              accessibilityRole="button"
+            >
               <FontAwesome name="gear" size={20} color="#d0d0d0" />
             </TouchableOpacity>
           </View>
         </View>
 
         <View className="flex-1 items-center pt-9 px-4">
-          <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative">
-            <Text className="text-lg font-quickbold">Tempo de ecrã</Text>
+          <View
+            accessible={true}
+            accessibilityLabel="Gráfico de Linhas com tempo de ecrã"
+            className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative"
+          >
+            <Text className="text-lg font-quickbold" accessibilityRole="header">
+              Tempo de ecrã
+            </Text>
             <ScreenTimeChart />
+
+            <Text
+              accessibilityLabel="Teste de Leitura de Texto vazio"
+              accessibilityRole="text"
+            ></Text>
           </View>
         </View>
         <View className="flex-1 items-center pt-9 px-4">
-          <View className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4">
-            <Text className="text-lg font-quickbold">Apps mais usadas</Text>
+          <View
+            className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
+            accessible={true}
+          >
+            <Text className="text-lg font-quickbold" accessibilityRole="header">
+              Apps mais usadas
+            </Text>
             <MostUsedApps />
           </View>
         </View>
@@ -275,6 +312,7 @@ export default function ReportPage() {
             onPress={() =>
               navigation.navigate("Perfil", { screen: "AllLumiQuestions" })
             }
+            accessibilityRole="link"
           >
             <View className="mt-2 mb-4 flex-row justify-end w-11/12">
               <Text className="text-md font-quickbold text-right text-orange pb-20">
