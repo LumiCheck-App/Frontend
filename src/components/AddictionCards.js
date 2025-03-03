@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, Text, Image, Animated, Easing } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import SwipeableCard from "./SwipeableCard";
-import FQFirstMessage from "./FQFirstMessage";
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, Image, Animated, Easing } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import SwipeableCard from './SwipeableCard';
+import FQFirstMessage from './FQFirstMessage';
 
-import RedesSociais from "../../assets/RedesSociais.png";
-import JogosOnline from "../../assets/JogosOnline.png";
-import Jogos from "../../assets/Jogos.png";
-import ComprasOnline from "../../assets/ComprasOnline.png";
-import SwipeIndicator from "../../assets/icons/SwipeIndicator.svg";
+import RedesSociais from '../../assets/RedesSociais.png';
+import JogosOnline from '../../assets/JogosOnline.png';
+import Jogos from '../../assets/Jogos.png';
+import ComprasOnline from '../../assets/ComprasOnline.png';
+import SwipeIndicator from '../../assets/icons/SwipeIndicator.svg';
 
 export default function AddictionCards({
   onCardSwipe,
@@ -16,20 +16,20 @@ export default function AddictionCards({
   CloseModal,
 }) {
   const [cards, setCards] = useState([
-    { id: 0, text: "Redes Sociais", image: RedesSociais },
-    { id: 1, text: "Jogos de sorte", image: JogosOnline },
-    { id: 2, text: "Jogos", image: Jogos },
-    { id: 3, text: "Compras Online", image: ComprasOnline },
+    { id: 0, text: 'Redes Sociais', image: RedesSociais },
+    { id: 1, text: 'Jogos de sorte', image: JogosOnline },
+    { id: 2, text: 'Jogos', image: Jogos },
+    { id: 3, text: 'Compras Online', image: ComprasOnline },
   ]);
 
   const progress = 50 / cards.length;
   const handleSwipe = (id, direction) => {
-    if (direction === "right") {
+    if (direction === 'right') {
       //send to database
     }
 
     if (onCardSwipe) {
-      onCardSwipe(progress, id, "SwipeableCard");
+      onCardSwipe(progress, id, 'SwipeableCard');
     }
   };
 
@@ -70,7 +70,6 @@ export default function AddictionCards({
     inputRange: [0, 50],
     outputRange: ['0deg', '-50deg'], // Rotação espelhada
   });
-
 
   return (
     <View className="flex-1 ">

@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import PasswordResetModal from "../components/PasswordResetModal";
-import SpeechBubble from "../components/SpeechBubble";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import PasswordResetModal from '../components/PasswordResetModal';
+import SpeechBubble from '../components/SpeechBubble';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginPage() {
   //DB Simulation
   const Users = [
     {
       id: 0,
-      User_name: "reistiago",
-      Pass: "123",
-      Email: "reistiago64@gmail.com",
+      User_name: 'reistiago',
+      Pass: '123',
+      Email: 'reistiago64@gmail.com',
       FirstEntry: true,
     },
     {
       id: 1,
-      User_name: "gracinha",
-      Pass: "123",
-      Email: "rodrigomgraca@gmail.com",
+      User_name: 'gracinha',
+      Pass: '123',
+      Email: 'rodrigomgraca@gmail.com',
       FirstEntry: false,
     },
     {
       id: 2,
-      User_name: "maezinhaVani",
-      Pass: "123",
-      Email: "reistiago64@gmail.com",
+      User_name: 'maezinhaVani',
+      Pass: '123',
+      Email: 'reistiago64@gmail.com',
       FirstEntry: false,
     },
   ];
@@ -34,8 +34,8 @@ export default function LoginPage() {
   const navigation = useNavigation();
 
   //State Variables
-  const [username, setUname] = useState("");
-  const [pass, setPass] = useState("");
+  const [username, setUname] = useState('');
+  const [pass, setPass] = useState('');
   const [securePass, setSecurePass] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -43,8 +43,8 @@ export default function LoginPage() {
 
   //Function to clear Login Form
   const clearLoginForm = () => {
-    setUname("");
-    setPass("");
+    setUname('');
+    setPass('');
   };
 
   //Function to check if Username exists and if Password corresponds to user in Login Form
@@ -52,8 +52,8 @@ export default function LoginPage() {
     const user = Users.find((user) => user.User_name === username);
 
     //From Validation
-    if (username === "" || pass === "") {
-      console.log("Fill all inputs.");
+    if (username === '' || pass === '') {
+      console.log('Fill all inputs.');
     } else {
       if (user != undefined) {
         if (user.Pass === pass) {
@@ -61,15 +61,15 @@ export default function LoginPage() {
           console.log(username, pass);
           clearLoginForm();
           if (user.FirstEntry) {
-            navigation.replace("FirstQuestionnaire");
+            navigation.replace('FirstQuestionnaire');
           } else {
-            navigation.replace("HomeTabs");
+            navigation.replace('HomeTabs');
           }
         } else {
-          console.log("Wrong password.");
+          console.log('Wrong password.');
         }
       } else {
-        console.log("Username does not exist.");
+        console.log('Username does not exist.');
       }
     }
   }
@@ -114,7 +114,7 @@ export default function LoginPage() {
             }}
           >
             <FontAwesome
-              name={securePass ? "eye-slash" : "eye"}
+              name={securePass ? 'eye-slash' : 'eye'}
               size={20}
               color="#d0d0d0"
             />

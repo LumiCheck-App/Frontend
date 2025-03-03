@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Text } from "react-native";
+import React, { useState } from 'react';
+import { Text } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-} from "react-native-reanimated";
-import Slider from "@react-native-community/slider";
+} from 'react-native-reanimated';
+import Slider from '@react-native-community/slider';
 
 export default function SliderQuestions({
   question,
@@ -35,19 +35,19 @@ export default function SliderQuestions({
   const getFeedback = (value) => {
     switch (value) {
       case 0:
-        return "Não aplicável";
+        return 'Não aplicável';
       case 1:
-        return "Raramente";
+        return 'Raramente';
       case 2:
-        return "Ocasionalmente";
+        return 'Ocasionalmente';
       case 3:
-        return "Frequentemente";
+        return 'Frequentemente';
       case 4:
-        return "Muitas Vezes";
+        return 'Muitas Vezes';
       case 5:
-        return "Sempre";
+        return 'Sempre';
       default:
-        return "";
+        return '';
     }
   };
 
@@ -61,9 +61,11 @@ export default function SliderQuestions({
       style={animatedStyle}
       className="absolute w-full h-72 py-8 bg-white rounded-3xl border border-gray-300 px-4 items-center justify-center"
     >
-      <Text className="font-quickregular text-lg text-dark-gray">{question}</Text>
+      <Text className="font-quickregular text-lg text-dark-gray">
+        {question}
+      </Text>
       <Slider
-        style={{ width: "100%", height: 70, zIndex: 0 }}
+        style={{ width: '100%', height: 70, zIndex: 0 }}
         step={1}
         value={value}
         onSlidingComplete={(val) => changeQuestionStatus(val)}

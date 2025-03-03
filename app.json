@@ -15,9 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "remote-notification"
-        ],
+        "UIBackgroundModes": ["remote-notification"],
         "NSUserTrackingUsageDescription": "Este app utiliza notificações para manter você informado sobre atualizações importantes.",
         "UIUserNotificationSettings": {
           "UIUserNotificationTypeAlert": true,
@@ -36,8 +34,6 @@
       "favicon": "./assets/lumis/Lumi4k.png",
       "bundler": "metro"
     },
-    "plugins": [
-      "expo-font"
-    ]
+    "plugins": ["expo-font"]
   }
 }

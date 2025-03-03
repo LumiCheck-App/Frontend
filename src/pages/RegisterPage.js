@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   TextInput,
   ScrollView,
-} from "react-native";
-import { CheckBox } from "react-native-elements";
-import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import TermsAndContitionsModal from "../components/TermsAndConditionsModal";
-import { Ionicons } from "@expo/vector-icons";
+} from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function RegisterPage() {
   const navigation = useNavigation();
@@ -18,26 +18,21 @@ export default function RegisterPage() {
   //DB Simulation
   const Users = [];
 
-  const [username, setUname] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [passConf, setPassConf] = useState("");
+  const [username, setUname] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [passConf, setPassConf] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [hasError, setHasError] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   function RedirectToLogin() {
-    navigation.replace("Login");
+    navigation.replace('Login');
   }
 
   function handleRegistration() {
-    if (
-      username != "" &&
-      email != "" &&
-      pass != "" &&
-      passConf != ""
-    ) {
+    if (username != '' && email != '' && pass != '' && passConf != '') {
       if (pass === passConf) {
         if (isChecked) {
           const user = {
@@ -47,15 +42,15 @@ export default function RegisterPage() {
             Email: email,
           };
           Users.push(user);
-          navigation.replace("Login");
+          navigation.replace('Login');
         }
       } else {
         setHasError(true);
-        setError("As passwords devem coincidir");
+        setError('As passwords devem coincidir');
       }
     } else {
       setHasError(true);
-      setError("Deve preencher todos os campos do formulário");
+      setError('Deve preencher todos os campos do formulário');
       console.log(Users.length);
     }
   }
@@ -70,9 +65,7 @@ export default function RegisterPage() {
 
         {/* Page Title*/}
         <View className="w-11/12 flex-row items-center pt-12 px-8">
-          <TouchableOpacity
-            onPress={RedirectToLogin}
-          >
+          <TouchableOpacity onPress={RedirectToLogin}>
             <Ionicons name="arrow-back" size={24} color="black" />
           </TouchableOpacity>
         </View>
@@ -117,7 +110,7 @@ export default function RegisterPage() {
 
           <View className="flex-row items-center gap-2">
             <CheckBox
-              containerStyle={{ width: "0", paddingLeft: 0 }}
+              containerStyle={{ width: '0', paddingLeft: 0 }}
               checked={isChecked}
               onPress={() => setIsChecked(!isChecked)}
               checkedColor="#ff9d00"
@@ -129,7 +122,9 @@ export default function RegisterPage() {
               </Text>
             </TouchableOpacity>
           </View>
-          {hasError && <Text className="text-red-500 font-quickbold">{error}</Text>}
+          {hasError && (
+            <Text className="text-red-500 font-quickbold">{error}</Text>
+          )}
 
           {/* Botão do form */}
           <TouchableOpacity

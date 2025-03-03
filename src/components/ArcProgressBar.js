@@ -1,9 +1,8 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Svg, { Path } from "react-native-svg";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
 export default function ArcProgressBar({ size, strokeWidth, progress }) {
-
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius * 0.8; // 80% of the circle
   const strokeDashoffset = circumference - (progress / 100) * circumference;
@@ -13,13 +12,13 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
     const start = polarToCartesian(cx, cy, r, endAngle);
     const end = polarToCartesian(cx, cy, r, startAngle);
 
-    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+    const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
     return [
-      "M",
+      'M',
       start.x,
       start.y,
-      "A",
+      'A',
       r,
       r,
       0,
@@ -27,7 +26,7 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
       0,
       end.x,
       end.y,
-    ].join(" ");
+    ].join(' ');
   };
 
   // Helper to convert polar coordinates to Cartesian
@@ -41,7 +40,11 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
 
   return (
     <View style={styles.container}>
-      <Svg width={size} height={size} style={{ transform: [{ rotateX: "180deg" }] }}>
+      <Svg
+        width={size}
+        height={size}
+        style={{ transform: [{ rotateX: '180deg' }] }}
+      >
         {/* Background Arc */}
         <Path
           d={createArcPath(size / 2, size / 2, radius, 40, 320)} // 80% of the circle (from 40° to 320°)
@@ -88,8 +91,8 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    alignItems: "center",
-    justifyContent: "center"
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
