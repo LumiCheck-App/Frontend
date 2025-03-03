@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Text,
   View,
@@ -26,31 +26,38 @@ export default function ReportPage() {
   const perguntas = [
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "3",
+      score_num: "3",
+      score_caption: "Frequentemente",
     },
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "4",
+      score_num: "4",
+      score_caption: "Muitas Vezes",
     },
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "3",
+      score_num: "3",
+      score_caption: "Frequentemente",
     },
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "3",
+      score_num: "3",
+      score_caption: "Frequentemente",
     },
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "3",
+      score_num: "3",
+      score_caption: "Frequentemente",
     },
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "3",
+      score_num: "3",
+      score_caption: "Frequentemente",
     },
     {
       question: "Mexeste mais no insta hoje do que achas que devias?",
-      score: "3",
+      score_num: "3",
+      score_caption: "Frequentemente",
     },
   ];
 
@@ -160,7 +167,12 @@ export default function ReportPage() {
         }}
         className="flex-1 items-center"
       >
-        <Lumi width={140} height={140} accessibilityRole="image" />
+        <Lumi
+          width={140}
+          height={140}
+          accessibilityRole="image"
+          accessibilityLabel="Imagem da Lumi"
+        />
       </Animated.View>
 
       {/* Animação para números e ScoreIcon */}
@@ -209,6 +221,7 @@ export default function ReportPage() {
           height={24}
           style={{ marginLeft: 4 }}
           accessibilityRole="image"
+          accessibilityLabel="Icone de classificação"
         />
       </Animated.View>
 
@@ -246,7 +259,12 @@ export default function ReportPage() {
             className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4"
             accessible={true}
           >
-            <ArcProgressBar size={160} strokeWidth={16} progress={35} />
+            <ArcProgressBar
+              size={160}
+              strokeWidth={16}
+              progress={35}
+              accessibilityLabel="Arco de progresso"
+            />
             <Text
               className="text-lg font-quickregular"
               accessibilityRole="text"
@@ -258,6 +276,7 @@ export default function ReportPage() {
             </Text>
             <TouchableOpacity
               className="absolute top-2 right-2"
+              accessibilityLabel="Definições de monitorização"
               accessibilityRole="button"
             >
               <FontAwesome name="gear" size={20} color="#d0d0d0" />
@@ -275,11 +294,6 @@ export default function ReportPage() {
               Tempo de ecrã
             </Text>
             <ScreenTimeChart />
-
-            <Text
-              accessibilityLabel="Teste de Leitura de Texto vazio"
-              accessibilityRole="text"
-            ></Text>
           </View>
         </View>
         <View className="flex-1 items-center pt-9 px-4">
@@ -304,7 +318,8 @@ export default function ReportPage() {
               key={index}
               index={index + 1}
               text={pergunta.question}
-              score={pergunta.score}
+              score={pergunta.score_num}
+              caption={pergunta.score_caption}
             />
           ))}
 
@@ -315,7 +330,10 @@ export default function ReportPage() {
             accessibilityRole="link"
           >
             <View className="mt-2 mb-4 flex-row justify-end w-11/12">
-              <Text className="text-md font-quickbold text-right text-orange pb-20">
+              <Text
+                className="text-md font-quickbold text-right text-orange pb-20"
+                accessibilityLabel="Ver todas as tuas respostas"
+              >
                 VER TODAS
               </Text>
             </View>

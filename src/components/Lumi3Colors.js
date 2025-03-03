@@ -15,7 +15,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
   const positiveWidth = `${(positive / total) * adjustedWidthFactor}%`;
 
   return (
-    <View className="w-11/12 mt-8">
+    <View className="w-11/12 mt-8" accessible={true}>
       <View className="bg-white rounded-lg border border-light-gray p-4">
         {/* Título */}
         <View className="mb-4">
@@ -48,74 +48,58 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
 
         <View className="flex-row items-center">
           {/* Barra Negativa */}
-          <View
-            className="flex-row items-center w-full justify-between"
-            accessible={true}
-          >
-            <View
-              className="flex-col items-center"
-              accessibilityLabel="Lumi Negativa"
-              accessible={true}
-            >
+          <View className="flex-row items-center w-full justify-between">
+            <View className="flex-col items-center">
               <Text
                 className="text-sm text-dark-gray mb-2"
                 accessibilityRole="text"
+                accessibilityLabel={`Respostas negativas ${negative}`}
               >
                 Negativas
               </Text>
               <View className="flex-row items-center justify-center">
-                <LumiVermelha
-                  width={24}
-                  height={24}
-                  accessibilityRole="image"
-                />
+                <LumiVermelha width={24} height={24} />
                 <Text
                   className="text-lg font-quickbold ml-2"
-                  accessibilityRole="text"
+                  importantForAccessibility="no-hide-descendants"
                 >
                   {negative}
                 </Text>
               </View>
             </View>
 
-            <View
-              className="flex-col items-center"
-              accessibilityLabel="Lumi Neutra"
-              accessible={true}
-            >
+            <View className="flex-col items-center">
               <Text
                 className="text-sm text-dark-gray mb-2"
                 accessibilityRole="text"
+                accessibilityLabel={`Respostas neutras ${neutral}`}
               >
                 Neutras
               </Text>
               <View className="flex-row items-center justify-center">
-                <LumiLaranja width={24} height={24} accessibilityRole="image" />
+                <LumiLaranja width={24} height={24} />
                 <Text
                   className="text-lg font-quickbold ml-2"
-                  accessibilityRole="text"
+                  importantForAccessibility="no-hide-descendants"
                 >
                   {neutral}
                 </Text>
               </View>
             </View>
 
-            <View
-              className="flex-col items-center"
-              accessibilityLabel="Lumi Positiva"
-              accessible={true}
-            >
+            <View className="flex-col items-center">
               <Text
                 className="text-sm text-dark-gray mb-2"
                 accessibilityRole="text"
+                accessibilityLabel={`Respostas positivas ${positive}`}
               >
                 Positivas
               </Text>
               <View className="flex-row items-center justify-center">
-                <Lumi width={24} height={24} accessibilityRole="image" />
+                <Lumi width={24} height={24} />
                 <Text
                   className="text-lg font-quickbold ml-2"
-                  accessibilityRole="text"
+                  importantForAccessibility="no-hide-descendants"
                 >
                   {positive}
                 </Text>
