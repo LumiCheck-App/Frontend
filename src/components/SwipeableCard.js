@@ -1,15 +1,15 @@
-import React from "react";
-import { Dimensions, Text, Image } from "react-native";
-import { PanGestureHandler } from "react-native-gesture-handler";
+import React from 'react';
+import { Dimensions, Text, Image } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedGestureHandler,
   withSpring,
   runOnJS,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 export default function SwipeableCard({ card, index, onSwipe }) {
   const translateX = useSharedValue(0);
@@ -27,11 +27,11 @@ export default function SwipeableCard({ card, index, onSwipe }) {
     onEnd: (event) => {
       if (event.translationX > width / 4) {
         // Swiped right
-        runOnJS(onSwipe)("right"); // Trigger the callback immediately
+        runOnJS(onSwipe)('right'); // Trigger the callback immediately
         translateX.value = withSpring(width * 1.5); // Continue the animation
       } else if (event.translationX < -width / 4) {
         // Swiped left
-        runOnJS(onSwipe)("left"); // Trigger the callback immediately
+        runOnJS(onSwipe)('left'); // Trigger the callback immediately
         translateX.value = withSpring(-width * 1.5); // Continue the animationr
       } else {
         translateX.value = withSpring(0);
@@ -41,8 +41,8 @@ export default function SwipeableCard({ card, index, onSwipe }) {
   });
 
   const animatedStyle = useAnimatedStyle(() => ({
-    top: "50%",
-    left: "50%",
+    top: '50%',
+    left: '50%',
     transform: [
       // Center the cards
       { translateX: -width * 0.3 }, // Offset by half of card's width (50%)
@@ -65,7 +65,9 @@ export default function SwipeableCard({ card, index, onSwipe }) {
         style={animatedStyle}
       >
         <Image source={card.image} />
-        <Text className="text-lg font-medium font-quickregular">{card.text}</Text>
+        <Text className="text-lg font-medium font-quickregular">
+          {card.text}
+        </Text>
       </Animated.View>
     </PanGestureHandler>
   );

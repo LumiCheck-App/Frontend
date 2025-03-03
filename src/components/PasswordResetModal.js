@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Modal } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function PasswordResetModal({
   modalVisible,
@@ -8,11 +8,11 @@ export default function PasswordResetModal({
   Users,
 }) {
   // Modal State
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [code, setCode] = useState(0);
-  const [userCode, setUserCode] = useState("");
-  const [Newpass, setNewPass] = useState("");
-  const [PassConfirm, setPassConfirm] = useState("");
+  const [userCode, setUserCode] = useState('');
+  const [Newpass, setNewPass] = useState('');
+  const [PassConfirm, setPassConfirm] = useState('');
   const [emailForm, setEmailForm] = useState(true);
   const [error, setError] = useState(false);
   const [PassChangeVal, setPassChangeVal] = useState(false);
@@ -43,9 +43,9 @@ export default function PasswordResetModal({
         setPassChangeVal(true);
 
         // Clear Inputs
-        setNewPass("");
-        setPassConfirm("");
-        setUserCode("");
+        setNewPass('');
+        setPassConfirm('');
+        setUserCode('');
 
         // Close Modal after success
         setTimeout(() => {
@@ -106,7 +106,9 @@ export default function PasswordResetModal({
                 className="bg-yellow rounded-lg w-full py-3 items-center"
                 onPress={SendEmail}
               >
-                <Text className="text-xl text-white font-quickbold">Enviar</Text>
+                <Text className="text-xl text-white font-quickbold">
+                  Enviar
+                </Text>
               </TouchableOpacity>
             </View>
           )}

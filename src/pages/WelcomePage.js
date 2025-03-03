@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -6,20 +6,20 @@ import {
   Easing,
   FlatList,
   Dimensions,
-} from "react-native";
-import Lumi from "../../assets/lumis/Lumi.svg";
-import SwipeIndicator from "../../assets/icons/SwipeIndicator.svg";
+} from 'react-native';
+import Lumi from '../../assets/lumis/Lumi.svg';
+import SwipeIndicator from '../../assets/icons/SwipeIndicator.svg';
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function WelcomePage({ navigation }) {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
-    { id: 0, text: "Olá! Bem-vindo ao LUMICHECK!" },
-    { id: 1, text: "Eu sou a Lumi. É um prazer poder conhecer-te!" },
-    { id: 2, text: "Vamos começar?" },
-    { id: 3, text: " " },
+    { id: 0, text: 'Olá! Bem-vindo ao LUMICHECK!' },
+    { id: 1, text: 'Eu sou a Lumi. É um prazer poder conhecer-te!' },
+    { id: 2, text: 'Vamos começar?' },
+    { id: 3, text: ' ' },
   ];
 
   const flatListRef = useRef(null);
@@ -31,7 +31,7 @@ export default function WelcomePage({ navigation }) {
       setCurrentStep(currentIndex);
     }
     if (currentIndex === steps.length - 1) {
-      navigation.replace("Login");
+      navigation.replace('Login');
     }
   };
 
@@ -66,7 +66,6 @@ export default function WelcomePage({ navigation }) {
     outputRange: ['0deg', '50deg'],
   });
 
-
   return (
     <View className="flex-1 justify-between items-center p-20 bg-yellow">
       {/* Texto principal */}
@@ -83,8 +82,9 @@ export default function WelcomePage({ navigation }) {
               </View>
               {/* Imagem */}
               <View
-                className={`justify-center items-center ${item.id === steps.length - 1 ? "hidden" : "block"
-                  }`}
+                className={`justify-center items-center ${
+                  item.id === steps.length - 1 ? 'hidden' : 'block'
+                }`}
               >
                 <Lumi width={200} height={200} />
               </View>
@@ -105,8 +105,9 @@ export default function WelcomePage({ navigation }) {
           {steps.map((_, index) => (
             <View
               key={index}
-              className={`w-3 h-3 rounded-full mx-1 ${index === currentStep ? "bg-orange" : "bg-white"
-                }`}
+              className={`w-3 h-3 rounded-full mx-1 ${
+                index === currentStep ? 'bg-orange' : 'bg-white'
+              }`}
             />
           ))}
         </View>
@@ -124,7 +125,11 @@ export default function WelcomePage({ navigation }) {
                 height: 40,
               }}
             >
-              <SwipeIndicator width={40} height={40} style={{ marginRight: 8 }} />
+              <SwipeIndicator
+                width={40}
+                height={40}
+                style={{ marginRight: 8 }}
+              />
             </Animated.View>
 
             <Text className="text-lg font-quickbold">Desliza</Text>

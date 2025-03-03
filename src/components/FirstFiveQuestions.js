@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import SliderQuestions from "./SliderQuestions";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import SliderQuestions from './SliderQuestions';
 
 export default function FirstFiveQuestions({ onButtonClick }) {
   const [questions, setQuestions] = useState([
     {
       id: 0,
-      text: "Com que frequência ficas online mais tempo do que pretendias?",
+      text: 'Com que frequência ficas online mais tempo do que pretendias?',
       score: 0,
       answered: false,
     },
     {
       id: 1,
-      text: "Com que frequência deixas de fazer as tarefas de casa para poderes ficar mais tempo online?",
+      text: 'Com que frequência deixas de fazer as tarefas de casa para poderes ficar mais tempo online?',
       score: 0,
       answered: false,
     },
     {
       id: 2,
-      text: "Com que frequência preferes o entusiasmo da internet ao convívio com os teus amigos?",
+      text: 'Com que frequência preferes o entusiasmo da internet ao convívio com os teus amigos?',
       score: 0,
       answered: false,
     },
     {
       id: 3,
-      text: "Com que frequência crias novas relações com outros utilizadores online?",
+      text: 'Com que frequência crias novas relações com outros utilizadores online?',
       score: 0,
       answered: false,
     },
     {
       id: 4,
-      text: "Com que frequência as outras pessoas se queixam em relação à quantidade de tempo que passas online?",
+      text: 'Com que frequência as outras pessoas se queixam em relação à quantidade de tempo que passas online?',
       score: 0,
       answered: false,
     },
@@ -54,7 +54,7 @@ export default function FirstFiveQuestions({ onButtonClick }) {
     setSlideCardnumb((prevSlideCardsNumber) => prevSlideCardsNumber - 1);
 
     if (onButtonClick) {
-      onButtonClick(progress, SlideCardsNumber, "FirstFiveQuestions");
+      onButtonClick(progress, SlideCardsNumber, 'FirstFiveQuestions');
     }
   }
 
@@ -94,7 +94,9 @@ export default function FirstFiveQuestions({ onButtonClick }) {
           className="bg-yellow rounded-lg w-full py-3 items-center"
           onPress={handleAnswers}
         >
-          <Text className="text-xl text-white font-quickbold">Próxima pergunta</Text>
+          <Text className="text-xl text-white font-quickbold">
+            Próxima pergunta
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

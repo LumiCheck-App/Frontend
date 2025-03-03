@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { View, TouchableOpacity } from "react-native";
-import AddictionCards from "../components/AddictionCards";
-import FirstFiveQuestions from "../components/FirstFiveQuestions";
-import FQFinalMessage from "../components/FQFinalMessage";
+import React, { useState } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import AddictionCards from '../components/AddictionCards';
+import FirstFiveQuestions from '../components/FirstFiveQuestions';
+import FQFinalMessage from '../components/FQFinalMessage';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-} from "react-native-reanimated";
-import { useNavigation } from "@react-navigation/native";
+} from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function FirstQuestionnaire() {
   const navigation = useNavigation();
@@ -24,14 +24,14 @@ export default function FirstQuestionnaire() {
 
   const handleProgress = (quantity, array_id, part) => {
     progress.value = withTiming(progress.value + quantity, { duration: 500 });
-    if (part === "SwipeableCard") {
+    if (part === 'SwipeableCard') {
       if (array_id === 0) {
         setAddiCards(false);
         setQuestions(true);
       }
     }
 
-    if (part === "FirstFiveQuestions") {
+    if (part === 'FirstFiveQuestions') {
       if (array_id === 0) {
         setQuestions(false);
         setFinalMessage(true);
@@ -49,7 +49,7 @@ export default function FirstQuestionnaire() {
 
   function handleBack() {
     if (AddiCards) {
-      navigation.replace("Login");
+      navigation.replace('Login');
     }
 
     if (questions) {
@@ -78,7 +78,7 @@ export default function FirstQuestionnaire() {
             className="bg-violet"
             style={[
               {
-                height: "100%",
+                height: '100%',
                 borderRadius: 999,
               },
               progressBarStyle,

@@ -1,13 +1,13 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Lumi from "../../assets/lumis/Lumi.svg";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Lumi from '../../assets/lumis/Lumi.svg';
 
 export default function FQFinalMessage() {
   const navigation = useNavigation();
 
   function HomeRedirect() {
-    navigation.replace("HomeTabs");
+    navigation.replace('HomeTabs');
   }
   return (
     <View className="w-screen h-4/5 px-6 justify-center items-center gap-6">

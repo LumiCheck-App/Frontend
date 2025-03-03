@@ -1,56 +1,56 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
+import React from 'react';
+import { View, Text, Image } from 'react-native';
 
 export default function MostUsedApps() {
   //Ir buscar dados á API
   const UserAppData = [
     {
       id: 0,
-      image: require("../../assets/insta-logo.png"),
+      image: require('../../assets/insta-logo.png'),
       hours: 4.5,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 1,
-      image: require("../../assets/tiktok-logo.png"),
+      image: require('../../assets/tiktok-logo.png'),
       hours: 5,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 2,
-      image: require("../../assets/facebook-logo.png"),
+      image: require('../../assets/facebook-logo.png'),
       hours: 4,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 3,
-      image: require("../../assets/youtube-logo.png"),
+      image: require('../../assets/youtube-logo.png'),
       hours: 3.5,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 4,
-      image: require("../../assets/shein-logo.jpg"),
+      image: require('../../assets/shein-logo.jpg'),
       hours: 3,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 5,
-      image: require("../../assets/tiktok-logo.png"),
+      image: require('../../assets/tiktok-logo.png'),
       hours: 1,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 6,
-      image: require("../../assets/facebook-logo.png"),
+      image: require('../../assets/facebook-logo.png'),
       hours: 1,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
     {
       id: 7,
-      image: require("../../assets/cc-logo.jpg"),
+      image: require('../../assets/cc-logo.jpg'),
       hours: 2.2,
-      date: "11/01/2025",
+      date: '11/01/2025',
     },
   ];
 
@@ -63,11 +63,11 @@ export default function MostUsedApps() {
         let Time_percentage;
 
         if (Data.hours === 0) {
-          Time_percentage = "0%";
+          Time_percentage = '0%';
         }
 
         if (Data.hours >= 5) {
-          Time_percentage = "100%";
+          Time_percentage = '100%';
         } else {
           Time_percentage = `${(Data.hours * 100) / 6 + 10}%`;
         }

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Modal, Image } from "react-native";
-import Lumi from "../../assets/lumis/Lumi.svg";
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Modal, Image } from 'react-native';
+import Lumi from '../../assets/lumis/Lumi.svg';
 
 export default function FQFirstMessage({ modalVisible, CloseModal }) {
   const sentence =
-    "Para começar vou te fazer umas perguntinhas para saber o que te mais preocupa e te conhecer melhor! Vamos a isso?";
-  const [displayedText, setDisplayedText] = useState(""); // Text displayed progressively
+    'Para começar vou te fazer umas perguntinhas para saber o que te mais preocupa e te conhecer melhor! Vamos a isso?';
+  const [displayedText, setDisplayedText] = useState(''); // Text displayed progressively
   const typingSpeed = 50; // Typing speed in milliseconds
 
   useEffect(() => {
     let currentIndex = 0;
-    setDisplayedText(""); // Reset displayed text when modal opens
+    setDisplayedText(''); // Reset displayed text when modal opens
 
     if (modalVisible) {
       const interval = setInterval(() => {
