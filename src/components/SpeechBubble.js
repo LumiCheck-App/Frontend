@@ -1,12 +1,12 @@
-import React from "react"
-import { View, Text, TouchableOpacity, Image } from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import Lumi from "../../assets/lumis/Lumi.svg"
+import React from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Lumi from "../../assets/lumis/Lumi.svg";
 
 export default function SpeechBubble() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   function RedirectToRegister() {
-    navigation.replace("Register")
+    navigation.replace("Register");
   }
   return (
     <View className="flex-row items-center gap-2">
@@ -15,11 +15,11 @@ export default function SpeechBubble() {
       {/* Bubble */}
       <View className="bg-white px-4 py-6 rounded-2xl relative border border-light-gray">
         <TouchableOpacity>
-          <Text className="font-quickregular text-2xl text-center" onPress={RedirectToRegister}>
+          <Text className="font-quickregular text-xl text-center" onPress={RedirectToRegister}>
             Clica aqui se ainda
           </Text>
           <Text
-            className="font-quickbold text-orange underline underline-offset-1 text-2xl text-center"
+            className="font-quickbold text-orange underline underline-offset-1 text-xl text-center"
             onPress={RedirectToRegister}
           >
             não estás registado
@@ -27,5 +27,5 @@ export default function SpeechBubble() {
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }

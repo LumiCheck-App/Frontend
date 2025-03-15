@@ -1,34 +1,39 @@
-import React, { useState } from "react"
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native"
-import { CheckBox } from "react-native-elements"
-import { FontAwesome } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
-import TermsAndContitionsModal from "../components/TermsAndConditionsModal"
-import { Ionicons } from "@expo/vector-icons"
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { CheckBox } from "react-native-elements";
+import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import TermsAndContitionsModal from "../components/TermsAndConditionsModal";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function RegisterPage() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   //DB Simulation
-  const Users = []
+  const Users = [];
 
-  const [username, setUname] = useState("")
-  const [email, setEmail] = useState("")
-  const [pass, setPass] = useState("")
-  const [securePass, setSecurePass] = useState(true)
-  const [passConf, setPassConf] = useState("")
-  const [securePassConf, setSecurePassConf] = useState(true)
-  const [isChecked, setIsChecked] = useState(false)
-  const [error, setError] = useState("")
-  const [hasError, setHasError] = useState(false)
-  const [modalVisible, setModalVisible] = useState(false)
+  const [username, setUname] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [securePass, setSecurePass] = useState(true);
+  const [passConf, setPassConf] = useState("");
+  const [securePassConf, setSecurePassConf] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
+  const [error, setError] = useState("");
+  const [hasError, setHasError] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   function RedirectToLogin() {
-    navigation.replace("Login")
+    navigation.replace("Login");
   }
 
   function handleRegistration() {
-    if (username != "" && email != "" && pass != "" && passConf != "") {
+    if (username !== "" && email !== "" && pass !== "" && passConf !== "") {
+      if (pass.length < 8) {
+        setHasError(true);
+        setError("A senha deve ter pelo menos 8 caracteres");
+        return;
+      }
       if (pass === passConf) {
         if (isChecked) {
           const user = {
@@ -36,18 +41,20 @@ export default function RegisterPage() {
             User_name: username,
             Pass: pass,
             Email: email,
-          }
-          Users.push(user)
-          navigation.replace("Login")
+          };
+          Users.push(user);
+          navigation.replace("Login");
+        } else {
+          setHasError(true);
+          setError("É necessário aceitar os Termos e Condições");
         }
       } else {
-        setHasError(true)
-        setError("As passwords devem coincidir")
+        setHasError(true);
+        setError("As passwords devem coincidir");
       }
     } else {
-      setHasError(true)
-      setError("Deve preencher todos os campos do formulário")
-      console.log(Users.length)
+      setHasError(true);
+      setError("Deve preencher todos os campos do formulário");
     }
   }
 
@@ -85,6 +92,10 @@ export default function RegisterPage() {
             value={email}
           />
 
+          <Text className="font-quickregular w-full text-dark-gray mt-4 -mb-2">
+            Password tem de ter pelo menos 8 caracteres
+          </Text>
+
           <View className="w-full relative">
             {/* Input da password */}
             <TextInput
@@ -100,7 +111,7 @@ export default function RegisterPage() {
             <TouchableOpacity
               className="absolute right-4 top-5"
               onPress={() => {
-                setSecurePass(!securePass)
+                setSecurePass(!securePass);
               }}
               accessibilityLabel="Clicar para ver/esconder Password"
             >
@@ -123,7 +134,7 @@ export default function RegisterPage() {
             <TouchableOpacity
               className="absolute right-4 top-5"
               onPress={() => {
-                setSecurePassConf(!securePassConf)
+                setSecurePassConf(!securePassConf);
               }}
               accessibilityLabel="Clicar para ver/esconder Confirmar Password"
             >
@@ -156,10 +167,10 @@ export default function RegisterPage() {
             className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
             onPress={handleRegistration}
           >
-            <Text className="text-xl font-quickbold text-white font-quickbold">Criar Conta</Text>
+            <Text className="text-xl font-quickbold text-white">Criar Conta</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </>
-  )
+  );
 }

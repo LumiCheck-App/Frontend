@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { View, Text, TextInput, TouchableOpacity } from "react-native"
-import { FontAwesome } from "@expo/vector-icons"
-import PasswordResetModal from "../components/PasswordResetModal"
-import SpeechBubble from "../components/SpeechBubble"
-import { useNavigation } from "@react-navigation/native"
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import PasswordResetModal from "../components/PasswordResetModal";
+import SpeechBubble from "../components/SpeechBubble";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LoginPage() {
   //DB Simulation
@@ -29,47 +29,47 @@ export default function LoginPage() {
       Email: "reistiago64@gmail.com",
       FirstEntry: false,
     },
-  ]
+  ];
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   //State Variables
-  const [username, setUname] = useState("")
-  const [pass, setPass] = useState("")
-  const [securePass, setSecurePass] = useState(true)
-  const [modalVisible, setModalVisible] = useState(false)
+  const [username, setUname] = useState("");
+  const [pass, setPass] = useState("");
+  const [securePass, setSecurePass] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   //Login Form Actions
 
   //Function to clear Login Form
   const clearLoginForm = () => {
-    setUname("")
-    setPass("")
-  }
+    setUname("");
+    setPass("");
+  };
 
   //Function to check if Username exists and if Password corresponds to user in Login Form
   function handleLoginForm() {
-    const user = Users.find((user) => user.User_name === username)
+    const user = Users.find((user) => user.User_name === username);
 
     //From Validation
     if (username === "" || pass === "") {
-      console.log("Fill all inputs.")
+      console.log("Fill all inputs.");
     } else {
       if (user != undefined) {
         if (user.Pass === pass) {
           // !Falta a encriptação da password
-          console.log(username, pass)
-          clearLoginForm()
+          console.log(username, pass);
+          clearLoginForm();
           if (user.FirstEntry) {
-            navigation.replace("FirstQuestionnaire")
+            navigation.replace("FirstQuestionnaire");
           } else {
-            navigation.replace("HomeTabs")
+            navigation.replace("HomeTabs");
           }
         } else {
-          console.log("Wrong password.")
+          console.log("Wrong password.");
         }
       } else {
-        console.log("Username does not exist.")
+        console.log("Username does not exist.");
       }
     }
   }
@@ -108,7 +108,7 @@ export default function LoginPage() {
           <TouchableOpacity
             className="absolute right-4 top-5"
             onPress={() => {
-              setSecurePass(!securePass)
+              setSecurePass(!securePass);
             }}
             accessibilityLabel="Clicar para ver/esconder Password"
           >
@@ -130,5 +130,5 @@ export default function LoginPage() {
         <SpeechBubble />
       </View>
     </View>
-  )
+  );
 }
