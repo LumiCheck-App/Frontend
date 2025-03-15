@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import PasswordResetModal from "../components/PasswordResetModal";
-import SpeechBubble from "../components/SpeechBubble";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react"
+import { View, Text, TextInput, TouchableOpacity } from "react-native"
+import { FontAwesome } from "@expo/vector-icons"
+import PasswordResetModal from "../components/PasswordResetModal"
+import SpeechBubble from "../components/SpeechBubble"
+import { useNavigation } from "@react-navigation/native"
 
 export default function LoginPage() {
   //DB Simulation
@@ -29,47 +29,47 @@ export default function LoginPage() {
       Email: "reistiago64@gmail.com",
       FirstEntry: false,
     },
-  ];
+  ]
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   //State Variables
-  const [username, setUname] = useState("");
-  const [pass, setPass] = useState("");
-  const [securePass, setSecurePass] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [username, setUname] = useState("")
+  const [pass, setPass] = useState("")
+  const [securePass, setSecurePass] = useState(true)
+  const [modalVisible, setModalVisible] = useState(false)
 
   //Login Form Actions
 
   //Function to clear Login Form
   const clearLoginForm = () => {
-    setUname("");
-    setPass("");
-  };
+    setUname("")
+    setPass("")
+  }
 
   //Function to check if Username exists and if Password corresponds to user in Login Form
   function handleLoginForm() {
-    const user = Users.find((user) => user.User_name === username);
+    const user = Users.find((user) => user.User_name === username)
 
     //From Validation
     if (username === "" || pass === "") {
-      console.log("Fill all inputs.");
+      console.log("Fill all inputs.")
     } else {
       if (user != undefined) {
         if (user.Pass === pass) {
           // !Falta a encriptação da password
-          console.log(username, pass);
-          clearLoginForm();
+          console.log(username, pass)
+          clearLoginForm()
           if (user.FirstEntry) {
-            navigation.replace("FirstQuestionnaire");
+            navigation.replace("FirstQuestionnaire")
           } else {
-            navigation.replace("HomeTabs");
+            navigation.replace("HomeTabs")
           }
         } else {
-          console.log("Wrong password.");
+          console.log("Wrong password.")
         }
       } else {
-        console.log("Username does not exist.");
+        console.log("Username does not exist.")
       }
     }
   }
@@ -77,14 +77,10 @@ export default function LoginPage() {
   return (
     <View className="flex-1 bg-off-white">
       {/* Modal*/}
-      <PasswordResetModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        Users={Users}
-      />
+      <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} Users={Users} />
       {/* Page Title*/}
       <View className="h-1/3 justify-center items-center">
-        <Text className=" text-5xl font-quickbold text-yellow">Login</Text>
+        <Text className="text-5xl font-quickbold text-yellow">Login</Text>
       </View>
 
       {/*Form*/}
@@ -94,7 +90,8 @@ export default function LoginPage() {
           className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
           onChangeText={setUname}
           value={username}
-          placeholder="Username"
+          placeholder="Username *"
+          accessibilityLabel="Username (obrigatório)"
         />
         <View className="w-full relative">
           {/* Input da password */}
@@ -103,34 +100,27 @@ export default function LoginPage() {
             className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             onChangeText={setPass}
             value={pass}
-            placeholder="Password"
+            placeholder="Password *"
+            accessibilityLabel="Password (obrigatório)"
           />
 
           {/* Ícone de olho */}
           <TouchableOpacity
             className="absolute right-4 top-5"
             onPress={() => {
-              setSecurePass(!securePass);
+              setSecurePass(!securePass)
             }}
+            accessibilityLabel="Clicar para ver/esconder Password"
           >
-            <FontAwesome
-              name={securePass ? "eye-slash" : "eye"}
-              size={20}
-              color="#d0d0d0"
-            />
+            <FontAwesome name={securePass ? "eye-slash" : "eye"} size={20} color="#d0d0d0" />
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text className="text-dark-gray font-quickbold underline underline-offset-1">
-            Esqueceste-te da password?
-          </Text>
+          <Text className="text-dark-gray font-quickbold underline underline-offset-1">Esqueceste-te da password?</Text>
         </TouchableOpacity>
 
         {/* Botão do form */}
-        <TouchableOpacity
-          className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
-          onPress={handleLoginForm}
-        >
+        <TouchableOpacity className="bg-yellow rounded-lg w-full py-3 items-center mt-10" onPress={handleLoginForm}>
           <Text className="text-xl text-white font-quickbold">Entrar</Text>
         </TouchableOpacity>
       </View>
@@ -140,5 +130,5 @@ export default function LoginPage() {
         <SpeechBubble />
       </View>
     </View>
-  );
+  )
 }
