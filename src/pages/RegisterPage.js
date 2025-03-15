@@ -160,7 +160,7 @@ export default function RegisterPage() {
               </Text>
             </TouchableOpacity>
           </View>
-          {hasError && <Text className="text-red-500 font-quickbold">{error}</Text>}
+          {hasError && <Text className="text-red font-quickbold">{error}</Text>}
 
           {/* Botão do form */}
           <TouchableOpacity

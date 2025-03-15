@@ -38,8 +38,8 @@ export default function LoginPage() {
   const [pass, setPass] = useState("");
   const [securePass, setSecurePass] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-
-  //Login Form Actions
+  const [error, setError] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   //Function to clear Login Form
   const clearLoginForm = () => {
@@ -51,25 +51,28 @@ export default function LoginPage() {
   function handleLoginForm() {
     const user = Users.find((user) => user.User_name === username);
 
-    //From Validation
+    //Form Validation
     if (username === "" || pass === "") {
-      console.log("Fill all inputs.");
+      setHasError(true);
+      setError("Preencha todos os campos.");
     } else {
-      if (user != undefined) {
+      if (user !== undefined) {
         if (user.Pass === pass) {
-          // !Falta a encriptação da password
-          console.log(username, pass);
           clearLoginForm();
+          setHasError(false);
+          setError("");
           if (user.FirstEntry) {
             navigation.replace("FirstQuestionnaire");
           } else {
             navigation.replace("HomeTabs");
           }
         } else {
-          console.log("Wrong password.");
+          setHasError(true);
+          setError("Username ou Password estão errados.");
         }
       } else {
-        console.log("Username does not exist.");
+        setHasError(true);
+        setError("Username ou Password estão errados.");
       }
     }
   }
@@ -118,6 +121,8 @@ export default function LoginPage() {
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text className="text-dark-gray font-quickbold underline underline-offset-1">Esqueceste-te da password?</Text>
         </TouchableOpacity>
+
+        {hasError && <Text className="text-red font-quickbold text-center w-full">{error}</Text>}
 
         {/* Botão do form */}
         <TouchableOpacity className="bg-yellow rounded-lg w-full py-3 items-center mt-10" onPress={handleLoginForm}>
