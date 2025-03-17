@@ -63,7 +63,7 @@ export default function LoginPage() {
           if (user.FirstEntry) {
             navigation.replace("FirstQuestionnaire");
           } else {
-            navigation.replace("HomeTabs");
+            navigation.replace("Onboarding");
           }
         } else {
           console.log("Wrong password.");
@@ -77,11 +77,7 @@ export default function LoginPage() {
   return (
     <View className="flex-1 bg-off-white">
       {/* Modal*/}
-      <PasswordResetModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        Users={Users}
-      />
+      <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} Users={Users} />
       {/* Page Title*/}
       <View className="h-1/3 justify-center items-center">
         <Text className=" text-5xl font-quickbold text-yellow">Login</Text>
@@ -113,24 +109,15 @@ export default function LoginPage() {
               setSecurePass(!securePass);
             }}
           >
-            <FontAwesome
-              name={securePass ? "eye-slash" : "eye"}
-              size={20}
-              color="#d0d0d0"
-            />
+            <FontAwesome name={securePass ? "eye-slash" : "eye"} size={20} color="#d0d0d0" />
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text className="text-dark-gray font-quickbold underline underline-offset-1">
-            Esqueceste-te da password?
-          </Text>
+          <Text className="text-dark-gray font-quickbold underline underline-offset-1">Esqueceste-te da password?</Text>
         </TouchableOpacity>
 
         {/* Botão do form */}
-        <TouchableOpacity
-          className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
-          onPress={handleLoginForm}
-        >
+        <TouchableOpacity className="bg-yellow rounded-lg w-full py-3 items-center mt-10" onPress={handleLoginForm}>
           <Text className="text-xl text-white font-quickbold">Entrar</Text>
         </TouchableOpacity>
       </View>
