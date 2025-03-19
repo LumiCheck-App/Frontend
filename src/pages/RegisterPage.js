@@ -70,14 +70,14 @@ export default function RegisterPage() {
           </TouchableOpacity>
         </View>
         <View className="h-1/3 justify-center items-center">
-          <Text className=" text-5xl font-quickbold text-yellow">Registo</Text>
+          <Text className=" text-5xl font-quickbold text-orange">Registo</Text>
         </View>
 
         {/*Form*/}
         <View className="w-screen px-16 flex-col gap-6 items-start justify-end">
           {/* Input do username */}
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
             placeholder="Username *"
             accessibilityLabel="Username (obrigatório)"
             onChangeText={setUname}
@@ -85,22 +85,20 @@ export default function RegisterPage() {
           />
 
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
+            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
             placeholder="Email *"
             accessibilityLabel="Email (obrigatório)"
             onChangeText={setEmail}
             value={email}
           />
 
-          <Text className="font-quickregular w-full text-dark-gray mt-4 -mb-2">
-            Password tem de ter pelo menos 8 caracteres
-          </Text>
+          <Text className="font-quickregular w-full text-black mt-4 -mb-2">Password tem de ter pelo menos 8 caracteres</Text>
 
           <View className="w-full relative">
             {/* Input da password */}
             <TextInput
               secureTextEntry={securePass}
-              className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
+              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
               onChangeText={setPass}
               value={pass}
               placeholder="Password *"
@@ -123,7 +121,7 @@ export default function RegisterPage() {
             {/* Input da password */}
             <TextInput
               secureTextEntry={securePassConf}
-              className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
+              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
               onChangeText={setPassConf}
               value={passConf}
               placeholder="Confirmar Password *"
@@ -142,7 +140,7 @@ export default function RegisterPage() {
             </TouchableOpacity>
           </View>
 
-          <View className="flex-row items-center gap-2">
+          <View className="flex-row w-full items-center justify-end  gap-2">
             <CheckBox
               containerStyle={{ width: "0", paddingLeft: 0 }}
               checked={isChecked}
@@ -152,10 +150,7 @@ export default function RegisterPage() {
               accessibilityLabel="Clicar para aceitar Termos e Condições (obrigatório)"
             />
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Text
-                className="text-dark-gray font-quickbold underline"
-                accessibilityLabel="Clicar para ver Termos e Condições"
-              >
+              <Text className="text-black font-quickregular underline" accessibilityLabel="Clicar para ver Termos e Condições">
                 Termos e condições *
               </Text>
             </TouchableOpacity>
@@ -163,11 +158,8 @@ export default function RegisterPage() {
           {hasError && <Text className="text-red font-quickbold">{error}</Text>}
 
           {/* Botão do form */}
-          <TouchableOpacity
-            className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
-            onPress={handleRegistration}
-          >
-            <Text className="text-xl font-quickbold text-white">Criar Conta</Text>
+          <TouchableOpacity className="bg-orange rounded-lg w-full py-3 items-center mt-10" onPress={handleRegistration}>
+            <Text className="text-2xl font-quickbold text-white">Criar Conta</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
