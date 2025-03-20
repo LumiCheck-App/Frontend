@@ -38,8 +38,8 @@ export default function LoginPage() {
   const [pass, setPass] = useState("");
   const [securePass, setSecurePass] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-
-  //Login Form Actions
+  const [error, setError] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   //Function to clear Login Form
   const clearLoginForm = () => {
@@ -51,25 +51,28 @@ export default function LoginPage() {
   function handleLoginForm() {
     const user = Users.find((user) => user.User_name === username);
 
-    //From Validation
+    //Form Validation
     if (username === "" || pass === "") {
-      console.log("Fill all inputs.");
+      setHasError(true);
+      setError("Preencha todos os campos.");
     } else {
-      if (user != undefined) {
+      if (user !== undefined) {
         if (user.Pass === pass) {
-          // !Falta a encriptação da password
-          console.log(username, pass);
           clearLoginForm();
+          setHasError(false);
+          setError("");
           if (user.FirstEntry) {
             navigation.replace("FirstQuestionnaire");
           } else {
             navigation.replace("HomeTabs");
           }
         } else {
-          console.log("Wrong password.");
+          setHasError(true);
+          setError("Username ou Password estão errados.");
         }
       } else {
-        console.log("Username does not exist.");
+        setHasError(true);
+        setError("Username ou Password estão errados.");
       }
     }
   }
@@ -77,14 +80,10 @@ export default function LoginPage() {
   return (
     <View className="flex-1 bg-off-white">
       {/* Modal*/}
-      <PasswordResetModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        Users={Users}
-      />
+      <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} Users={Users} />
       {/* Page Title*/}
       <View className="h-1/3 justify-center items-center">
-        <Text className=" text-5xl font-quickbold text-yellow">Login</Text>
+        <Text className="text-5xl font-quickbold text-yellow">Login</Text>
       </View>
 
       {/*Form*/}
@@ -94,7 +93,8 @@ export default function LoginPage() {
           className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
           onChangeText={setUname}
           value={username}
-          placeholder="Username"
+          placeholder="Username *"
+          accessibilityLabel="Username (obrigatório)"
         />
         <View className="w-full relative">
           {/* Input da password */}
@@ -103,7 +103,8 @@ export default function LoginPage() {
             className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
             onChangeText={setPass}
             value={pass}
-            placeholder="Password"
+            placeholder="Password *"
+            accessibilityLabel="Password (obrigatório)"
           />
 
           {/* Ícone de olho */}
@@ -112,25 +113,19 @@ export default function LoginPage() {
             onPress={() => {
               setSecurePass(!securePass);
             }}
+            accessibilityLabel="Clicar para ver/esconder Password"
           >
-            <FontAwesome
-              name={securePass ? "eye-slash" : "eye"}
-              size={20}
-              color="#d0d0d0"
-            />
+            <FontAwesome name={securePass ? "eye-slash" : "eye"} size={20} color="#d0d0d0" />
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Text className="text-dark-gray font-quickbold underline underline-offset-1">
-            Esqueceste-te da password?
-          </Text>
+          <Text className="text-dark-gray font-quickbold underline underline-offset-1">Esqueceste-te da password?</Text>
         </TouchableOpacity>
 
+        {hasError && <Text className="text-red font-quickbold text-center w-full">{error}</Text>}
+
         {/* Botão do form */}
-        <TouchableOpacity
-          className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
-          onPress={handleLoginForm}
-        >
+        <TouchableOpacity className="bg-yellow rounded-lg w-full py-3 items-center mt-10" onPress={handleLoginForm}>
           <Text className="text-xl text-white font-quickbold">Entrar</Text>
         </TouchableOpacity>
       </View>

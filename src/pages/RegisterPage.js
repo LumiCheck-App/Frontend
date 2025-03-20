@@ -21,7 +21,9 @@ export default function RegisterPage() {
   const [username, setUname] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [securePass, setSecurePass] = useState(true);
   const [passConf, setPassConf] = useState("");
+  const [securePassConf, setSecurePassConf] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
@@ -43,6 +45,9 @@ export default function RegisterPage() {
           };
           Users.push(user);
           navigation.replace("Login");
+        } else {
+          setHasError(true);
+          setError("É necessário aceitar os Termos e Condições");
         }
       } else {
         setHasError(true);
@@ -51,7 +56,6 @@ export default function RegisterPage() {
     } else {
       setHasError(true);
       setError("Deve preencher todos os campos do formulário");
-      console.log(Users.length);
     }
   }
 
@@ -70,55 +74,101 @@ export default function RegisterPage() {
           </TouchableOpacity>
         </View>
         <View className="h-1/3 justify-center items-center">
-          <Text className=" text-5xl font-quickbold text-yellow">Register</Text>
+          <Text className=" text-5xl font-quickbold text-orange">Registo</Text>
         </View>
 
         {/*Form*/}
         <View className="w-screen px-16 flex-col gap-6 items-start justify-end">
           {/* Input do username */}
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
-            placeholder="Username"
+            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
+            placeholder="Username *"
+            accessibilityLabel="Username (obrigatório)"
             onChangeText={setUname}
             value={username}
           />
 
           <TextInput
-            className="bg-white w-full text-dark-gray border-solid border-x border-y border-light-gray rounded-lg p-4 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
-            placeholder="Email"
+            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
+            placeholder="Email *"
+            accessibilityLabel="Email (obrigatório)"
             onChangeText={setEmail}
             value={email}
           />
 
-          {/* Input da password */}
-          <TextInput
-            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
-            placeholder="Password"
-            secureTextEntry
-            onChangeText={setPass}
-            value={pass}
-          />
+          <Text className="font-quickregular w-full text-black mt-4 -mb-2">
+            Password tem de ter pelo menos 8 caracteres
+          </Text>
 
-          {/* Input da Confirm password */}
-          <TextInput
-            className="bg-white w-full text-dark-gray border-solid border border-light-gray rounded-lg p-4 pr-12 placeholder:font-quickbold placeholder:text-xl placeholder:text-light-gray"
-            placeholder="Confirm Password"
-            secureTextEntry
-            onChangeText={setPassConf}
-            value={passConf}
-          />
+          <View className="w-full relative">
+            {/* Input da password */}
+            <TextInput
+              secureTextEntry={securePass}
+              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
+              onChangeText={setPass}
+              value={pass}
+              placeholder="Password *"
+              accessibilityLabel="Password (obrigatório)"
+            />
 
-          <View className="flex-row items-center gap-2">
+            {/* Ícone de olho */}
+            <TouchableOpacity
+              className="absolute right-4 top-5"
+              onPress={() => {
+                setSecurePass(!securePass);
+              }}
+              accessibilityLabel="Clicar para ver/esconder Password"
+            >
+              <FontAwesome
+                name={securePass ? "eye-slash" : "eye"}
+                size={20}
+                color="#d0d0d0"
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View className="w-full relative">
+            {/* Input da password */}
+            <TextInput
+              secureTextEntry={securePassConf}
+              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
+              onChangeText={setPassConf}
+              value={passConf}
+              placeholder="Confirmar Password *"
+              accessibilityLabel="Password (obrigatório)"
+            />
+
+            {/* Ícone de olho */}
+            <TouchableOpacity
+              className="absolute right-4 top-5"
+              onPress={() => {
+                setSecurePassConf(!securePassConf);
+              }}
+              accessibilityLabel="Clicar para ver/esconder Confirmar Password"
+            >
+              <FontAwesome
+                name={securePassConf ? "eye-slash" : "eye"}
+                size={20}
+                color="#d0d0d0"
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View className="flex-row w-full items-center justify-end  gap-2">
             <CheckBox
               containerStyle={{ width: "0", paddingLeft: 0 }}
               checked={isChecked}
               onPress={() => setIsChecked(!isChecked)}
               checkedColor="#ff9d00"
               size={20}
+              accessibilityLabel="Clicar para aceitar Termos e Condições (obrigatório)"
             />
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Text className="text-dark-gray font-quickbold underline">
-                Termos e condições
+              <Text
+                className="text-black font-quickregular underline"
+                accessibilityLabel="Clicar para ver Termos e Condições"
+              >
+                Termos e condições *
               </Text>
             </TouchableOpacity>
           </View>
@@ -128,10 +178,10 @@ export default function RegisterPage() {
 
           {/* Botão do form */}
           <TouchableOpacity
-            className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
+            className="bg-orange rounded-lg w-full py-3 items-center mt-10"
             onPress={handleRegistration}
           >
-            <Text className="text-xl font-quickbold text-white font-quickbold">
+            <Text className="text-2xl font-quickbold text-white">
               Criar Conta
             </Text>
           </TouchableOpacity>
