@@ -32,12 +32,7 @@ export default function RegisterPage() {
   }
 
   function handleRegistration() {
-    if (
-      username != "" &&
-      email != "" &&
-      pass != "" &&
-      passConf != ""
-    ) {
+    if (username != "" && email != "" && pass != "" && passConf != "") {
       if (pass === passConf) {
         if (isChecked) {
           const user = {
@@ -70,9 +65,7 @@ export default function RegisterPage() {
 
         {/* Page Title*/}
         <View className="w-11/12 flex-row items-center pt-12 px-8">
-          <TouchableOpacity
-            onPress={RedirectToLogin}
-          >
+          <TouchableOpacity onPress={RedirectToLogin}>
             <Ionicons name="arrow-back" size={24} color="black" />
           </TouchableOpacity>
         </View>
@@ -129,7 +122,9 @@ export default function RegisterPage() {
               </Text>
             </TouchableOpacity>
           </View>
-          {hasError && <Text className="text-red-500 font-quickbold">{error}</Text>}
+          {hasError && (
+            <Text className="text-red-500 font-quickbold">{error}</Text>
+          )}
 
           {/* Botão do form */}
           <TouchableOpacity

@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Alert, TouchableOpacity, FlatList, Modal, ScrollView, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  Alert,
+  TouchableOpacity,
+  FlatList,
+  Modal,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import BackgroundGradient from "../components/BackgroundGradient";
 import { LinearGradient } from "expo-linear-gradient";
@@ -7,7 +16,28 @@ import * as Location from "expo-location";
 import { markersOnMap } from "../psicologos_fakes";
 import { Linking } from "react-native";
 
-const distritos = ["Aveiro", "Beja", "Braga", "Bragança", "Castelo Branco", "Coimbra", "Évora", "Faro", "Guarda", "Leiria", "Lisboa", "Portalegre", "Porto", "Santarém", "Setúbal", "Viana do Castelo", "Vila Real", "Viseu", "Açores", "Madeira"];
+const distritos = [
+  "Aveiro",
+  "Beja",
+  "Braga",
+  "Bragança",
+  "Castelo Branco",
+  "Coimbra",
+  "Évora",
+  "Faro",
+  "Guarda",
+  "Leiria",
+  "Lisboa",
+  "Portalegre",
+  "Porto",
+  "Santarém",
+  "Setúbal",
+  "Viana do Castelo",
+  "Vila Real",
+  "Viseu",
+  "Açores",
+  "Madeira",
+];
 
 export default function HelpPage() {
   const [location, setLocation] = useState(null);
@@ -26,7 +56,8 @@ export default function HelpPage() {
     {
       id: 1,
       image: require("../../assets/artigos/cnnportugal.png"),
-      title: "O uso exagerado do mundo digital pode ter impacto na saúde mental?",
+      title:
+        "O uso exagerado do mundo digital pode ter impacto na saúde mental?",
       link: "https://cnnportugal.iol.pt/dossier/o-psicologo-responde-o-uso-exagerado-do-mundo-digital-pode-ter-impacto-na-saude-mental/65eb2028d34e8d13c9b8977b",
     },
     {
@@ -44,19 +75,21 @@ export default function HelpPage() {
     {
       id: 4,
       image: require("../../assets/artigos/pin.png"),
-      title: "Internet: do “tempo a mais” à adiçãoi",
+      title: "Internet: do “tempo a mais” à adição",
       link: "https://pin.com.pt/observador-artigo-opiniao-internet-do-tempo-a-mais-a-adicao-joao-nuno-faria-psicologo-clinico-do-pin/",
     },
     {
       id: 5,
       image: require("../../assets/artigos/rtpnoticias.png"),
-      title: "Dependência de ecrãs. Mais de 70% dos jovens usam internet como escape",
+      title:
+        "Dependência de ecrãs. Mais de 70% dos jovens usam internet como escape",
       link: "https://www.rtp.pt/noticias/pais/dependencia-de-ecras-mais-de-70-dos-jovens-usam-internet-como-escape_v1545445",
     },
     {
       id: 6,
       image: require("../../assets/artigos/sicnoticias.png"),
-      title: "Estudo alerta que atividade em múltiplas redes sociais pode provocar dependência digital",
+      title:
+        "Estudo alerta que atividade em múltiplas redes sociais pode provocar dependência digital",
       link: "https://sicnoticias.pt/pais/2024-01-23-Estudo-alerta-que-atividade-em-multiplas-redes-sociais-pode-provocar-dependencia-digital-c7b6b4a5",
     },
   ]);
@@ -87,16 +120,16 @@ export default function HelpPage() {
   const filteredMarkers = selectedDistrito
     ? selectedDistrito === "Outros"
       ? markersOnMap.filter(
-        (marker) =>
-          !distritos.some(
-            (distrito) =>
-              marker.Distrito?.toLowerCase() === distrito.toLowerCase()
-          )
-      )
+          (marker) =>
+            !distritos.some(
+              (distrito) =>
+                marker.Distrito?.toLowerCase() === distrito.toLowerCase()
+            )
+        )
       : markersOnMap.filter(
-        (marker) =>
-          marker.Distrito?.toLowerCase() === selectedDistrito.toLowerCase()
-      )
+          (marker) =>
+            marker.Distrito?.toLowerCase() === selectedDistrito.toLowerCase()
+        )
     : [];
 
   const handleShowMore = () => {
@@ -162,7 +195,10 @@ export default function HelpPage() {
           {selectedMarker && (
             <View className="flex-1 px-4 items-center">
               <View className="w-11/12 mt-4">
-                <View className="mb-4 p-3 bg-white rounded-md border border-light-gray">
+                <View
+                  className="mb-4 p-3 bg-white rounded-md border border-light-gray"
+                  accessible={true}
+                >
                   <View className="flex-row">
                     <View className="w-1/2">
                       <Text className="text-lg font-quickbold">
@@ -172,8 +208,12 @@ export default function HelpPage() {
                     <View className="w-1/2">
                       <TouchableOpacity
                         onPress={() => makeCall(marker.Telefone)}
+                        accessibilityRole="button"
                       >
-                        <Text className="text-lg self-end text-violet font-quickbold">
+                        <Text
+                          className="text-lg self-end text-violet font-quickbold"
+                          accessibilityLabel="Número de telefone"
+                        >
                           {selectedMarker.Telefone}
                         </Text>
                       </TouchableOpacity>
@@ -196,6 +236,8 @@ export default function HelpPage() {
               <TouchableOpacity
                 className="p-3 bg-yellow rounded-md items-center"
                 onPress={() => setDropdownVisible(true)}
+                accessibilityRole="button"
+                accessible={true}
               >
                 <Text className="text-lg font-quickbold text-white">
                   {selectedDistrito || "Selecione um Distrito"}
@@ -241,16 +283,23 @@ export default function HelpPage() {
                   <View
                     key={index}
                     className="mb-4 p-3 bg-white rounded-md border border-light-gray"
+                    accessible={true}
                   >
                     <View className="flex-row">
                       <View className="w-1/2">
-                        <Text className="text-lg font-quickbold">{marker.Nome}</Text>
+                        <Text className="text-lg font-quickbold">
+                          {marker.Nome}
+                        </Text>
                       </View>
                       <View className="w-1/2">
                         <TouchableOpacity
                           onPress={() => makeCall(marker.Telefone)}
+                          accessibilityRole="button"
                         >
-                          <Text className="text-lg self-end text-violet font-quickbold">
+                          <Text
+                            className="text-lg self-end text-violet font-quickbold"
+                            accessibilityLabel="Número de telefone"
+                          >
                             {marker.Telefone}
                           </Text>
                         </TouchableOpacity>
@@ -295,7 +344,9 @@ export default function HelpPage() {
             {/* Secção de Artigos */}
             <View className="w-11/12 mt-8">
               <View className="flex-row items-center justify-between mb-4">
-                <Text className="text-xl font-quickbold text-black">Artigos</Text>
+                <Text className="text-xl font-quickbold text-black">
+                  Artigos
+                </Text>
               </View>
             </View>
           </View>
@@ -308,8 +359,9 @@ export default function HelpPage() {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <TouchableOpacity
-                className={`rounded-lg ${index === 0 ? "ml-[2.25rem] mr-4" : ""
-                  } ${index === 4 ? "mr-[2.25rem]" : "mr-4"}`}
+                className={`rounded-lg ${
+                  index === 0 ? "ml-[2.25rem] mr-4" : ""
+                } ${index === 4 ? "mr-[2.25rem]" : "mr-4"}`}
                 onPress={() => Linking.openURL(item.link)}
               >
                 <ImageBackground
@@ -321,7 +373,10 @@ export default function HelpPage() {
                     colors={["transparent", "rgba(0, 0, 0, 0.7)"]}
                     style={{ flex: 1, justifyContent: "flex-end", padding: 10 }}
                   >
-                    <Text className="text-sm font-quickbold text-white">
+                    <Text
+                      className="text-sm font-quickbold text-white"
+                      accessibilityLabel={`Lê o artigo sobre: ${item.title}`}
+                    >
                       {item.title}
                     </Text>
                   </LinearGradient>

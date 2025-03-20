@@ -74,7 +74,7 @@ export default function App() {
               case "Troféus":
                 IconComponent = TrophyIcon;
                 break;
-              case "Report":
+              case "Relatório":
                 IconComponent = StatsIcon;
                 break;
               case "Perfil":
@@ -92,6 +92,7 @@ export default function App() {
                 width={size * 1.2}
                 height={size * 1.2}
                 fill={color}
+                accessibilityLabel={`Página ${route.name}`}
               />
             );
           },
@@ -112,7 +113,7 @@ export default function App() {
             },
           })}
         />
-        <Tab.Screen name="Report" component={ReportPage} />
+        <Tab.Screen name="Relatório" component={ReportPage} />
         <Tab.Screen
           name="Perfil"
           component={ProfilePageStack}

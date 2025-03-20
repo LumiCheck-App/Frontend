@@ -194,6 +194,7 @@ export default function ReportPage() {
           style={{ fontSize: numberFontSize, color: numberColor }}
           className="font-quickbold"
           accessibilityRole="text"
+          accessibilityLabel="LumiSocre 34 de 100"
         >
           34
         </Animated.Text>
@@ -213,15 +214,17 @@ export default function ReportPage() {
           alignItems: "flex-end",
         }}
       >
-        <Text className="text-lg font-quickbold" accessibilityRole="text">
+        <Text
+          className="text-lg font-quickbold"
+          importantForAccessibility="no-hide-descendants"
+        >
           /100
         </Text>
         <ScoreIcon
           width={24}
           height={24}
           style={{ marginLeft: 4 }}
-          accessibilityRole="image"
-          accessibilityLabel="Icone de classificação"
+          accessible={false}
         />
       </Animated.View>
 

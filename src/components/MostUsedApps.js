@@ -91,7 +91,6 @@ export default function MostUsedApps() {
                 source={Data.image}
                 className="w-6 h-6"
                 resizeMode="contain"
-                accessibilityRole="image"
                 accessibilityLabel={`${Data.app_name} ${Data.hours} horas`}
               />
             </View>
