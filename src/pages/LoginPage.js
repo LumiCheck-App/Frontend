@@ -4,33 +4,10 @@ import { FontAwesome } from "@expo/vector-icons";
 import PasswordResetModal from "../components/PasswordResetModal";
 import SpeechBubble from "../components/SpeechBubble";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/authSlice";
 
 export default function LoginPage() {
-  //DB Simulation
-  const Users = [
-    {
-      id: 0,
-      User_name: "reistiago",
-      Pass: "123",
-      Email: "reistiago64@gmail.com",
-      FirstEntry: true,
-    },
-    {
-      id: 1,
-      User_name: "gracinha",
-      Pass: "123",
-      Email: "rodrigomgraca@gmail.com",
-      FirstEntry: false,
-    },
-    {
-      id: 2,
-      User_name: "maezinhaVani",
-      Pass: "123",
-      Email: "reistiago64@gmail.com",
-      FirstEntry: false,
-    },
-  ];
-
   const navigation = useNavigation();
 
   //State Variables
@@ -47,37 +24,35 @@ export default function LoginPage() {
     setPass("");
   };
 
-  //Function to check if Username exists and if Password corresponds to user in Login Form
-  function handleLoginForm() {
-    const user = Users.find((user) => user.User_name === username);
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
 
-    //From Validation
+  function handleLoginForm() {
     if (username === "" || pass === "") {
       console.log("Fill all inputs.");
-    } else {
-      if (user != undefined) {
-        if (user.Pass === pass) {
-          // !Falta a encriptação da password
-          console.log(username, pass);
-          clearLoginForm();
-          if (user.FirstEntry) {
-            navigation.replace("FirstQuestionnaire");
-          } else {
-            navigation.replace("Onboarding");
-          }
-        } else {
-          console.log("Wrong password.");
-        }
-      } else {
-        console.log("Username does not exist.");
-      }
+      return;
     }
+
+    dispatch(loginUser({ username, password: pass }))
+      .unwrap()
+      .then((result) => {
+        clearLoginForm();
+        const onboarding = result.user.onboarding;
+        if (onboarding) {
+          navigation.replace("HomeTabs");
+        } else {
+          navigation.replace("Onboarding");
+        }
+      })
+      .catch((err) => {
+        console.log("Login falhou:", err);
+      });
   }
 
   return (
     <View className="flex-1 bg-off-white">
       {/* Modal*/}
-      <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} Users={Users} />
+      {/* <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} Users={Users} /> */}
       {/* Page Title*/}
       <View className="h-1/3 justify-center items-center">
         <Text className=" text-5xl font-quickbold text-yellow">Login</Text>

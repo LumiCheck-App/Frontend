@@ -11,18 +11,21 @@
   "dependencies": {
     "@expo-google-fonts/quicksand": "^0.2.3",
     "@expo/metro-runtime": "~4.0.0",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native-community/slider": "^4.5.5",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-native-picker/picker": "2.9.0",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
+    "@reduxjs/toolkit": "^2.6.1",
     "expo": "~52.0.25",
     "expo-blur": "~14.0.2",
     "expo-font": "~13.0.3",
     "expo-image-picker": "~16.0.4",
     "expo-linear-gradient": "~14.0.2",
     "expo-location": "~18.0.5",
+    "expo-notifications": "~0.29.12",
     "expo-splash-screen": "~0.29.20",
     "expo-status-bar": "~2.0.1",
     "nativewind": "^4.1.23",
@@ -40,7 +43,7 @@
     "react-native-svg-transformer": "^1.5.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.19.13",
-    "expo-notifications": "~0.29.12"
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
