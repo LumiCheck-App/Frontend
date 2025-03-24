@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,11 +10,11 @@ import { useDispatch } from "react-redux";
 import { setTokenFromStorage } from "./redux/authSlice";
 
 // Importar os ícones personalizados
-import HomeIcon from '../assets/icons/home.svg';
-import TrophyIcon from '../assets/icons/trophy.svg';
-import StatsIcon from '../assets/icons/stats.svg';
-import ProfileIcon from '../assets/icons/profile.svg';
-import HelpIcon from '../assets/icons/help.svg';
+import HomeIcon from "../assets/icons/home.svg";
+import TrophyIcon from "../assets/icons/trophy.svg";
+import StatsIcon from "../assets/icons/stats.svg";
+import ProfileIcon from "../assets/icons/profile.svg";
+import HelpIcon from "../assets/icons/help.svg";
 
 // Importar as telas
 import Onboarding from "./pages/Onboarding";
@@ -59,7 +58,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" 
+          tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" },
           tabBarIcon: ({ focused, size }) => {
             let IconComponent;
             let color = focused ? "#fcc766" : "#d0d0d0";
@@ -84,14 +83,7 @@ export default function App() {
                 IconComponent = null;
             }
 
-            return (
-              <IconComponent
-                width={size * 1.2}
-                height={size * 1.2}
-                fill={color}
-                accessibilityLabel={`Página ${route.name}`}
-              />
-            );
+            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
