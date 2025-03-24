@@ -58,7 +58,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" },
+          tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" 
           tabBarIcon: ({ focused, size }) => {
             let IconComponent;
             let color = focused ? "#fcc766" : "#d0d0d0";
@@ -70,7 +70,7 @@ export default function App() {
               case "Troféus":
                 IconComponent = TrophyIcon;
                 break;
-              case "Report":
+              case "Relatório":
                 IconComponent = StatsIcon;
                 break;
               case "Perfil":
@@ -83,7 +83,14 @@ export default function App() {
                 IconComponent = null;
             }
 
-            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
+            return (
+              <IconComponent
+                width={size * 1.2}
+                height={size * 1.2}
+                fill={color}
+                accessibilityLabel={`Página ${route.name}`}
+              />
+            );
           },
           tabBarActiveTintColor: "#fcc766",
           tabBarInactiveTintColor: "#d0d0d0",
@@ -102,7 +109,7 @@ export default function App() {
             },
           })}
         />
-        <Tab.Screen name="Report" component={ReportPage} />
+        <Tab.Screen name="Relatório" component={ReportPage} />
         <Tab.Screen
           name="Perfil"
           component={ProfilePageStack}

@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 export default function ArcProgressBar({ size, strokeWidth, progress }) {
-
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius * 0.8; // 80% of the circle
   const strokeDashoffset = circumference - (progress / 100) * circumference;
@@ -41,7 +40,12 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
 
   return (
     <View style={styles.container}>
-      <Svg width={size} height={size} style={{ transform: [{ rotateX: "180deg" }] }}>
+      <Svg
+        width={size}
+        height={size}
+        style={{ transform: [{ rotateX: "180deg" }] }}
+        accessibilityLabel="Arco de progresso"
+      >
         {/* Background Arc */}
         <Path
           d={createArcPath(size / 2, size / 2, radius, 40, 320)} // 80% of the circle (from 40° to 320°)
@@ -75,6 +79,7 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
       </Svg>
       {/* Text in the center */}
       <Text
+        accessibilityRole="text"
         className="font-quickregular text-black absolute"
         style={{
           fontSize: size / 4 > 30 ? 30 : size / 4,
@@ -90,6 +95,6 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 });
