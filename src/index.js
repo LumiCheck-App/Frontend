@@ -1,9 +1,15 @@
-import { registerRootComponent } from 'expo';
-import './index.css';
+import { registerRootComponent } from "expo";
+import "./index.css";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import FontDefiner from "./FontDefiner";
 
-import App from './App';
+function ReduxWrapper() {
+  return (
+    <Provider store={store}>
+      <FontDefiner />
+    </Provider>
+  );
+}
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+registerRootComponent(ReduxWrapper);

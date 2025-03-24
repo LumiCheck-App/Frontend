@@ -3,11 +3,11 @@ import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  Quicksand_400Regular,
-  Quicksand_700Bold,
-} from "@expo-google-fonts/quicksand";
 import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setTokenFromStorage } from "./redux/authSlice";
 
 // Importar os ícones personalizados
 import HomeIcon from "../assets/icons/home.svg";
@@ -17,6 +17,7 @@ import ProfileIcon from "../assets/icons/profile.svg";
 import HelpIcon from "../assets/icons/help.svg";
 
 // Importar as telas
+import Onboarding from "./pages/Onboarding";
 import WelcomePage from "./pages/WelcomePage";
 import HomePage from "./pages/HomePage";
 import TrophiesPage from "./pages/TrophiesPage";
@@ -35,18 +36,17 @@ import AllTrophies from "./pages/AllTrophies";
 import QuestionPage from "./pages/QuestionPage";
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    Quicksand_400Regular: Quicksand_400Regular,
-    Quicksand_700Bold: Quicksand_700Bold,
-  });
+  const dispatch = useDispatch();
 
-  if (!fontsLoaded) {
-    return (
-      <View className="flex-1 justify-center items-center bg-off'white">
-        <Text>Carregando fontes...</Text>
-      </View>
-    );
-  }
+  useEffect(() => {
+    const loadToken = async () => {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        dispatch(setTokenFromStorage(token));
+      }
+    };
+    loadToken();
+  }, []);
 
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -58,11 +58,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarStyle: {
-            paddingTop: 5,
-            paddingBottom: 5,
-            backgroundColor: "#fff",
-          },
+          tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" 
           tabBarIcon: ({ focused, size }) => {
             let IconComponent;
             let color = focused ? "#fcc766" : "#d0d0d0";
@@ -162,10 +158,8 @@ export default function App() {
           <Stack.Screen name="Welcome" component={WelcomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Register" component={RegisterPage} />
-          <Stack.Screen
-            name="FirstQuestionnaire"
-            component={FirstQuestionnaire}
-          />
+          <Stack.Screen name="FirstQuestionnaire" component={FirstQuestionnaire} />
+          <Stack.Screen name="Onboarding" component={Onboarding} />
           <Stack.Screen name="HomeTabs" component={HomeTabs} />
           <Stack.Screen name="QuestionPage" component={QuestionPage} />
           <Stack.Screen name="TrophyDetail" component={TrophyDetail} />
