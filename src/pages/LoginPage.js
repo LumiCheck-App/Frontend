@@ -11,8 +11,8 @@ export default function LoginPage() {
   const navigation = useNavigation();
 
   //State Variables
-  const [username, setUname] = useState("");
-  const [pass, setPass] = useState("");
+  const [username, setUname] = useState('');
+  const [pass, setPass] = useState('');
   const [securePass, setSecurePass] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState("");
@@ -20,8 +20,8 @@ export default function LoginPage() {
 
   //Function to clear Login Form
   const clearLoginForm = () => {
-    setUname("");
-    setPass("");
+    setUname('');
+    setPass('');
   };
 
   const dispatch = useDispatch();

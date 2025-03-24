@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,11 +11,11 @@ import { useDispatch } from "react-redux";
 import { setTokenFromStorage } from "./redux/authSlice";
 
 // Importar os ícones personalizados
-import HomeIcon from "../assets/icons/home.svg";
-import TrophyIcon from "../assets/icons/trophy.svg";
-import StatsIcon from "../assets/icons/stats.svg";
-import ProfileIcon from "../assets/icons/profile.svg";
-import HelpIcon from "../assets/icons/help.svg";
+import HomeIcon from '../assets/icons/home.svg';
+import TrophyIcon from '../assets/icons/trophy.svg';
+import StatsIcon from '../assets/icons/stats.svg';
+import ProfileIcon from '../assets/icons/profile.svg';
+import HelpIcon from '../assets/icons/help.svg';
 
 // Importar as telas
 import Onboarding from "./pages/Onboarding";

@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
-import Lumi from "../../assets/lumis/Lumi.svg";
-import LumiLaranja from "../../assets/lumis/LumiLaranja.svg";
-import LumiVermelha from "../../assets/lumis/LumiVermelha.svg";
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import Lumi from '../../assets/lumis/Lumi.svg';
+import LumiLaranja from '../../assets/lumis/LumiLaranja.svg';
+import LumiVermelha from '../../assets/lumis/LumiVermelha.svg';
 
 const Lumi3Colors = ({ negative, neutral, positive }) => {
   const marginHorizontal = 2.2;

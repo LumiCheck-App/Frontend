@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   TextInput,
   ScrollView,
-} from "react-native";
-import { CheckBox } from "react-native-elements";
-import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import TermsAndContitionsModal from "../components/TermsAndConditionsModal";
-import { Ionicons } from "@expo/vector-icons";
+} from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function RegisterPage() {
   const navigation = useNavigation();
@@ -25,12 +25,12 @@ export default function RegisterPage() {
   const [passConf, setPassConf] = useState("");
   const [securePassConf, setSecurePassConf] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [hasError, setHasError] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   function RedirectToLogin() {
-    navigation.replace("Login");
+    navigation.replace('Login');
   }
 
   function handleRegistration() {
@@ -51,7 +51,7 @@ export default function RegisterPage() {
         }
       } else {
         setHasError(true);
-        setError("As passwords devem coincidir");
+        setError('As passwords devem coincidir');
       }
     } else {
       setHasError(true);
@@ -156,7 +156,7 @@ export default function RegisterPage() {
 
           <View className="flex-row w-full items-center justify-end  gap-2">
             <CheckBox
-              containerStyle={{ width: "0", paddingLeft: 0 }}
+              containerStyle={{ width: '0', paddingLeft: 0 }}
               checked={isChecked}
               onPress={() => setIsChecked(!isChecked)}
               checkedColor="#ff9d00"

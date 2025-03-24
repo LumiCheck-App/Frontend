@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, Modal, TouchableOpacity, ScrollView } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import React from 'react';
+import { View, Text, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function TermsAndContitionsModal({ modalVisible, setModalVisible }) {
   function CloseModal() {

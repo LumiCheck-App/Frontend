@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from "react";
 import {
   Text,
@@ -6,18 +7,18 @@ import {
   Image,
   TouchableOpacity,
   Animated,
-} from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import BackgroundGradient from "../components/BackgroundGradient";
-import ArcProgressBar from "../components/ArcProgressBar";
-import MostUsedApps from "../components/MostUsedApps";
-import ScreenTimeChart from "../components/ScreenTimeChart";
-import Lumi3Colors from "../components/Lumi3Colors";
-import LumiQuestion from "../components/LumiQuestion";
-import { useNavigation } from "@react-navigation/native";
-import Lumi from "../../assets/lumis/Lumi.svg";
-import ScoreIcon from "../../assets/icons/scoreicon.svg";
+} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import BackgroundGradient from '../components/BackgroundGradient';
+import ArcProgressBar from '../components/ArcProgressBar';
+import MostUsedApps from '../components/MostUsedApps';
+import ScreenTimeChart from '../components/ScreenTimeChart';
+import Lumi3Colors from '../components/Lumi3Colors';
+import LumiQuestion from '../components/LumiQuestion';
+import { useNavigation } from '@react-navigation/native';
+import Lumi from '../../assets/lumis/Lumi.svg';
+import ScoreIcon from '../../assets/icons/scoreicon.svg';
 
 export default function ReportPage() {
   const navigation = useNavigation();
@@ -65,69 +66,69 @@ export default function ReportPage() {
   const lumiPositionY = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [0, -80],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const lumiPositionX = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [0, -160],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const lumiScale = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [1, 0.25],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const number34PositionY = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [0, -148],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   // Animações para números e ScoreIcon
   const number34PositionX = scrollY.interpolate({
     inputRange: [0, 240],
     outputRange: [0, 185],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const numberPositionY = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [0, -240],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   // Animações para números e ScoreIcon
   const numberPositionX = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [0, 80],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const backgroundOpacity = scrollY.interpolate({
     inputRange: [150, 270],
     outputRange: [0, 1],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const textOpacity = scrollY.interpolate({
     inputRange: [150, 270],
     outputRange: [1, 0],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const numberFontSize = scrollY.interpolate({
     inputRange: [0, 270],
     outputRange: [110, 16],
-    extrapolate: "clamp",
+    extrapolate: 'clamp',
   });
 
   const numberColor = scrollY.interpolate({
     inputRange: [250, 270],
-    outputRange: ["#fcc766", "#000000"], // De amarelo para preto
-    extrapolate: "clamp",
+    outputRange: ['#fcc766', '#000000'], // De amarelo para preto
+    extrapolate: 'clamp',
   });
 
   return (
@@ -136,7 +137,7 @@ export default function ReportPage() {
       <Animated.View
         style={{
           opacity: backgroundOpacity,
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
@@ -145,7 +146,7 @@ export default function ReportPage() {
         }}
       >
         <LinearGradient
-          colors={["#ffe5b4", "#ffe5b4", "#fff9ef00"]}
+          colors={['#ffe5b4', '#ffe5b4', '#fff9ef00']}
           locations={[0, 0.6, 1]}
           style={{ flex: 1, opacity: 0.9 }}
         />
@@ -154,14 +155,14 @@ export default function ReportPage() {
       {/* Animação para Lumi */}
       <Animated.View
         style={{
-          position: "absolute",
+          position: 'absolute',
           transform: [
             { translateX: lumiPositionX },
             { translateY: lumiPositionY },
             { scale: lumiScale },
           ],
           zIndex: 10,
-          left: "50%",
+          left: '50%',
           top: 90,
           marginLeft: -75,
         }}
@@ -178,16 +179,16 @@ export default function ReportPage() {
       {/* Animação para números e ScoreIcon */}
       <Animated.View
         style={{
-          position: "absolute",
+          position: 'absolute',
           transform: [
             { translateX: number34PositionX },
             { translateY: number34PositionY },
           ],
           zIndex: 10,
-          left: "25%",
+          left: '25%',
           top: 220,
-          flexDirection: "row",
-          alignItems: "flex-end",
+          flexDirection: 'row',
+          alignItems: 'flex-end',
         }}
       >
         <Animated.Text
@@ -202,16 +203,16 @@ export default function ReportPage() {
 
       <Animated.View
         style={{
-          position: "absolute",
+          position: 'absolute',
           transform: [
             { translateX: numberPositionX },
             { translateY: numberPositionY },
           ],
           zIndex: 10,
-          left: "57%",
+          left: '57%',
           top: 310,
-          flexDirection: "row",
-          alignItems: "flex-end",
+          flexDirection: 'row',
+          alignItems: 'flex-end',
         }}
       >
         <Text
@@ -233,7 +234,7 @@ export default function ReportPage() {
         style={{
           transform: [{ translateY: numberPositionY }],
           opacity: textOpacity,
-          alignItems: "center",
+          alignItems: 'center',
           zIndex: 10,
           top: 350,
         }}
@@ -328,7 +329,7 @@ export default function ReportPage() {
 
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("Perfil", { screen: "AllLumiQuestions" })
+              navigation.navigate('Perfil', { screen: 'AllLumiQuestions' })
             }
             accessibilityRole="link"
           >

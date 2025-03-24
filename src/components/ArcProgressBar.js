@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Svg, { Path } from "react-native-svg";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
 export default function ArcProgressBar({ size, strokeWidth, progress }) {
   const radius = (size - strokeWidth) / 2;
@@ -12,13 +12,13 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
     const start = polarToCartesian(cx, cy, r, endAngle);
     const end = polarToCartesian(cx, cy, r, startAngle);
 
-    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+    const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
 
     return [
-      "M",
+      'M',
       start.x,
       start.y,
-      "A",
+      'A',
       r,
       r,
       0,
@@ -26,7 +26,7 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
       0,
       end.x,
       end.y,
-    ].join(" ");
+    ].join(' ');
   };
 
   // Helper to convert polar coordinates to Cartesian

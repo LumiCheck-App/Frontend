@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -62,15 +63,15 @@ export default function HelpPage() {
     },
     {
       id: 2,
-      image: require("../../assets/artigos/internetsegura.png"),
-      title: "Guia: Dependências Online",
-      link: "https://www.internetsegura.pt/sites/default/files/2022-10/Centro_Internet_Segura_Guia_Depend%C3%AAncias_Online.pdf",
+      image: require('../../assets/artigos/internetsegura.png'),
+      title: 'Guia: Dependências Online',
+      link: 'https://www.internetsegura.pt/sites/default/files/2022-10/Centro_Internet_Segura_Guia_Depend%C3%AAncias_Online.pdf',
     },
     {
       id: 3,
-      image: require("../../assets/artigos/medicare.png"),
-      title: "Tempo de ecrã: como limitar e cuidados a ter",
-      link: "https://www.medicare.pt/mais-saude/prevencao/tempo-ecra-cuidados-a-ter",
+      image: require('../../assets/artigos/medicare.png'),
+      title: 'Tempo de ecrã: como limitar e cuidados a ter',
+      link: 'https://www.medicare.pt/mais-saude/prevencao/tempo-ecra-cuidados-a-ter',
     },
     {
       id: 4,
@@ -97,10 +98,10 @@ export default function HelpPage() {
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
+      if (status !== 'granted') {
         Alert.alert(
-          "Permissão negada",
-          "Não foi possível acessar sua localização. Ative a permissão para usar essa funcionalidade."
+          'Permissão negada',
+          'Não foi possível acessar sua localização. Ative a permissão para usar essa funcionalidade.'
         );
         return;
       }
@@ -118,7 +119,7 @@ export default function HelpPage() {
   }, []);
 
   const filteredMarkers = selectedDistrito
-    ? selectedDistrito === "Outros"
+    ? selectedDistrito === 'Outros'
       ? markersOnMap.filter(
           (marker) =>
             !distritos.some(
@@ -142,7 +143,7 @@ export default function HelpPage() {
 
   const makeCall = (phoneNumber) => {
     Linking.openURL(`tel:${phoneNumber}`).catch((err) =>
-      console.error("Erro ao tentar abrir o discador:", err)
+      console.error('Erro ao tentar abrir o discador:', err)
     );
   };
 
@@ -153,13 +154,13 @@ export default function HelpPage() {
           {/* Mapa */}
           <MapView
             onPress={(e) => {
-              const isMarkerPress = e.nativeEvent.action === "marker-press";
+              const isMarkerPress = e.nativeEvent.action === 'marker-press';
               if (!isMarkerPress) {
                 setSelectedMarker(null);
               }
             }}
             style={{
-              width: "100%",
+              width: '100%',
               aspectRatio: 1,
             }}
             region={region}
@@ -169,7 +170,7 @@ export default function HelpPage() {
               <Marker
                 coordinate={location}
                 title="Você"
-                image={require("../../assets/lumis/LumiMapa.png")}
+                image={require('../../assets/lumis/LumiMapa.png')}
               />
             )}
 
@@ -240,7 +241,7 @@ export default function HelpPage() {
                 accessible={true}
               >
                 <Text className="text-lg font-quickbold text-white">
-                  {selectedDistrito || "Selecione um Distrito"}
+                  {selectedDistrito || 'Selecione um Distrito'}
                 </Text>
               </TouchableOpacity>
               <Modal
@@ -256,7 +257,7 @@ export default function HelpPage() {
                   />
                   <View className="h-1/2 bg-white rounded-t-lg">
                     <FlatList
-                      data={[...distritos, "Outros"]}
+                      data={[...distritos, 'Outros']}
                       keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) => (
                         <TouchableOpacity
@@ -328,14 +329,14 @@ export default function HelpPage() {
               <View className="w-11/12 mt-2 mb-20">
                 <TouchableOpacity
                   style={{
-                    alignItems: "flex-end", // Alinha o botão à direita
+                    alignItems: 'flex-end', // Alinha o botão à direita
                   }}
                   onPress={handleShowMore}
                 >
                   <Text className="text-md font-quickbold text-orange">
                     {visibleCount >= filteredMarkers.length
-                      ? "VER MENOS"
-                      : "VER MAIS"}
+                      ? 'VER MENOS'
+                      : 'VER MAIS'}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -370,8 +371,8 @@ export default function HelpPage() {
                   resizeMode="cover"
                 >
                   <LinearGradient
-                    colors={["transparent", "rgba(0, 0, 0, 0.7)"]}
-                    style={{ flex: 1, justifyContent: "flex-end", padding: 10 }}
+                    colors={['transparent', 'rgba(0, 0, 0, 0.7)']}
+                    style={{ flex: 1, justifyContent: 'flex-end', padding: 10 }}
                   >
                     <Text
                       className="text-sm font-quickbold text-white"

@@ -1,12 +1,12 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Lumi from "../../assets/lumis/Lumi.svg";
+import React from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Lumi from '../../assets/lumis/Lumi.svg';
 
 export default function SpeechBubble() {
   const navigation = useNavigation();
   function RedirectToRegister() {
-    navigation.replace("Register");
+    navigation.replace('Register');
   }
   return (
     <View className="flex-row items-center gap-2">
