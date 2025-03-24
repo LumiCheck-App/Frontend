@@ -1,12 +1,15 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
 
-const LumiQuestion = ({ index, text, score }) => {
+const LumiQuestion = ({ index, text, score, caption }) => {
   const scoreWidth = `${(score / 5) * 100}%`;
 
   return (
     <View className="w-11/12 mt-8">
-      <View className="bg-white rounded-lg border border-light-gray p-4">
+      <View
+        className="bg-white rounded-lg border border-light-gray p-4"
+        accessible={true}
+      >
         <View className="mb-2">
           <Text className="text-xl font-quickbold text-black">
             Pergunta {index}
@@ -33,7 +36,10 @@ const LumiQuestion = ({ index, text, score }) => {
 
               {/* Contador */}
               <View className="w-1/6">
-                <Text className="text-lg text-violet font-quickbold text-right mr-4">
+                <Text
+                  className="text-lg text-violet font-quickbold text-right mr-4"
+                  accessibilityLabel={`${score} ${caption}`}
+                >
                   {score}
                 </Text>
               </View>

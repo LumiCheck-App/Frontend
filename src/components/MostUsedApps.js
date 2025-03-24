@@ -8,49 +8,57 @@ export default function MostUsedApps() {
       id: 0,
       image: require('../../assets/insta-logo.png'),
       hours: 4.5,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "instagram",
     },
     {
       id: 1,
       image: require('../../assets/tiktok-logo.png'),
       hours: 5,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "tiktok",
     },
     {
       id: 2,
       image: require('../../assets/facebook-logo.png'),
       hours: 4,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "facebook",
     },
     {
       id: 3,
       image: require('../../assets/youtube-logo.png'),
       hours: 3.5,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "youtube",
     },
     {
       id: 4,
       image: require('../../assets/shein-logo.jpg'),
       hours: 3,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "shein",
     },
     {
       id: 5,
       image: require('../../assets/tiktok-logo.png'),
       hours: 1,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "tiktok",
     },
     {
       id: 6,
       image: require('../../assets/facebook-logo.png'),
       hours: 1,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "facebook",
     },
     {
       id: 7,
       image: require('../../assets/cc-logo.jpg'),
       hours: 2.2,
-      date: '11/01/2025',
+      date: "11/01/2025",
+      app_name: "Clash of Clans",
     },
   ];
 
@@ -73,12 +81,17 @@ export default function MostUsedApps() {
         }
 
         return (
-          <View key={`data_${index}`} className="flex-row mt-3">
+          <View
+            key={`data_${index}`}
+            className="flex-row mt-3"
+            accessibilityLabel="Tempo de uso da aplicação"
+          >
             <View className="w-1/6">
               <Image
                 source={Data.image}
                 className="w-6 h-6"
                 resizeMode="contain"
+                accessibilityLabel={`${Data.app_name} ${Data.hours} horas`}
               />
             </View>
 
@@ -92,7 +105,10 @@ export default function MostUsedApps() {
         );
       })}
 
-      <View className="w-full px-2 h-5 flex-row items-end justify-end mt-6">
+      <View
+        className="w-full px-2 h-5 flex-row items-end justify-end mt-6"
+        importantForAccessibility="no-hide-descendants"
+      >
         <View className=" w-10/12 h-5 flex-row items-center justify-between">
           <Text className="font-quickbold">0h</Text>
           <Text className="font-quickbold">1h</Text>
