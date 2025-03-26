@@ -6,6 +6,8 @@ import step3 from "../../assets/onboarding/step3.png";
 import step4 from "../../assets/onboarding/step4.png";
 import step5 from "../../assets/onboarding/step5.png";
 import step6 from "../../assets/onboarding/step6.png";
+import orangeCorner from "../../assets/onboarding/orange_corner.png";
+import { MaterialIcons } from '@expo/vector-icons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -66,7 +68,8 @@ export default function Onboarding({ navigation }) {
   };
 
   return (
-    <View className="flex-1 justify-between items-center p-36 bg-off-white">
+    <View className="flex-1 justify-between items-center p-24 bg-off-white">
+      <Image source={orangeCorner} width={100} height={100} style={{ position: "absolute", bottom: 0, right: 0 }} />
       <View className="w-screen h-full">
         <FlatList
           ref={flatListRef}
@@ -78,9 +81,9 @@ export default function Onboarding({ navigation }) {
                 <Image source={item.image} style={{ height: 300, aspectRatio: 1 }} />
               </View>
               {/* Texto principal */}
-              <View className="justify-center items-center py-20">
-                <Text className="text-4xl font-quickbold text-center mb-6 w-screen px-12">{item.text}</Text>
-                <Text className="text-xl font-quickregular text-center mb-6 w-screen px-12">{item.description}</Text>
+              <View className="justify-center items-center py-24 gap-4">
+                <Text className="text-4xl font-quickbold text-center w-screen px-12">{item.text}</Text>
+                <Text className="font-quickregular text-center w-screen px-12">{item.description}</Text>
               </View>
             </View>
           )}
@@ -118,32 +121,17 @@ export default function Onboarding({ navigation }) {
 
           {/* Botão Próximo */}
           <TouchableOpacity
-            className="bg-orange px-6 py-2 rounded-lg"
+            className="px-6 rounded-lg"
             onPress={() => {
               if (currentStep < steps.length - 1) {
                 flatListRef.current.scrollToIndex({ index: currentStep + 1 });
+              } else {
+                navigation.replace("HomeTabs");
               }
             }}
           >
-            <Text className="text-white text-lg font-quickbold">Próximo</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Botões "Inicio" e "Concluir" */}
-        <View
-          className={`flex-row justify-between w-screen px-10 ${currentStep === steps.length - 1 ? "block" : "hidden"}`}
-        >
-          {/* Botão Inicio */}
-          <TouchableOpacity
-            className="border-2 border-orange bg-white px-6 py-2 rounded-lg"
-            onPress={() => flatListRef.current.scrollToIndex({ index: 0 })}
-          >
-            <Text className="text-orange text-lg font-quickbold">Inicio</Text>
-          </TouchableOpacity>
-
-          {/* Botão Concluir */}
-          <TouchableOpacity className="bg-orange px-6 py-2 rounded-lg" onPress={() => navigation.replace("HomeTabs")}>
-            <Text className="text-white text-lg font-quickbold">Concluir</Text>
+            
+            <MaterialIcons name="arrow-forward" size={40} color={"#ff9d00"} />
           </TouchableOpacity>
         </View>
       </View>
