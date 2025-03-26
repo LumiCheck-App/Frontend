@@ -8,6 +8,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../redux/authSlice';
 
 import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
 import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
@@ -16,6 +18,7 @@ import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 export default function ProfilePage() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const trophieswon = [
     {
@@ -36,6 +39,18 @@ export default function ProfilePage() {
       icon: BomProgresso,
     },
   ];
+
+    const handleLogout = async () => {
+      try {
+        await dispatch(logoutUser()).unwrap();
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        });
+      } catch (error) {
+        console.error('Erro ao deslogar:', error);
+      }
+    };
 
   return (
     <BackgroundGradient>
@@ -214,7 +229,7 @@ export default function ProfilePage() {
 
                 <TouchableOpacity
                   className="flex-row items-center w-full py-3"
-                  onPress={() => navigation.navigate('Login')}
+                  onPress={handleLogout}
                 >
                   {/* Ícone */}
                   <View
