@@ -1,9 +1,7 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -37,16 +35,27 @@ import QuestionPage from "./pages/QuestionPage";
 
 export default function App() {
   const dispatch = useDispatch();
+  const [initialRoute, setInitialRoute] = useState(null);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    const loadToken = async () => {
+    const checkToken = async () => {
       const token = await AsyncStorage.getItem("token");
-      if (token) {
-        dispatch(setTokenFromStorage(token));
+      const user = await AsyncStorage.getItem("user");
+      if (token && user) {
+        dispatch(setTokenFromStorage({ token, user: JSON.parse(user) })); 
+        setInitialRoute("HomeTabs");
+      } else {
+        setInitialRoute("Welcome");
       }
+      setLoading(false);
     };
-    loadToken();
+    checkToken();
   }, []);
+
+  if (loading) {
+    return null; 
+  }
 
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -147,7 +156,7 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
           <Stack.Screen name="Welcome" component={WelcomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Register" component={RegisterPage} />

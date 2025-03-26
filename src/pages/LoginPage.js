@@ -36,8 +36,10 @@ export default function LoginPage() {
     dispatch(loginUser({ username, password: pass }))
       .unwrap()
       .then((result) => {
+        console.log("Login result:", result);
         clearLoginForm();
         const onboarding = result.user.onboarding;
+        console.log("Onboarding:", onboarding);
         if (onboarding) {
           navigation.replace("HomeTabs");
         } else {
@@ -52,7 +54,7 @@ export default function LoginPage() {
   return (
     <View className="flex-1 bg-off-white">
       {/* Modal*/}
-      <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} Users={Users} />
+      {/* <PasswordResetModal modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
       {/* Page Title*/}
       <View className="h-1/3 justify-center items-center">
         <Text className="text-5xl font-quickbold text-yellow">Login</Text>

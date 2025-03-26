@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const loginUser = createAsyncThunk("auth/loginUser", async ({ username, password }, thunkAPI) => {
   try {
-    const response = await fetch("http://10.0.2.2:8000/user/login", {
+    const response = await fetch("http://172.20.10.2:8000/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -11,9 +11,9 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ username, p
     const data = await response.json();
 
     if (response.ok) {
-      await AsyncStorage.setItem("token", data.token);
+      await AsyncStorage.setItem("token", data.access_token);
       await AsyncStorage.setItem("user", JSON.stringify(data.user));
-      return { token: data.token, user: data.user };
+      return { token: data.access_token, user: data.user };
     } else {
       return thunkAPI.rejectWithValue(data.message);
     }
@@ -22,8 +22,14 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ username, p
   }
 });
 
-export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
-  await AsyncStorage.removeItem("token");
+export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, thunkAPI) => {
+  try {
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("user");
+    return true; 
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
 });
 
 const authSlice = createSlice({
@@ -36,7 +42,7 @@ const authSlice = createSlice({
   },
   reducers: {
     setTokenFromStorage(state, action) {
-      state.token = action.payload;
+      state.token = action.payload.token;
       state.user = action.payload.user;
     },
   },
@@ -47,7 +53,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.token = action.payload;
+        state.token = action.payload.token;
         state.user = action.payload.user;
         state.isLoading = false;
       })
