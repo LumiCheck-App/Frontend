@@ -81,7 +81,7 @@ export default function RegisterPage() {
           {/*Form*/}
           {/* Input do username */}
           <TextInput
-            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl placeholder:font-quickregular placeholder:text-lg placeholder:text-dark-gray"
+            className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
             placeholder="Username *"
             accessibilityLabel="Username (obrigatório)"
             onChangeText={setUname}
@@ -89,7 +89,7 @@ export default function RegisterPage() {
           />
 
           <TextInput
-            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl placeholder:font-quickregular placeholder:text-lg placeholder:text-dark-gray"
+            className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
             placeholder="Email *"
             accessibilityLabel="Email (obrigatório)"
             onChangeText={setEmail}
@@ -104,8 +104,8 @@ export default function RegisterPage() {
             {/* Input da password */}
             <TextInput
               secureTextEntry={securePass}
-              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl placeholder:font-quickregular placeholder:text-lg placeholder:text-dark-gray"
-              onChangeText={setPass}
+              className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
+            onChangeText={setPass}
               value={pass}
               placeholder="Password *"
               accessibilityLabel="Password (obrigatório)"
@@ -131,7 +131,7 @@ export default function RegisterPage() {
             {/* Input da password */}
             <TextInput
               secureTextEntry={securePassConf}
-              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl placeholder:font-quickregular placeholder:text-lg placeholder:text-dark-gray"
+              className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
               onChangeText={setPassConf}
               value={passConf}
               placeholder="Confirmar Password *"
