@@ -125,13 +125,29 @@ export default function Onboarding({ navigation }) {
             onPress={() => {
               if (currentStep < steps.length - 1) {
                 flatListRef.current.scrollToIndex({ index: currentStep + 1 });
-              } else {
-                navigation.replace("HomeTabs");
               }
             }}
           >
-            
             <MaterialIcons name="arrow-forward" size={40} color={"#ff9d00"} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Botões "Inicio" e "Concluir" */}
+        <View
+          className={`flex-row justify-between w-screen px-10 ${currentStep === steps.length - 1 ? "block" : "hidden"}`}
+        >
+          {/* Botão Inicio */}
+          <TouchableOpacity
+            className="border-2 border-orange bg-white px-6 py-2 rounded-lg"
+            onPress={() => flatListRef.current.scrollToIndex({ index: 0 })}
+          >
+            <Text className="text-orange text-lg font-quickbold">Inicio</Text>
+          </TouchableOpacity>
+
+          {/* Botão Concluir */}
+          <TouchableOpacity className="px-6 rounded-lg" onPress={() => navigation.replace("HomeTabs")}>
+            <MaterialIcons name="arrow-forward" size={40} color={"#ff9d00"} />
+            
           </TouchableOpacity>
         </View>
       </View>
