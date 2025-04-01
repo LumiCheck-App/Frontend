@@ -115,7 +115,13 @@ export default function FirstQuestionnaire() {
           setUserDigitalHabits={setUserDigitalHabits}
         />
       )}
-      {questions && <FirstFiveQuestions onButtonClick={handleProgress} userQuestionnaire={userQuestionnaire} setUserQuestionnaire={setUserQuestionnaire} />}
+      {questions && 
+        <FirstFiveQuestions 
+          onButtonClick={handleProgress} 
+          userQuestionnaire={userQuestionnaire} 
+          setUserQuestionnaire={setUserQuestionnaire} 
+        />
+      }
       {finalmessage && <FQFinalMessage FinishQuestionnaire={FinishQuestionnaire} />}
     </View>
   );

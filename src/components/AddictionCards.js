@@ -14,6 +14,8 @@ export default function AddictionCards({
   onCardSwipe,
   modalVisible,
   CloseModal,
+  userDigitalHabits,
+  setUserDigitalHabits,
 }) {
   const [cards, setCards] = useState([
     { id: 0, text: 'Redes Sociais', image: RedesSociais },
@@ -24,6 +26,12 @@ export default function AddictionCards({
 
   const progress = 50 / cards.length;
   const handleSwipe = (id, direction) => {
+
+    setUserDigitalHabits(prev => ({
+      ...prev,
+      [`habit${id}`]: direction === 'right' // true para SIM (direita), false para NÃO (esquerda)
+    }));
+
     if (direction === 'right') {
       //send to database
     }

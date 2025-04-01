@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || "http://localhost:8000";
+
 export const loginUser = createAsyncThunk("auth/loginUser", async ({ username, password }, thunkAPI) => {
   try {
-    const response = await fetch("http://172.20.10.2:8000/user/login", {
+    const response = await fetch(`${API_URL}/user/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
