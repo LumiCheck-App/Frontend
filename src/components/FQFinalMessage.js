@@ -1,14 +1,9 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Lumi from '../../assets/lumis/Lumi.svg';
 
-export default function FQFinalMessage() {
-  const navigation = useNavigation();
+export default function FQFinalMessage({ FinishQuestionnaire }) {
 
-  function HomeRedirect() {
-    navigation.replace('HomeTabs');
-  }
   return (
     <View className="w-screen h-4/5 px-6 justify-center items-center gap-6">
       <Text className="text-dark-gray font-quickbold text-lg px-16 text-center">
@@ -20,7 +15,7 @@ export default function FQFinalMessage() {
       <Lumi height={100} width={100} style={{ margin: 50 }} />
       <TouchableOpacity
         className="bg-yellow rounded-lg w-full py-3 items-center mt-10"
-        onPress={HomeRedirect}
+        onPress={FinishQuestionnaire}
       >
         <Text className="text-xl text-white font-quickbold">Avançar</Text>
       </TouchableOpacity>

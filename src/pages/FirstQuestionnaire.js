@@ -21,6 +21,19 @@ export default function FirstQuestionnaire() {
   const [questions, setQuestions] = useState(false);
   const [finalmessage, setFinalMessage] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [userDigitalHabits, setUserDigitalHabits] = useState({
+    habit0: false,
+    habit1: false,
+    habit2: false,
+    habit3: false,
+  });
+  const [userQuestionnaire, setUserQuestionnaire] = useState({
+    question0: 0,
+    question1: 0,
+    question2: 0,
+    question3: 0,
+    question4: 0,
+  });
 
   const handleProgress = (quantity, array_id, part) => {
     progress.value = withTiming(progress.value + quantity, { duration: 500 });
@@ -65,6 +78,13 @@ export default function FirstQuestionnaire() {
     }
   }
 
+  function FinishQuestionnaire() {
+    // enviar dados para base de dados
+    console.log('FinishQuestionnaire');
+
+    navigation.replace('HomeTabs');
+  }
+
   return (
     <View className="flex-1 bg-off-white">
       {/* Header Section */}
@@ -91,10 +111,12 @@ export default function FirstQuestionnaire() {
           onCardSwipe={handleProgress}
           modalVisible={modalVisible}
           CloseModal={CloseTheFirstMessage}
+          userDigitalHabits={userDigitalHabits}
+          setUserDigitalHabits={setUserDigitalHabits}
         />
       )}
-      {questions && <FirstFiveQuestions onButtonClick={handleProgress} />}
-      {finalmessage && <FQFinalMessage />}
+      {questions && <FirstFiveQuestions onButtonClick={handleProgress} userQuestionnaire={userQuestionnaire} setUserQuestionnaire={setUserQuestionnaire} />}
+      {finalmessage && <FQFinalMessage FinishQuestionnaire={FinishQuestionnaire} />}
     </View>
   );
 }

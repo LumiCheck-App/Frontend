@@ -43,7 +43,7 @@ export default function LoginPage() {
         if (onboarding) {
           navigation.replace("HomeTabs");
         } else {
-          navigation.replace("Onboarding");
+          navigation.replace("FirstQuestionnaire");
         }
       })
       .catch((err) => {
