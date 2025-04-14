@@ -67,6 +67,11 @@ export default function Onboarding({ navigation }) {
     }
   };
 
+  const handleFinishOnboarding = () => {
+  dispatch(updateOnboardingStatus());
+  navigation.replace("HomeTabs");
+};
+
   return (
     <View className="flex-1 justify-between items-center p-24 bg-off-white">
       <Image source={orangeCorner} width={100} height={100} style={{ position: "absolute", bottom: 0, right: 0 }} />
@@ -145,7 +150,7 @@ export default function Onboarding({ navigation }) {
           </TouchableOpacity>
 
           {/* Botão Concluir */}
-          <TouchableOpacity className="px-6 rounded-lg" onPress={() => navigation.replace("HomeTabs")}>
+          <TouchableOpacity className="px-6 rounded-lg" onPress={() => handleFinishOnboarding()}>
             <MaterialIcons name="arrow-forward" size={40} color={"#ff9d00"} />
             
           </TouchableOpacity>

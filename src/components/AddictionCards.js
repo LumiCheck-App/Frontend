@@ -29,7 +29,7 @@ export default function AddictionCards({
 
     setUserDigitalHabits(prev => ({
       ...prev,
-      [`habit${id}`]: direction === 'right' // true para SIM (direita), false para NÃO (esquerda)
+      [`habit${id + 1}`]: direction === 'right' 
     }));
 
     if (direction === 'right') {

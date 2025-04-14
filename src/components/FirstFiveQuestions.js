@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import SliderQuestions from './SliderQuestions';
 
-export default function FirstFiveQuestions({ onButtonClick }) {
+export default function FirstFiveQuestions({ onButtonClick, userQuestionnaire, setUserQuestionnaire }) {
   const [questions, setQuestions] = useState([
     {
       id: 0,
@@ -65,6 +65,13 @@ export default function FirstFiveQuestions({ onButtonClick }) {
       updatedQuestions[questionId].score = score;
 
       return updatedQuestions;
+    });
+    setUserQuestionnaire((prevUserQuestionnaire) => {
+      const updatedUserQuestionnaire = { ...prevUserQuestionnaire };
+
+      updatedUserQuestionnaire[`question${questionId}`] = score;
+
+      return updatedUserQuestionnaire;
     });
   }
 

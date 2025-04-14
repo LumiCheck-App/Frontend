@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import AddictionCards from '../components/AddictionCards';
 import FirstFiveQuestions from '../components/FirstFiveQuestions';
@@ -8,12 +8,16 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-import { FontAwesome } from '@expo/vector-icons';
+import { useDispatch } from "react-redux";
+import { submitDigitalHabits } from "../redux/digitalHabitSlice";
+
 
 export default function FirstQuestionnaire() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const progress = useSharedValue(0);
 
@@ -22,17 +26,17 @@ export default function FirstQuestionnaire() {
   const [finalmessage, setFinalMessage] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [userDigitalHabits, setUserDigitalHabits] = useState({
-    habit0: false,
     habit1: false,
     habit2: false,
     habit3: false,
+    habit4: false,
   });
   const [userQuestionnaire, setUserQuestionnaire] = useState({
-    question0: 0,
     question1: 0,
     question2: 0,
     question3: 0,
     question4: 0,
+    question5: 0,
   });
 
   const handleProgress = (quantity, array_id, part) => {
@@ -79,11 +83,10 @@ export default function FirstQuestionnaire() {
   }
 
   function FinishQuestionnaire() {
-    // enviar dados para base de dados
-    console.log('FinishQuestionnaire');
-
-    navigation.replace('HomeTabs');
-  }
+    dispatch(submitDigitalHabits(userDigitalHabits));
+    dispatch(submitAnswers(userQuestionnaire));
+    navigation.replace('OnBoarding');
+  } 
 
   return (
     <View className="flex-1 bg-off-white">
