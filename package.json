@@ -30,6 +30,7 @@
     "expo-notifications": "~0.31.2",
     "expo-splash-screen": "~0.30.8",
     "expo-status-bar": "~2.2.3",
+    "jwt-decode": "^4.0.0",
     "metro-react-native-babel-transformer": "^0.77.0",
     "nativewind": "^4.1.23",
     "react": "19.0.0",
@@ -44,9 +45,11 @@
     "react-native-screens": "~4.10.0",
     "react-native-svg": "15.11.2",
     "react-native-svg-transformer": "^1.5.0",
+    "react-native-toast-message": "^2.3.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "^0.20.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -1,41 +1,48 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || "http://localhost:8000";
+const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
 
-export const loginUser = createAsyncThunk("auth/loginUser", async ({ username, password }, thunkAPI) => {
-  try {
-    const response = await fetch(`${API_URL}/user/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await response.json();
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async ({ username, password }, thunkAPI) => {
+    try {
+      const response = await fetch(`${API_URL}/user/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await response.json();
 
-    if (response.ok) {
-      await AsyncStorage.setItem("token", data.access_token);
-      await AsyncStorage.setItem("user", JSON.stringify(data.user));
-      return { token: data.access_token, user: data.user };
-    } else {
-      return thunkAPI.rejectWithValue(data.message);
+      if (response.ok) {
+        await AsyncStorage.setItem('token', data.access_token);
+        await AsyncStorage.setItem('refresh_token', data.refresh_token);
+        await AsyncStorage.setItem('user', JSON.stringify(data.user));
+        return { token: data.access_token, user: data.user };
+      } else {
+        return thunkAPI.rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
   }
-});
+);
 
-export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, thunkAPI) => {
-  try {
-    await AsyncStorage.removeItem("token");
-    await AsyncStorage.removeItem("user");
-    return true; 
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async (_, thunkAPI) => {
+    try {
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('user');
+      return true;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-});
+);
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     token: null,
     user: null,

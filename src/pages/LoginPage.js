@@ -28,7 +28,6 @@ export default function LoginPage() {
   const auth = useSelector((state) => state.auth);
 
   function handleLoginForm() {
-    console.log('Função handleLoginForm chamada');
     if (username === '' || pass === '') {
       setError('Preeche todos os campos');
       setHasError(true);
@@ -38,10 +37,8 @@ export default function LoginPage() {
     dispatch(loginUser({ username, password: pass }))
       .unwrap()
       .then((result) => {
-        console.log('Login result:', result);
         clearLoginForm();
         const onboarding = result.user.onboarding;
-        console.log('Onboarding:', onboarding);
         if (onboarding) {
           navigation.navigate('HomeTabs');
         } else {
@@ -49,7 +46,6 @@ export default function LoginPage() {
         }
       })
       .catch((err) => {
-        console.log('Login falhou:', err);
         setError('Username ou password incorretos');
         setHasError(true);
       });
@@ -129,7 +125,6 @@ export default function LoginPage() {
           <TouchableOpacity
             className="bg-orange rounded-lg w-full py-3 items-center mt-10"
             onPress={() => {
-              console.log('Botão clicado');
               handleLoginForm();
             }}
           >

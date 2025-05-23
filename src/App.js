@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTokenFromStorage } from './redux/authSlice';
+import { NavigationRef } from './NavigationRef';
 
 // Importar os ícones personalizados
 import HomeIcon from '../assets/icons/home.svg';
@@ -33,6 +34,8 @@ import AllLumiQuestions from './pages/AllLumiQuestions';
 import AllTrophies from './pages/AllTrophies';
 import QuestionPage from './pages/QuestionPage';
 
+const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
+
 export default function App() {
   const dispatch = useDispatch();
   const [initialRoute, setInitialRoute] = useState(null);
@@ -40,16 +43,47 @@ export default function App() {
 
   useEffect(() => {
     const checkToken = async () => {
-      const token = await AsyncStorage.getItem('token');
-      const user = await AsyncStorage.getItem('user');
-      if (token && user) {
-        dispatch(setTokenFromStorage({ token, user: JSON.parse(user) }));
-        setInitialRoute('HomeTabs');
-      } else {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        const refreshToken = await AsyncStorage.getItem('refresh_token');
+        const user = await AsyncStorage.getItem('user');
+
+        if (token && user) {
+          dispatch(setTokenFromStorage({ token, user: JSON.parse(user) }));
+          setInitialRoute('HomeTabs');
+        } else if (refreshToken && user) {
+          // tenta refresh
+          const response = await fetch(`${API_URL}/user/refresh`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: refreshToken }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            await AsyncStorage.setItem('token', data.access_token);
+            dispatch(
+              setTokenFromStorage({
+                token: data.access_token,
+                user: JSON.parse(user),
+              })
+            );
+            setInitialRoute('HomeTabs');
+          } else {
+            await AsyncStorage.multiRemove(['token', 'refresh_token', 'user']);
+            setInitialRoute('Welcome');
+          }
+        } else {
+          setInitialRoute('Welcome');
+        }
+      } catch (error) {
+        console.error('Erro ao verificar tokens:', error);
         setInitialRoute('Welcome');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
+
     checkToken();
   }, []);
 
@@ -165,7 +199,7 @@ export default function App() {
   // Stack Navigator principal
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={NavigationRef}>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
           initialRouteName={initialRoute}
