@@ -14,8 +14,8 @@ export const submitDigitalHabits = createAsyncThunk(
       const userId = user.id;
 
       const habitIds = Object.entries(habits)
-        .filter(([_, value]) => value) // só os marcados como true
-        .map(([key]) => Number(key.replace('habit', ''))); // habit1 -> 1
+        .filter(([_, value]) => value)
+        .map(([key]) => Number(key.replace('habit', '')));
 
       for (const habitId of habitIds) {
         await fetch(`${API_URL}/digital-habits/${userId}/${habitId}`, {

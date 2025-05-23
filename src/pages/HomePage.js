@@ -2,42 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, Image, TouchableOpacity, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import BackgroundGradient from '../components/BackgroundGradient';
-import Task from '../components/Task';
 import Lumi from '../../assets/lumis/Lumi.svg';
 import TrophyGoldIcon from '../../assets/icons/trophygold.svg';
 import QuestionIcon from '../../assets/icons/question.svg';
 import HelpContactsIcon from '../../assets/icons/helpcontacts.svg';
 import { FontAwesome } from '@expo/vector-icons';
 import ArcProgressBar from '../components/ArcProgressBar';
-import {
-  requestNotificationPermission,
-  sendPushNotification,
-} from '../components/NotificationSetup';
-import * as Notifications from 'expo-notifications';
-import { useNavigation } from '@react-navigation/native';
+import DailyTasks from '../components/DailyTasks';
 
 export default function HomePage() {
-  const navigation = useNavigation();
-  const [dailyTasks, setDailyTasks] = useState([]);
   const [timeLeft, setTimeLeft] = useState('');
   const [scrollY] = useState(new Animated.Value(0));
   const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
   const [progress, setProgress] = useState(0); // Estado do progresso
-
-  useEffect(() => {
-    const subscription = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const { screen } = response.notification.request.content.data;
-        if (screen && navigation) {
-          //adiconar tempo de espera de 30 segundos
-          setProgress(35);
-          navigation.navigate(screen); // Redirecionar para a tela especificada
-        }
-      }
-    );
-
-    return () => subscription.remove(); // Limpar o listener ao desmontar o componente
-  }, [navigation]); // Adicione `navigation` como dependência
 
   // Função para calcular o tempo restante até a meia-noite
   const calculateTimeLeft = () => {
@@ -53,25 +30,7 @@ export default function HomePage() {
     else setTimeLeft(`${hours} HORAS`);
   };
 
-  // Função para buscar tarefas do endpoint
-  const fetchTasks = async () => {
-    try {
-      const response = await fetch(
-        'https://lumicheckbd.onrender.com/tarefas/1/tarefas/nao_concluidas'
-      );
-      const tasks = await response.json();
-
-      // Filtrar tarefas não concluídas e selecionar 2 aleatoriamente
-      const selectedTasks = tasks.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-      setDailyTasks(selectedTasks);
-    } catch (error) {
-      console.error('Erro ao buscar tarefas:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchTasks();
     calculateTimeLeft();
 
     // Atualizar o tempo restante a cada minuto
@@ -256,17 +215,7 @@ export default function HomePage() {
                 </Text>
               </View>
 
-              {dailyTasks.map((task) => (
-                <Task
-                  key={task.id}
-                  taskId={task.id}
-                  taskText={task.descricao}
-                  isCompleted={task.done}
-                  onTaskUpdate={(taskId, completed) => {
-                    console.log(`Tarefa ${taskId} concluída: ${completed}`);
-                  }}
-                />
-              ))}
+              <DailyTasks userId={6} />
             </View>
 
             {/* Literacia */}

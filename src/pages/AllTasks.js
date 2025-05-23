@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import BackgroundGradient from '../components/BackgroundGradient';
-import Task from '../components/Task';
 import TaskFinished from '../components/TaskFinished';
 import { Ionicons } from '@expo/vector-icons';
+import DailyTasks from '../components/DailyTasks';
 
 export default function AllTasks({ navigation }) {
-  // Lista de tarefas
-  const tasksdiarias = [
-    'Estar apenas 2 horas no Insta hoje',
-    'Falar com os amigos',
-  ];
+  const [timeLeft, setTimeLeft] = useState('');
+
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    const diff = midnight - now;
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    if (hours === 0) setTimeLeft(`${minutes} MINUTOS`);
+    else if (hours === 1) setTimeLeft(`${hours} HORA`);
+    else setTimeLeft(`${hours} HORAS`);
+  };
+
+  useEffect(() => {
+    calculateTimeLeft();
+
+    // Atualizar o tempo restante a cada minuto
+    const timer = setInterval(() => {
+      calculateTimeLeft();
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const tasksconcluidas = [
     'Ler um livro',
@@ -38,24 +58,17 @@ export default function AllTasks({ navigation }) {
 
               {/* Secção de Tarefas Diárias */}
               <View className="w-11/12 mt-8">
-                {/* Cabeçalho */}
+                {/* Cabeçalho da seção */}
                 <View className="flex-row items-center justify-between mb-4">
                   <Text className="text-xl font-quickbold text-black">
                     Tarefas Diárias
                   </Text>
                   <Text className="text-md font-quickbold text-orange self-end">
-                    7 HORAS
+                    {timeLeft}
                   </Text>
                 </View>
 
-                {/* Lista de tarefas */}
-                {tasksdiarias.map((task, index) => (
-                  <Task
-                    key={index}
-                    taskText={task}
-                    isCompleted={index % 2 === 0}
-                  />
-                ))}
+                <DailyTasks userId={6} />
               </View>
 
               {/* Secção de Tarefas Concluidas */}

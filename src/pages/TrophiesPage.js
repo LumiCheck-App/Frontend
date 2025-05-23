@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Task from '../components/Task';
 import TrophyProgress from '../components/TrophyProgress';
 import Achievements from '../components/Achievements';
+import DailyTasks from '../components/DailyTasks';
 
 import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
 import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
@@ -75,12 +76,7 @@ export default function TrophiesPage() {
                   </Text>
                 </View>
 
-                {/* Tarefas */}
-                <Task
-                  taskText="Estar apenas 2 horas no Insta hoje"
-                  isCompleted={true}
-                />
-                <Task taskText="Falar com os amigos" isCompleted={false} />
+                <DailyTasks userId={6} />
 
                 {/* Ver todas */}
                 <TouchableOpacity
