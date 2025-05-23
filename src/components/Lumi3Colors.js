@@ -42,7 +42,7 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
           {/* Barra Positiva */}
           <View
             style={{ width: positiveWidth }}
-            className="h-full bg-light-yellow border border-yellow rounded-full"
+            className="h-full bg-light-orange border border-orange rounded-full"
           />
         </View>
 

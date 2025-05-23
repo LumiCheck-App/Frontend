@@ -201,7 +201,7 @@ export default function HomePage() {
             {/* Mostrar o botão ou o card baseado no estado */}
             {!isMonitoring ? (
               <TouchableOpacity
-                className="bg-yellow rounded-lg w-11/12 py-3 mt-12 items-center"
+                className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
                 onPress={async () => {
                   const permissionGranted =
                     await requestNotificationPermission();

@@ -1,52 +1,52 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setTokenFromStorage } from "./redux/authSlice";
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setTokenFromStorage } from './redux/authSlice';
 
 // Importar os ícones personalizados
-import HomeIcon from "../assets/icons/home.svg";
-import TrophyIcon from "../assets/icons/trophy.svg";
-import StatsIcon from "../assets/icons/stats.svg";
-import ProfileIcon from "../assets/icons/profile.svg";
-import HelpIcon from "../assets/icons/help.svg";
+import HomeIcon from '../assets/icons/home.svg';
+import TrophyIcon from '../assets/icons/trophy.svg';
+import StatsIcon from '../assets/icons/stats.svg';
+import ProfileIcon from '../assets/icons/profile.svg';
+import HelpIcon from '../assets/icons/help.svg';
 
 // Importar as telas
-import Onboarding from "./pages/Onboarding";
-import WelcomePage from "./pages/WelcomePage";
-import HomePage from "./pages/HomePage";
-import TrophiesPage from "./pages/TrophiesPage";
-import ReportPage from "./pages/ReportPage";
-import AllTasks from "./pages/AllTasks";
-import TrophyDetail from "./pages/TrophyDetail";
-import ProfilePage from "./pages/ProfilePage";
-import HelpPage from "./pages/HelpPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import FirstQuestionnaire from "./pages/FirstQuestionnaire";
-import Settings from "./pages/Settings";
-import EditProfile from "./pages/EditProfile";
-import AllLumiQuestions from "./pages/AllLumiQuestions";
-import AllTrophies from "./pages/AllTrophies";
-import QuestionPage from "./pages/QuestionPage";
+import Onboarding from './pages/Onboarding';
+import WelcomePage from './pages/WelcomePage';
+import HomePage from './pages/HomePage';
+import TrophiesPage from './pages/TrophiesPage';
+import ReportPage from './pages/ReportPage';
+import AllTasks from './pages/AllTasks';
+import TrophyDetail from './pages/TrophyDetail';
+import ProfilePage from './pages/ProfilePage';
+import HelpPage from './pages/HelpPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import FirstQuestionnaire from './pages/FirstQuestionnaire';
+import Settings from './pages/Settings';
+import EditProfile from './pages/EditProfile';
+import AllLumiQuestions from './pages/AllLumiQuestions';
+import AllTrophies from './pages/AllTrophies';
+import QuestionPage from './pages/QuestionPage';
 
 export default function App() {
   const dispatch = useDispatch();
   const [initialRoute, setInitialRoute] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkToken = async () => {
-      const token = await AsyncStorage.getItem("token");
-      const user = await AsyncStorage.getItem("user");
+      const token = await AsyncStorage.getItem('token');
+      const user = await AsyncStorage.getItem('user');
       if (token && user) {
-        dispatch(setTokenFromStorage({ token, user: JSON.parse(user) })); 
-        setInitialRoute("HomeTabs");
+        dispatch(setTokenFromStorage({ token, user: JSON.parse(user) }));
+        setInitialRoute('HomeTabs');
       } else {
-        setInitialRoute("Welcome");
+        setInitialRoute('Welcome');
       }
       setLoading(false);
     };
@@ -54,7 +54,7 @@ export default function App() {
   }, []);
 
   if (loading) {
-    return null; 
+    return null;
   }
 
   const Stack = createNativeStackNavigator();
@@ -67,35 +67,45 @@ export default function App() {
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarStyle: { paddingTop: 5, paddingBottom: 5, backgroundColor: "#fff" },
+          tabBarStyle: {
+            paddingTop: 5,
+            paddingBottom: 5,
+            backgroundColor: '#fff',
+          },
           tabBarIcon: ({ focused, size }) => {
             let IconComponent;
-            let color = focused ? "#fcc766" : "#d0d0d0";
+            let color = focused ? '#ff9d00' : '#d0d0d0';
 
             switch (route.name) {
-              case "Home":
+              case 'Home':
                 IconComponent = HomeIcon;
                 break;
-              case "Troféus":
+              case 'Troféus':
                 IconComponent = TrophyIcon;
                 break;
-              case "Relatório":
+              case 'Relatório':
                 IconComponent = StatsIcon;
                 break;
-              case "Perfil":
+              case 'Perfil':
                 IconComponent = ProfileIcon;
                 break;
-              case "Ajuda":
+              case 'Ajuda':
                 IconComponent = HelpIcon;
                 break;
               default:
                 IconComponent = null;
             }
 
-            return <IconComponent width={size * 1.2} height={size * 1.2} fill={color} />;
+            return (
+              <IconComponent
+                width={size * 1.2}
+                height={size * 1.2}
+                fill={color}
+              />
+            );
           },
-          tabBarActiveTintColor: "#fcc766",
-          tabBarInactiveTintColor: "#d0d0d0",
+          tabBarActiveTintColor: '#ff9d00',
+          tabBarInactiveTintColor: '#d0d0d0',
         })}
       >
         <Tab.Screen name="Home" component={HomePage} />
@@ -105,8 +115,8 @@ export default function App() {
           listeners={({ navigation }) => ({
             tabPress: (e) => {
               e.preventDefault();
-              navigation.navigate("Troféus", {
-                screen: "TrophiesPage",
+              navigation.navigate('Troféus', {
+                screen: 'TrophiesPage',
               });
             },
           })}
@@ -118,8 +128,8 @@ export default function App() {
           listeners={({ navigation }) => ({
             tabPress: (e) => {
               e.preventDefault();
-              navigation.navigate("Perfil", {
-                screen: "ProfilePage",
+              navigation.navigate('Perfil', {
+                screen: 'ProfilePage',
               });
             },
           })}
@@ -156,11 +166,17 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRoute}>
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName={initialRoute}
+        >
           <Stack.Screen name="Welcome" component={WelcomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Register" component={RegisterPage} />
-          <Stack.Screen name="FirstQuestionnaire" component={FirstQuestionnaire} />
+          <Stack.Screen
+            name="FirstQuestionnaire"
+            component={FirstQuestionnaire}
+          />
           <Stack.Screen name="Onboarding" component={Onboarding} />
           <Stack.Screen name="HomeTabs" component={HomeTabs} />
           <Stack.Screen name="QuestionPage" component={QuestionPage} />

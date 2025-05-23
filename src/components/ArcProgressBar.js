@@ -43,7 +43,7 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
       <Svg
         width={size}
         height={size}
-        style={{ transform: [{ rotateX: "180deg" }] }}
+        style={{ transform: [{ rotateX: '180deg' }] }}
         accessibilityLabel="Arco de progresso"
       >
         {/* Background Arc */}
@@ -69,7 +69,7 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
         {/* Progress Arc */}
         <Path
           d={createArcPath(size / 2, size / 2, radius, 40, 320)}
-          stroke="#fcc766"
+          stroke="#ff9d00"
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={circumference}
@@ -93,8 +93,8 @@ export default function ArcProgressBar({ size, strokeWidth, progress }) {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
-    alignItems: "center",
-    justifyContent: "center",
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

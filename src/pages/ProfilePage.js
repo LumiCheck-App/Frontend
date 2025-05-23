@@ -40,17 +40,17 @@ export default function ProfilePage() {
     },
   ];
 
-    const handleLogout = async () => {
-      try {
-        await dispatch(logoutUser()).unwrap();
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Login' }],
-        });
-      } catch (error) {
-        console.error('Erro ao deslogar:', error);
-      }
-    };
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
+    } catch (error) {
+      console.error('Erro ao deslogar:', error);
+    }
+  };
 
   return (
     <BackgroundGradient>
@@ -179,7 +179,7 @@ export default function ProfilePage() {
                     <FontAwesome6
                       name="clipboard-question"
                       size={25}
-                      color="#fcc766"
+                      color="#ff9d00"
                     />
                   </View>
 
@@ -209,7 +209,7 @@ export default function ProfilePage() {
                     className="mr-4"
                     style={{ width: 40, alignItems: 'center' }}
                   >
-                    <FontAwesome name="gear" size={25} color="#fcc766" />
+                    <FontAwesome name="gear" size={25} color="#ff9d00" />
                   </View>
 
                   {/* Conteúdo de progresso */}

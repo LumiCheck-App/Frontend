@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   View,
@@ -26,39 +25,39 @@ export default function ReportPage() {
 
   const perguntas = [
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "3",
-      score_caption: "Frequentemente",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '3',
+      score_caption: 'Frequentemente',
     },
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "4",
-      score_caption: "Muitas Vezes",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '4',
+      score_caption: 'Muitas Vezes',
     },
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "3",
-      score_caption: "Frequentemente",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '3',
+      score_caption: 'Frequentemente',
     },
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "3",
-      score_caption: "Frequentemente",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '3',
+      score_caption: 'Frequentemente',
     },
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "3",
-      score_caption: "Frequentemente",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '3',
+      score_caption: 'Frequentemente',
     },
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "3",
-      score_caption: "Frequentemente",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '3',
+      score_caption: 'Frequentemente',
     },
     {
-      question: "Mexeste mais no insta hoje do que achas que devias?",
-      score_num: "3",
-      score_caption: "Frequentemente",
+      question: 'Mexeste mais no insta hoje do que achas que devias?',
+      score_num: '3',
+      score_caption: 'Frequentemente',
     },
   ];
 
@@ -127,7 +126,7 @@ export default function ReportPage() {
 
   const numberColor = scrollY.interpolate({
     inputRange: [250, 270],
-    outputRange: ['#fcc766', '#000000'], // De amarelo para preto
+    outputRange: ['#ff9d00', '#000000'], // De amarelo para preto
     extrapolate: 'clamp',
   });
 
@@ -240,7 +239,7 @@ export default function ReportPage() {
         }}
       >
         <Text
-          className="text-2xl font-quickbold text-yellow"
+          className="text-2xl font-quickbold text-orange"
           accessibilityRole="text"
         >
           Uso regular do telemóvel

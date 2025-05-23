@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import SliderQuestions from './SliderQuestions';
 
-export default function FirstFiveQuestions({ onButtonClick, userQuestionnaire, setUserQuestionnaire }) {
+export default function FirstFiveQuestions({
+  onButtonClick,
+  userQuestionnaire,
+  setUserQuestionnaire,
+}) {
   const [questions, setQuestions] = useState([
     {
       id: 0,
@@ -98,7 +102,7 @@ export default function FirstFiveQuestions({ onButtonClick, userQuestionnaire, s
       </View>
       <View className="w-screen h-1/5 px-6">
         <TouchableOpacity
-          className="bg-yellow rounded-lg w-full py-3 items-center"
+          className="bg-orange rounded-lg w-full py-3 items-center"
           onPress={handleAnswers}
         >
           <Text className="text-xl text-white font-quickbold">

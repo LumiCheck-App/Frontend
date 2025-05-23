@@ -1,29 +1,29 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || "http://localhost:8000";
+const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
 
 // thunk para associar hábitos ao user
-export const userDigitalHabits = createAsyncThunk(
-  "digitalHabits/userDigitalHabits",
+export const submitDigitalHabits = createAsyncThunk(
+  'digitalHabits/submitDigitalHabits',
   async (habits, thunkAPI) => {
     try {
-      const token = await AsyncStorage.getItem("token");
-      const userString = await AsyncStorage.getItem("user");
+      const token = await AsyncStorage.getItem('token');
+      const userString = await AsyncStorage.getItem('user');
       const user = JSON.parse(userString);
       const userId = user.id;
 
       const habitIds = Object.entries(habits)
         .filter(([_, value]) => value) // só os marcados como true
-        .map(([key]) => Number(key.replace("habit", ""))); // habit1 -> 1
+        .map(([key]) => Number(key.replace('habit', ''))); // habit1 -> 1
 
       for (const habitId of habitIds) {
         await fetch(`${API_URL}/digital-habits/${userId}/${habitId}`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         });
       }
 
@@ -35,7 +35,7 @@ export const userDigitalHabits = createAsyncThunk(
 );
 
 const digitalHabitSlice = createSlice({
-  name: "digitalHabits",
+  name: 'digitalHabits',
   initialState: {
     isSubmitting: false,
     error: null,
@@ -43,14 +43,14 @@ const digitalHabitSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(userDigitalHabits.pending, (state) => {
+      .addCase(submitDigitalHabits.pending, (state) => {
         state.isSubmitting = true;
         state.error = null;
       })
-      .addCase(userDigitalHabits.fulfilled, (state) => {
+      .addCase(submitDigitalHabits.fulfilled, (state) => {
         state.isSubmitting = false;
       })
-      .addCase(userDigitalHabits.rejected, (state, action) => {
+      .addCase(submitDigitalHabits.rejected, (state, action) => {
         state.isSubmitting = false;
         state.error = action.payload;
       });

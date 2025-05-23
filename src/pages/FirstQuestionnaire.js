@@ -8,12 +8,12 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { FontAwesome } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-import { useDispatch } from "react-redux";
-import { submitDigitalHabits } from "../redux/digitalHabitSlice";
-
+import { useDispatch } from 'react-redux';
+import { submitDigitalHabits } from '../redux/userDigitalHabitsSlice';
+import { submitAnswers } from '../redux/fiveQuestionsSlice';
 
 export default function FirstQuestionnaire() {
   const navigation = useNavigation();
@@ -66,7 +66,7 @@ export default function FirstQuestionnaire() {
 
   function handleBack() {
     if (AddiCards) {
-      navigation.replace('Login');
+      navigation.navigate('Login');
     }
 
     if (questions) {
@@ -85,15 +85,15 @@ export default function FirstQuestionnaire() {
   function FinishQuestionnaire() {
     dispatch(submitDigitalHabits(userDigitalHabits));
     dispatch(submitAnswers(userQuestionnaire));
-    navigation.replace('OnBoarding');
-  } 
+    navigation.navigate('Onboarding');
+  }
 
   return (
     <View className="flex-1 bg-off-white">
       {/* Header Section */}
       <View className="flex-row h-1/6 w-screen items-center justify-between px-6">
         <TouchableOpacity className="w-1/6" onPress={handleBack}>
-          <FontAwesome name="arrow-left" size={20} color="#686868" />
+          <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <View className="flex-grow h-4 w-5/6 bg-white border-solid border-x border-y border-light-gray relative rounded-full overflow-hidden">
           {/* Animated Progress Bar */}
@@ -118,14 +118,16 @@ export default function FirstQuestionnaire() {
           setUserDigitalHabits={setUserDigitalHabits}
         />
       )}
-      {questions && 
-        <FirstFiveQuestions 
-          onButtonClick={handleProgress} 
-          userQuestionnaire={userQuestionnaire} 
-          setUserQuestionnaire={setUserQuestionnaire} 
+      {questions && (
+        <FirstFiveQuestions
+          onButtonClick={handleProgress}
+          userQuestionnaire={userQuestionnaire}
+          setUserQuestionnaire={setUserQuestionnaire}
         />
-      }
-      {finalmessage && <FQFinalMessage FinishQuestionnaire={FinishQuestionnaire} />}
+      )}
+      {finalmessage && (
+        <FQFinalMessage FinishQuestionnaire={FinishQuestionnaire} />
+      )}
     </View>
   );
 }

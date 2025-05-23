@@ -1,59 +1,61 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
-import { CheckBox } from "react-native-elements";
-import { FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../redux/registerSlice"; 
-import TermsAndContitionsModal from "../components/TermsAndConditionsModal";
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { CheckBox } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../redux/registerSlice';
+import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
 
 export default function RegisterPage() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const { isLoading, successMessage } = useSelector(
-    (state) => state.register
-  );
+  const {
+    isLoading,
+    successMessage,
+    error: backendError,
+  } = useSelector((state) => state.register);
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [securePass, setSecurePass] = useState(true);
-  const [passwordConf, setPasswordConf] = useState("");
+  const [passwordConf, setPasswordConf] = useState('');
   const [securePassConf, setSecurePassConf] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   function RedirectToLogin() {
-    navigation.replace('Login');
+    navigation.navigate('Login');
   }
 
   useEffect(() => {
+    if (errorMessage === '' && backendError) {
+      setHasError(true);
+      setErrorMessage(backendError);
+    }
+  }, [backendError]);
+
+  useEffect(() => {
     if (successMessage) {
-      navigation.navigate("Login");
+      navigation.navigate('Login');
     }
   }, [successMessage, navigation]);
 
   async function handleRegistration() {
     if (!username || !email || !password || !passwordConf) {
       setHasError(true);
-      setErrorMessage("Todos os campos são obrigatórios.");
-    }
-    if (password !== passwordConf) {
+      setErrorMessage('Todos os campos são obrigatórios.');
+    } else if (password !== passwordConf) {
       setHasError(true);
-      setErrorMessage("As senhas não coincidem.");
-    }
-    if (!isChecked) {
+      setErrorMessage('As senhas não coincidem.');
+    } else if (!isChecked) {
       setHasError(true);
-      setErrorMessage("É necessário aceitar os Termos e Condições");
+      setErrorMessage('É necessário aceitar os Termos e Condições');
     }
 
     dispatch(registerUser({ username, email, password, onboarding: false }));
@@ -83,16 +85,26 @@ export default function RegisterPage() {
           <TextInput
             className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
             placeholder="Username *"
+            placeholderTextColor="#d0d0d0"
             accessibilityLabel="Username (obrigatório)"
-            onChangeText={setUsername}
+            onChangeText={(text) => {
+              setUsername(text);
+              setHasError(false);
+              setErrorMessage('');
+            }}
             value={username}
           />
 
           <TextInput
             className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
             placeholder="Email *"
+            placeholderTextColor="#d0d0d0"
             accessibilityLabel="Email (obrigatório)"
-            onChangeText={setEmail}
+            onChangeText={(text) => {
+              setEmail(text);
+              setHasError(false);
+              setErrorMessage('');
+            }}
             value={email}
           />
 
@@ -105,9 +117,14 @@ export default function RegisterPage() {
             <TextInput
               secureTextEntry={securePass}
               className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
-              onChangeText={setPassword}
+              onChangeText={(text) => {
+                setPassword(text);
+                setHasError(false);
+                setErrorMessage('');
+              }}
               value={password}
               placeholder="Password *"
+              placeholderTextColor="#d0d0d0"
               accessibilityLabel="Password (obrigatório)"
             />
             <TouchableOpacity
@@ -116,7 +133,7 @@ export default function RegisterPage() {
               accessibilityLabel="Clicar para ver/esconder Password"
             >
               <FontAwesome
-                name={securePass ? "eye-slash" : "eye"}
+                name={securePass ? 'eye-slash' : 'eye'}
                 size={20}
                 color="#d0d0d0"
               />
@@ -128,9 +145,14 @@ export default function RegisterPage() {
             <TextInput
               secureTextEntry={securePassConf}
               className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
-              onChangeText={setPasswordConf}
+              onChangeText={(text) => {
+                setPasswordConf(text);
+                setHasError(false);
+                setErrorMessage('');
+              }}
               value={passwordConf}
               placeholder="Confirmar Password *"
+              placeholderTextColor="#d0d0d0"
               accessibilityLabel="Password (obrigatório)"
             />
             <TouchableOpacity
@@ -139,7 +161,7 @@ export default function RegisterPage() {
               accessibilityLabel="Clicar para ver/esconder Confirmar Password"
             >
               <FontAwesome
-                name={securePassConf ? "eye-slash" : "eye"}
+                name={securePassConf ? 'eye-slash' : 'eye'}
                 size={20}
                 color="#d0d0d0"
               />
@@ -151,7 +173,11 @@ export default function RegisterPage() {
             <CheckBox
               containerStyle={{ width: '0', paddingLeft: 0 }}
               checked={isChecked}
-              onPress={() => setIsChecked(!isChecked)}
+              onPress={() => {
+                setIsChecked(!isChecked);
+                setHasError(false);
+                setErrorMessage('');
+              }}
               checkedColor="#ff9d00"
               size={20}
               accessibilityLabel="Clicar para aceitar Termos e Condições (obrigatório)"
@@ -167,7 +193,11 @@ export default function RegisterPage() {
           </View>
 
           {/* Exibir erro caso exista */}
-          {hasError && <Text className="text-red-500 font-quickbold">{errorMessage}</Text>}
+          {hasError && (
+            <Text className="text-red text-center font-quickbold">
+              {errorMessage}
+            </Text>
+          )}
 
           {/* Botão de registro */}
           <TouchableOpacity

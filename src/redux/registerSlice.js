@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || "http://localhost:8000";
+const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
 
 export const registerUser = createAsyncThunk(
-  "auth/registerUser",
+  'auth/registerUser',
   async ({ username, email, password, onboarding }, thunkAPI) => {
     try {
       const response = await fetch(`${API_URL}/user/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password, onboarding }),
       });
       const data = await response.json();
@@ -25,7 +25,7 @@ export const registerUser = createAsyncThunk(
 );
 
 const registerSlice = createSlice({
-  name: "register",
+  name: 'register',
   initialState: {
     isLoading: false,
     successMessage: null,

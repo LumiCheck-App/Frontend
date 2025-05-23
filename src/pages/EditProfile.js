@@ -98,7 +98,7 @@ export default function EditProfile({ navigation }) {
               </View>
 
               <TouchableOpacity
-                className="w-11/12 bg-yellow rounded-lg py-3 mt-20"
+                className="w-11/12 bg-orange rounded-lg py-3 mt-20"
                 onPress={handleSaveChanges}
               >
                 <Text className="text-xl text-white font-quickbold text-center">

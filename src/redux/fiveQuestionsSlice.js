@@ -22,20 +22,18 @@ export const submitAnswers = createAsyncThunk(
         };
       });
 
-      for (const response of responses) {
-        const res = await fetch(`${API_URL}/user-question/answer`, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(response),
-        });
+      const res = await fetch(`${API_URL}/user-question/answers`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(responses),
+      });
 
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.detail || "Erro ao enviar resposta");
-        }
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || "Erro ao enviar respostas");
       }
 
       return responses;
@@ -44,6 +42,7 @@ export const submitAnswers = createAsyncThunk(
     }
   }
 );
+
 
 const fiveQuestionsSlice = createSlice({
   name: "fiveQuestions",
