@@ -17,14 +17,18 @@ export const submitDigitalHabits = createAsyncThunk(
         .filter(([_, value]) => value)
         .map(([key]) => Number(key.replace('habit', '')));
 
-      for (const habitId of habitIds) {
-        await fetch(`${API_URL}/digital-habits/${userId}/${habitId}`, {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+      const res = await fetch(`${API_URL}/digital-habits/${userId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ habit_ids: habitIds }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || 'Erro ao associar hábitos digitais');
       }
 
       return { success: true };
