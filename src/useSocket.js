@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import Toast from 'react-native-toast-message';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
+const API_URL =
+  process.env.EXPO_PUBLIC_BACKEND_URL_PROD || 'http://localhost:8000';
 
 export default function useSocket(userId) {
   useEffect(() => {

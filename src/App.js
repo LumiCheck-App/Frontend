@@ -34,7 +34,8 @@ import AllLumiQuestions from './pages/AllLumiQuestions';
 import AllTrophies from './pages/AllTrophies';
 import QuestionPage from './pages/QuestionPage';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
+const API_URL =
+  process.env.EXPO_PUBLIC_BACKEND_URL_PROD || 'http://localhost:8000';
 
 export default function App() {
   const dispatch = useDispatch();

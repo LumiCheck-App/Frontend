@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || 'http://localhost:8000';
+const API_URL =
+  process.env.EXPO_PUBLIC_BACKEND_URL_PROD || 'http://localhost:8000';
 
 export const fetchDailyTasks = createAsyncThunk(
   'dailyTasks/fetchDailyTasks',

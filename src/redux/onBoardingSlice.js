@@ -1,32 +1,33 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = process.env.EXPO_PUBLIC_PHONE_URL || "http://localhost:8000";
+const API_URL =
+  process.env.EXPO_PUBLIC_BACKEND_URL_PROD || 'http://localhost:8000';
 
 // thunk para atualizar onboarding do usuário
 export const updateOnboardingStatus = createAsyncThunk(
-  "user/updateOnboarding",
+  'user/updateOnboarding',
   async (_, thunkAPI) => {
     try {
-      const token = await AsyncStorage.getItem("token");
-      const userData = await AsyncStorage.getItem("user");
+      const token = await AsyncStorage.getItem('token');
+      const userData = await AsyncStorage.getItem('user');
       const user = JSON.parse(userData);
 
       const res = await fetch(`${API_URL}/user/${user.id}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ onboarding: true }),
       });
 
-      if (!res.ok) throw new Error("Failed to update onboarding");
+      if (!res.ok) throw new Error('Failed to update onboarding');
 
       const updatedUser = await res.json();
 
       // atualizar localStorage
-      await AsyncStorage.setItem("user", JSON.stringify(updatedUser.user));
+      await AsyncStorage.setItem('user', JSON.stringify(updatedUser.user));
 
       return updatedUser.user;
     } catch (error) {
@@ -36,7 +37,7 @@ export const updateOnboardingStatus = createAsyncThunk(
 );
 
 const onBoardingSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: {
     user: null,
     loading: false,
@@ -45,7 +46,7 @@ const onBoardingSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
