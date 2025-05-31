@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
 
 const LumiQuestion = ({ index, text, score, caption }) => {
   const scoreWidth = `${(score / 5) * 100}%`;

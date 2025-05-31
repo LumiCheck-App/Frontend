@@ -14,6 +14,8 @@ export default function AddictionCards({
   onCardSwipe,
   modalVisible,
   CloseModal,
+  userDigitalHabits,
+  setUserDigitalHabits,
 }) {
   const [cards, setCards] = useState([
     { id: 0, text: 'Redes Sociais', image: RedesSociais },
@@ -24,6 +26,11 @@ export default function AddictionCards({
 
   const progress = 50 / cards.length;
   const handleSwipe = (id, direction) => {
+    setUserDigitalHabits((prev) => ({
+      ...prev,
+      [`habit${id + 1}`]: direction === 'right',
+    }));
+
     if (direction === 'right') {
       //send to database
     }
@@ -76,7 +83,7 @@ export default function AddictionCards({
       <FQFirstMessage modalVisible={modalVisible} CloseModal={CloseFQMModal} />
       {/* Question Section */}
       <View className="w-screen px-6 mb-16 items-center">
-        <Text className="font-quickbold text-yellow text-center text-4xl">
+        <Text className="font-quickbold text-orange text-center text-4xl">
           Que dependências queres monitorizar?
         </Text>
       </View>

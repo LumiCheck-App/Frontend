@@ -84,7 +84,7 @@ export default function PasswordResetModal({
           {/* Email Form */}
           {emailForm && (
             <View className="w-full gap-4 justify-center items-center">
-              <Text className="text-2xl font-quickbold text-yellow">
+              <Text className="text-2xl font-quickbold text-orange">
                 Insere o teu e-mail
               </Text>
               <Text className="mb-10">
@@ -103,7 +103,7 @@ export default function PasswordResetModal({
                 </Text>
               )}
               <TouchableOpacity
-                className="bg-yellow rounded-lg w-full py-3 items-center"
+                className="bg-orange rounded-lg w-full py-3 items-center"
                 onPress={SendEmail}
               >
                 <Text className="text-xl text-white font-quickbold">
@@ -116,7 +116,7 @@ export default function PasswordResetModal({
           {/* New Password Form */}
           {!emailForm && (
             <View className="w-full gap-4 justify-center items-center">
-              <Text className="text-2xl font-quickbold text-yellow mb-10">
+              <Text className="text-2xl font-quickbold text-orange mb-10">
                 Cria a tua nova password
               </Text>
               <TextInput
@@ -156,7 +156,7 @@ export default function PasswordResetModal({
               )}
 
               <TouchableOpacity
-                className="bg-yellow rounded-lg w-full py-3 items-center"
+                className="bg-orange rounded-lg w-full py-3 items-center"
                 onPress={ChangePass}
               >
                 <Text className="text-xl text-white font-quickbold">
@@ -170,7 +170,7 @@ export default function PasswordResetModal({
             className="ml-2 absolute top-4 right-4"
             onPress={CloseModal}
           >
-            <FontAwesome name="close" size={24} color="#fcc766" />
+            <FontAwesome name="close" size={24} color="#ff9d00" />
           </TouchableOpacity>
         </View>
       </View>

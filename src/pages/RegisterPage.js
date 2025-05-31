@@ -1,192 +1,216 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../redux/registerSlice';
+import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
 
 export default function RegisterPage() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  //DB Simulation
-  const Users = [];
+  const {
+    isLoading,
+    successMessage,
+    error: backendError,
+  } = useSelector((state) => state.register);
 
-  const [username, setUname] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [securePass, setSecurePass] = useState(true);
-  const [passConf, setPassConf] = useState("");
+  const [passwordConf, setPasswordConf] = useState('');
   const [securePassConf, setSecurePassConf] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
-  const [error, setError] = useState('');
   const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   function RedirectToLogin() {
-    navigation.replace('Login');
+    navigation.navigate('Login');
   }
 
-  function handleRegistration() {
-    if (username != "" && email != "" && pass != "" && passConf != "") {
-      if (pass === passConf) {
-        if (isChecked) {
-          const user = {
-            id: Users.length,
-            User_name: username,
-            Pass: pass,
-            Email: email,
-          };
-          Users.push(user);
-          navigation.replace("Login");
-        } else {
-          setHasError(true);
-          setError("É necessário aceitar os Termos e Condições");
-        }
-      } else {
-        setHasError(true);
-        setError('As passwords devem coincidir');
-      }
-    } else {
+  useEffect(() => {
+    if (errorMessage === '' && backendError) {
       setHasError(true);
-      setError("Deve preencher todos os campos do formulário");
+      setErrorMessage(backendError);
     }
+  }, [backendError]);
+
+  useEffect(() => {
+    if (successMessage) {
+      navigation.navigate('Login');
+    }
+  }, [successMessage, navigation]);
+
+  async function handleRegistration() {
+    if (!username || !email || !password || !passwordConf) {
+      setHasError(true);
+      setErrorMessage('Todos os campos são obrigatórios.');
+    } else if (password !== passwordConf) {
+      setHasError(true);
+      setErrorMessage('As senhas não coincidem.');
+    } else if (!isChecked) {
+      setHasError(true);
+      setErrorMessage('É necessário aceitar os Termos e Condições');
+    }
+
+    dispatch(registerUser({ username, email, password, onboarding: false }));
   }
 
   return (
-    <>
-      <ScrollView className="flex-1 bg-off-white">
-        <TermsAndContitionsModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
+    <View className="flex-1 justify-center bg-off-white">
+      <TermsAndContitionsModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
 
-        {/* Page Title*/}
-        <View className="w-11/12 flex-row items-center pt-12 px-8">
-          <TouchableOpacity onPress={RedirectToLogin}>
-            <Ionicons name="arrow-back" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
-        <View className="h-1/3 justify-center items-center">
-          <Text className=" text-5xl font-quickbold text-orange">Registo</Text>
-        </View>
+      <TouchableOpacity
+        className="absolute top-20 left-10 z-10"
+        onPress={RedirectToLogin}
+      >
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
 
-        {/*Form*/}
-        <View className="w-screen px-16 flex-col gap-6 items-start justify-end">
+      <View className="px-4">
+        <View className="w-11/12 mx-auto flex-col gap-4">
+          <View className="justify-center items-center mb-14">
+            <Text className="text-5xl font-quickbold text-orange">Registo</Text>
+          </View>
+
           {/* Input do username */}
           <TextInput
-            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
+            className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
             placeholder="Username *"
+            placeholderTextColor="#d0d0d0"
             accessibilityLabel="Username (obrigatório)"
-            onChangeText={setUname}
+            onChangeText={(text) => {
+              setUsername(text);
+              setHasError(false);
+              setErrorMessage('');
+            }}
             value={username}
           />
 
           <TextInput
-            className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
+            className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
             placeholder="Email *"
+            placeholderTextColor="#d0d0d0"
             accessibilityLabel="Email (obrigatório)"
-            onChangeText={setEmail}
+            onChangeText={(text) => {
+              setEmail(text);
+              setHasError(false);
+              setErrorMessage('');
+            }}
             value={email}
           />
 
-          <Text className="font-quickregular w-full text-black mt-4 -mb-2">
+          <Text className="font-quickregular w-full text-black mt-4 -mb-2 text-sm">
             Password tem de ter pelo menos 8 caracteres
           </Text>
 
+          {/* Input da password */}
           <View className="w-full relative">
-            {/* Input da password */}
             <TextInput
               secureTextEntry={securePass}
-              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
-              onChangeText={setPass}
-              value={pass}
+              className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
+              onChangeText={(text) => {
+                setPassword(text);
+                setHasError(false);
+                setErrorMessage('');
+              }}
+              value={password}
               placeholder="Password *"
+              placeholderTextColor="#d0d0d0"
               accessibilityLabel="Password (obrigatório)"
             />
-
-            {/* Ícone de olho */}
             <TouchableOpacity
-              className="absolute right-4 top-5"
-              onPress={() => {
-                setSecurePass(!securePass);
-              }}
+              className="absolute right-4 top-4"
+              onPress={() => setSecurePass(!securePass)}
               accessibilityLabel="Clicar para ver/esconder Password"
             >
               <FontAwesome
-                name={securePass ? "eye-slash" : "eye"}
+                name={securePass ? 'eye-slash' : 'eye'}
                 size={20}
                 color="#d0d0d0"
               />
             </TouchableOpacity>
           </View>
 
+          {/* Input de confirmação da password */}
           <View className="w-full relative">
-            {/* Input da password */}
             <TextInput
               secureTextEntry={securePassConf}
-              className="bg-white w-full text-dark-gray border border-light-gray rounded-lg p-4 font-quickbold text-xl placeholder:font-quickbold placeholder:text-xl placeholder:text-dark-gray"
-              onChangeText={setPassConf}
-              value={passConf}
+              className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
+              onChangeText={(text) => {
+                setPasswordConf(text);
+                setHasError(false);
+                setErrorMessage('');
+              }}
+              value={passwordConf}
               placeholder="Confirmar Password *"
+              placeholderTextColor="#d0d0d0"
               accessibilityLabel="Password (obrigatório)"
             />
-
-            {/* Ícone de olho */}
             <TouchableOpacity
-              className="absolute right-4 top-5"
-              onPress={() => {
-                setSecurePassConf(!securePassConf);
-              }}
+              className="absolute right-4 top-4"
+              onPress={() => setSecurePassConf(!securePassConf)}
               accessibilityLabel="Clicar para ver/esconder Confirmar Password"
             >
               <FontAwesome
-                name={securePassConf ? "eye-slash" : "eye"}
+                name={securePassConf ? 'eye-slash' : 'eye'}
                 size={20}
                 color="#d0d0d0"
               />
             </TouchableOpacity>
           </View>
 
-          <View className="flex-row w-full items-center justify-end  gap-2">
+          {/* Checkbox dos termos e condições */}
+          <View className="flex-row w-full items-center justify-end gap-2">
             <CheckBox
               containerStyle={{ width: '0', paddingLeft: 0 }}
               checked={isChecked}
-              onPress={() => setIsChecked(!isChecked)}
+              onPress={() => {
+                setIsChecked(!isChecked);
+                setHasError(false);
+                setErrorMessage('');
+              }}
               checkedColor="#ff9d00"
               size={20}
               accessibilityLabel="Clicar para aceitar Termos e Condições (obrigatório)"
             />
             <TouchableOpacity onPress={() => setModalVisible(true)}>
               <Text
-                className="text-black font-quickregular underline"
+                className="text-black font-quickregular underline pb-1.5"
                 accessibilityLabel="Clicar para ver Termos e Condições"
               >
                 Termos e condições *
               </Text>
             </TouchableOpacity>
           </View>
+
+          {/* Exibir erro caso exista */}
           {hasError && (
-            <Text className="text-red-500 font-quickbold">{error}</Text>
+            <Text className="text-red text-center font-quickbold">
+              {errorMessage}
+            </Text>
           )}
 
-          {/* Botão do form */}
+          {/* Botão de registro */}
           <TouchableOpacity
-            className="bg-orange rounded-lg w-full py-3 items-center mt-10"
+            className="bg-orange rounded-lg w-full py-3 items-center mt-6"
             onPress={handleRegistration}
+            disabled={isLoading}
           >
-            <Text className="text-2xl font-quickbold text-white">
+            <Text className="text-xl text-white font-quickbold">
               Criar Conta
             </Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </>
+      </View>
+    </View>
   );
 }

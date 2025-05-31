@@ -60,7 +60,7 @@ export default function TrophyDetail({ route, navigation }) {
 
           {IconComponent !== BlockedTrophy && IconComponent !== ChestIcon && (
             <TouchableOpacity
-              className="bg-yellow rounded-lg w-11/12 py-3"
+              className="bg-orange rounded-lg w-11/12 py-3"
               style={{ position: 'absolute', bottom: 100, alignSelf: 'center' }}
             >
               <Text className="text-xl text-white font-quickbold text-center">

@@ -81,7 +81,7 @@ export default function QuestionPage() {
         </View>
         <View className="w-screen h-1/5 px-6">
           <TouchableOpacity
-            className="bg-yellow rounded-lg w-full py-3 items-center"
+            className="bg-orange rounded-lg w-full py-3 items-center"
             onPress={GoToHomePage}
           >
             <Text className="text-xl text-white font-quickbold">Concluir</Text>

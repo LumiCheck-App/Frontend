@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,35 +8,35 @@ import {
   Modal,
   ScrollView,
   ImageBackground,
-} from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import BackgroundGradient from "../components/BackgroundGradient";
-import { LinearGradient } from "expo-linear-gradient";
-import * as Location from "expo-location";
-import { markersOnMap } from "../psicologos_fakes";
-import { Linking } from "react-native";
+} from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import BackgroundGradient from '../components/BackgroundGradient';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as Location from 'expo-location';
+import { markersOnMap } from '../psicologos_fakes';
+import { Linking } from 'react-native';
 
 const distritos = [
-  "Aveiro",
-  "Beja",
-  "Braga",
-  "Bragança",
-  "Castelo Branco",
-  "Coimbra",
-  "Évora",
-  "Faro",
-  "Guarda",
-  "Leiria",
-  "Lisboa",
-  "Portalegre",
-  "Porto",
-  "Santarém",
-  "Setúbal",
-  "Viana do Castelo",
-  "Vila Real",
-  "Viseu",
-  "Açores",
-  "Madeira",
+  'Aveiro',
+  'Beja',
+  'Braga',
+  'Bragança',
+  'Castelo Branco',
+  'Coimbra',
+  'Évora',
+  'Faro',
+  'Guarda',
+  'Leiria',
+  'Lisboa',
+  'Portalegre',
+  'Porto',
+  'Santarém',
+  'Setúbal',
+  'Viana do Castelo',
+  'Vila Real',
+  'Viseu',
+  'Açores',
+  'Madeira',
 ];
 
 export default function HelpPage() {
@@ -56,10 +55,10 @@ export default function HelpPage() {
   const [posts] = useState([
     {
       id: 1,
-      image: require("../../assets/artigos/cnnportugal.png"),
+      image: require('../../assets/artigos/cnnportugal.png'),
       title:
-        "O uso exagerado do mundo digital pode ter impacto na saúde mental?",
-      link: "https://cnnportugal.iol.pt/dossier/o-psicologo-responde-o-uso-exagerado-do-mundo-digital-pode-ter-impacto-na-saude-mental/65eb2028d34e8d13c9b8977b",
+        'O uso exagerado do mundo digital pode ter impacto na saúde mental?',
+      link: 'https://cnnportugal.iol.pt/dossier/o-psicologo-responde-o-uso-exagerado-do-mundo-digital-pode-ter-impacto-na-saude-mental/65eb2028d34e8d13c9b8977b',
     },
     {
       id: 2,
@@ -75,23 +74,23 @@ export default function HelpPage() {
     },
     {
       id: 4,
-      image: require("../../assets/artigos/pin.png"),
-      title: "Internet: do “tempo a mais” à adição",
-      link: "https://pin.com.pt/observador-artigo-opiniao-internet-do-tempo-a-mais-a-adicao-joao-nuno-faria-psicologo-clinico-do-pin/",
+      image: require('../../assets/artigos/pin.png'),
+      title: 'Internet: do “tempo a mais” à adição',
+      link: 'https://pin.com.pt/observador-artigo-opiniao-internet-do-tempo-a-mais-a-adicao-joao-nuno-faria-psicologo-clinico-do-pin/',
     },
     {
       id: 5,
-      image: require("../../assets/artigos/rtpnoticias.png"),
+      image: require('../../assets/artigos/rtpnoticias.png'),
       title:
-        "Dependência de ecrãs. Mais de 70% dos jovens usam internet como escape",
-      link: "https://www.rtp.pt/noticias/pais/dependencia-de-ecras-mais-de-70-dos-jovens-usam-internet-como-escape_v1545445",
+        'Dependência de ecrãs. Mais de 70% dos jovens usam internet como escape',
+      link: 'https://www.rtp.pt/noticias/pais/dependencia-de-ecras-mais-de-70-dos-jovens-usam-internet-como-escape_v1545445',
     },
     {
       id: 6,
-      image: require("../../assets/artigos/sicnoticias.png"),
+      image: require('../../assets/artigos/sicnoticias.png'),
       title:
-        "Estudo alerta que atividade em múltiplas redes sociais pode provocar dependência digital",
-      link: "https://sicnoticias.pt/pais/2024-01-23-Estudo-alerta-que-atividade-em-multiplas-redes-sociais-pode-provocar-dependencia-digital-c7b6b4a5",
+        'Estudo alerta que atividade em múltiplas redes sociais pode provocar dependência digital',
+      link: 'https://sicnoticias.pt/pais/2024-01-23-Estudo-alerta-que-atividade-em-multiplas-redes-sociais-pode-provocar-dependencia-digital-c7b6b4a5',
     },
   ]);
 
@@ -235,7 +234,7 @@ export default function HelpPage() {
             <View className="w-11/12 mt-6">
               <Text className="text-xl font-quickbold mb-2">Contactos</Text>
               <TouchableOpacity
-                className="p-3 bg-yellow rounded-md items-center"
+                className="p-3 bg-orange rounded-md items-center"
                 onPress={() => setDropdownVisible(true)}
                 accessibilityRole="button"
                 accessible={true}
@@ -361,8 +360,8 @@ export default function HelpPage() {
             renderItem={({ item, index }) => (
               <TouchableOpacity
                 className={`rounded-lg ${
-                  index === 0 ? "ml-[2.25rem] mr-4" : ""
-                } ${index === 4 ? "mr-[2.25rem]" : "mr-4"}`}
+                  index === 0 ? 'ml-[2.25rem] mr-4' : ''
+                } ${index === 4 ? 'mr-[2.25rem]' : 'mr-4'}`}
                 onPress={() => Linking.openURL(item.link)}
               >
                 <ImageBackground
