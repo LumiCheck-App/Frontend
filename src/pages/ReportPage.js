@@ -18,48 +18,84 @@ import LumiQuestion from '../components/LumiQuestion';
 import { useNavigation } from '@react-navigation/native';
 import Lumi from '../../assets/lumis/Lumi.svg';
 import ScoreIcon from '../../assets/icons/scoreicon.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
 export default function ReportPage() {
   const navigation = useNavigation();
   const [scrollY] = useState(new Animated.Value(0));
 
-  const perguntas = [
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '3',
-      score_caption: 'Frequentemente',
-    },
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '4',
-      score_caption: 'Muitas Vezes',
-    },
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '3',
-      score_caption: 'Frequentemente',
-    },
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '3',
-      score_caption: 'Frequentemente',
-    },
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '3',
-      score_caption: 'Frequentemente',
-    },
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '3',
-      score_caption: 'Frequentemente',
-    },
-    {
-      question: 'Mexeste mais no insta hoje do que achas que devias?',
-      score_num: '3',
-      score_caption: 'Frequentemente',
-    },
-  ];
+  const dispatch = useDispatch();
+  const {
+    answers: perguntas,
+    loading,
+    error,
+  } = useSelector((state) => state.userAnswers);
+
+  useEffect(() => {
+    dispatch(fetchUserAnswers());
+  }, [dispatch]);
+
+  if (loading) return <Text>A carregar...</Text>;
+  if (error) return <Text>Erro: {error}</Text>;
+
+  // Função para obter a legenda com base na pontuação
+  const getCaptionFromScore = (score) => {
+    switch (score) {
+      case 0:
+        return 'Não aplicável';
+      case 1:
+        return 'Raramente';
+      case 2:
+        return 'Ocasionalmente';
+      case 3:
+        return 'Frequentemente';
+      case 4:
+        return 'Muitas Vezes';
+      case 5:
+        return 'Sempre';
+      default:
+        return '';
+    }
+  };
+
+  const negativeCount = perguntas.filter(
+    (p) => p.answer === 4 || p.answer === 5
+  ).length;
+  const neutralCount = perguntas.filter(
+    (p) => p.answer === 2 || p.answer === 3
+  ).length;
+  const positiveCount = perguntas.filter(
+    (p) => p.answer === 0 || p.answer === 1
+  ).length;
+
+  // Função para calcular o score geral (0-100)
+  const calculateOverallScore = (answers) => {
+    if (!answers || answers.length === 0) return 0;
+
+    // Soma todas as respostas (cada resposta vai de 0 a 5)
+    const totalScore = answers.reduce(
+      (sum, question) => sum + (question.answer || 0),
+      0
+    );
+
+    // Calcula a porcentagem (máximo possível é answers.length * 5)
+    const maxPossibleScore = answers.length * 5;
+    const percentage = (totalScore / maxPossibleScore) * 100;
+
+    return Math.round(percentage); // Retorna arredondado para inteiro
+  };
+
+  // Função para determinar o nível de uso baseado no score
+  const getUsageLevel = (score) => {
+    if (score < 40) {
+      return 'Uso regular de telemóvel';
+    } else if (score >= 40 && score < 70) {
+      return 'Uso exagerado de telemóvel';
+    } else {
+      return 'Vício extremo de telemóvel';
+    }
+  };
 
   // Animação para Lumi
   const lumiPositionY = scrollY.interpolate({
@@ -194,9 +230,9 @@ export default function ReportPage() {
           style={{ fontSize: numberFontSize, color: numberColor }}
           className="font-quickbold"
           accessibilityRole="text"
-          accessibilityLabel="LumiSocre 34 de 100"
+          accessibilityLabel={`LumiScore ${calculateOverallScore(perguntas)} de 100`}
         >
-          34
+          {calculateOverallScore(perguntas)}
         </Animated.Text>
       </Animated.View>
 
@@ -242,7 +278,7 @@ export default function ReportPage() {
           className="text-2xl font-quickbold text-orange"
           accessibilityRole="text"
         >
-          Uso regular do telemóvel
+          {getUsageLevel(calculateOverallScore(perguntas))}
         </Text>
       </Animated.View>
 
@@ -265,7 +301,7 @@ export default function ReportPage() {
             <ArcProgressBar
               size={160}
               strokeWidth={16}
-              progress={35}
+              progress={perguntas.length * 5}
               accessibilityLabel="Arco de progresso"
             />
             <Text
@@ -286,7 +322,6 @@ export default function ReportPage() {
             </TouchableOpacity>
           </View>
         </View>
-
         <View className="flex-1 items-center pt-9 px-4">
           <View
             accessible={true}
@@ -310,19 +345,21 @@ export default function ReportPage() {
             <MostUsedApps />
           </View>
         </View>
-
         <View className="flex-1 items-center px-4">
-          <Lumi3Colors negative="2" neutral="1" positive="5" />
+          <Lumi3Colors
+            negative={negativeCount.toString()}
+            neutral={neutralCount.toString()}
+            positive={positiveCount.toString()}
+          />
         </View>
-
         <View className="flex-1 items-center px-4">
           {perguntas.slice(0, 3).map((pergunta, index) => (
             <LumiQuestion
               key={index}
               index={index + 1}
               text={pergunta.question}
-              score={pergunta.score_num}
-              caption={pergunta.score_caption}
+              score={pergunta.answer?.toString() || '0'}
+              caption={getCaptionFromScore(pergunta.answer)}
             />
           ))}
 

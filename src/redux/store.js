@@ -5,6 +5,8 @@ import userDigitalHabitsReducer from './userDigitalHabitsSlice';
 import fiveQuestionsReducer from './fiveQuestionsSlice';
 import onBoardingReducer from './onBoardingSlice';
 import dailyTasksReducer from './dailyTasksSlice';
+import userAnswersReducer from './userAnswersSlice';
+import completedTasksReducer from './completedTasksSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
     fiveQuestions: fiveQuestionsReducer,
     onBoarding: onBoardingReducer,
     dailyTasks: dailyTasksReducer,
+    userAnswers: userAnswersReducer,
+    completedTasks: completedTasksReducer,
   },
 });

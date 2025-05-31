@@ -4,7 +4,7 @@ import { fetchDailyTasks, toggleTaskStatus } from '../redux/dailyTasksSlice';
 import Task from './Task';
 import { Text } from 'react-native';
 
-export default function DailyTasks({ userId }) {
+export default function DailyTasks() {
   const dispatch = useDispatch();
 
   const dailyTasks = useSelector((state) => state.dailyTasks.tasks);
@@ -12,21 +12,20 @@ export default function DailyTasks({ userId }) {
   const error = useSelector((state) => state.dailyTasks.error);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchDailyTasks(userId));
-    }
-  }, [userId, dispatch]);
+    dispatch(fetchDailyTasks());
+  }, [dispatch]);
 
   const handleTaskUpdate = (taskId) => {
-    dispatch(toggleTaskStatus({ taskId, userId }));
+    dispatch(toggleTaskStatus({ taskId }));
   };
 
-  if (error)
+  if (error) {
     return (
       <Text className="text-red font-quickbold">
         Erro ao carregar as tuas tarefas diárias
       </Text>
     );
+  }
 
   return (
     <>

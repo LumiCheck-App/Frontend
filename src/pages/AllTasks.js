@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import BackgroundGradient from '../components/BackgroundGradient';
-import TaskFinished from '../components/TaskFinished';
+import TasksFinished from '../components/TasksFinished';
 import { Ionicons } from '@expo/vector-icons';
 import DailyTasks from '../components/DailyTasks';
 
@@ -32,17 +32,6 @@ export default function AllTasks({ navigation }) {
     return () => clearInterval(timer);
   }, []);
 
-  const tasksconcluidas = [
-    'Ler um livro',
-    'Fazer exercício físico',
-    'Aprender algo novo',
-    'Meditar por 10 minutos',
-    'Desconectar do celular por 1 hora',
-    'Passar tempo com a família',
-    'Planejar a próxima semana',
-    'Escrever um diário sobre o dia',
-  ];
-
   return (
     <BackgroundGradient>
       <ScrollView>
@@ -68,7 +57,7 @@ export default function AllTasks({ navigation }) {
                   </Text>
                 </View>
 
-                <DailyTasks userId={6} />
+                <DailyTasks />
               </View>
 
               {/* Secção de Tarefas Concluidas */}
@@ -76,14 +65,11 @@ export default function AllTasks({ navigation }) {
                 {/* Cabeçalho */}
                 <View className="mb-4">
                   <Text className="text-xl font-quickbold text-black">
-                    Tarefas Concluidas
+                    Tarefas Concluídas
                   </Text>
                 </View>
-
                 {/* Lista de tarefas */}
-                {tasksconcluidas.map((task, index) => (
-                  <TaskFinished key={index} taskText={task} />
-                ))}
+                <TasksFinished />
               </View>
             </View>
           </View>
