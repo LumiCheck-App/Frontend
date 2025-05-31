@@ -6,12 +6,13 @@ Bem-vindo ao Frontend da LumiCheck!
 
 ## Como Executar o Projeto
 
-1. Ter uma versão recente do Node.js instalada.
-2. Instala as dependências:
+1. Clona este repositório para o teu pc.
+2. Ter uma versão recente do Node.js instalada.
+3. Instala as dependências:
    ```bash
    npm install
    ```
-3. Para iniciar o projeto:
+4. Para iniciar o projeto:
    ```bash
    npm start
    ```
@@ -25,7 +26,7 @@ Bem-vindo ao Frontend da LumiCheck!
 - Instalar a App da Expo Go na Play/App Store.
 - Rodar `npm start`, e um QR Code vai aparecer no terminal.
 - No Android, dá Scan do QR Code no app Expo Go.
-- Se tiveres num iPhone dá Scan na App da Câmara.
+- No iPhone, usa a app da Câmara para ler o QR Code.
 
 ### 2. No Android Studio
 
