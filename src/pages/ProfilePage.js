@@ -8,7 +8,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/authSlice';
 
 import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
@@ -16,9 +15,20 @@ import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
 import BomProgresso from '../../assets/trophies/bomprogresso.svg';
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserAnswers } from '../redux/userAnswersSlice';
+
 export default function ProfilePage() {
   const navigation = useNavigation();
+
   const dispatch = useDispatch();
+  const { answers: perguntas } = useSelector((state) => state.userAnswers);
+
+  useEffect(() => {
+    dispatch(fetchUserAnswers());
+  }, [dispatch]);
+
+  const questionCount = perguntas.length;
 
   const trophieswon = [
     {
@@ -79,7 +89,9 @@ export default function ProfilePage() {
                   {/* Linha superior: Ícone e número */}
                   <View className="flex-row ml-2 mb-2 items-center">
                     <QuestionIcon width={24} height={24} />
-                    <Text className="text-2xl font-quickbold ml-2">14</Text>
+                    <Text className="text-2xl font-quickbold ml-2">
+                      {questionCount}
+                    </Text>
                   </View>
                   {/* Linha inferior: Texto */}
                   <Text className="text-sm text-dark-gray text-center">
@@ -92,11 +104,11 @@ export default function ProfilePage() {
                   {/* Linha superior: Ícone e número */}
                   <View className="flex-row ml-2 mb-2 items-center">
                     <TrophyGoldIcon width={24} height={24} />
-                    <Text className="text-2xl font-quickbold ml-2">4</Text>
+                    <Text className="text-2xl font-quickbold ml-2">0</Text>
                   </View>
                   {/* Linha inferior: Texto */}
                   <Text className="text-sm text-dark-gray text-center">
-                    Conquistas obtidas
+                    Troféus obtidos
                   </Text>
                 </View>
               </View>

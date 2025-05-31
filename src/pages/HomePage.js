@@ -9,12 +9,23 @@ import HelpContactsIcon from '../../assets/icons/helpcontacts.svg';
 import { FontAwesome } from '@expo/vector-icons';
 import ArcProgressBar from '../components/ArcProgressBar';
 import DailyTasks from '../components/DailyTasks';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
   const [scrollY] = useState(new Animated.Value(0));
   const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
   const [progress, setProgress] = useState(0); // Estado do progresso
+
+  const dispatch = useDispatch();
+  const { answers: perguntas } = useSelector((state) => state.userAnswers);
+
+  useEffect(() => {
+    dispatch(fetchUserAnswers());
+  }, [dispatch]);
+
+  const questionCount = perguntas.length;
 
   // Função para calcular o tempo restante até a meia-noite
   const calculateTimeLeft = () => {
@@ -108,7 +119,7 @@ export default function HomePage() {
           }}
           className="flex-row items-center mb-2"
         >
-          <Text className="text-lg font-quickbold mr-2">14</Text>
+          <Text className="text-lg font-quickbold mr-2">{questionCount}</Text>
           <QuestionIcon width={24} height={24} />
         </Animated.View>
 
@@ -118,7 +129,7 @@ export default function HomePage() {
           }}
           className="flex-row items-center"
         >
-          <Text className="text-lg font-quickbold mr-2">2</Text>
+          <Text className="text-lg font-quickbold mr-2">0</Text>
           <TrophyGoldIcon width={24} height={24} />
         </Animated.View>
       </View>
@@ -161,21 +172,21 @@ export default function HomePage() {
             {!isMonitoring ? (
               <TouchableOpacity
                 className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
-                onPress={async () => {
-                  const permissionGranted =
-                    await requestNotificationPermission();
-                  if (permissionGranted) {
-                    // Configurar progresso inicial como 0%
-                    setIsMonitoring(true);
+                // onPress={async () => {
+                //   const permissionGranted =
+                //     await requestNotificationPermission();
+                //   if (permissionGranted) {
+                //     // Configurar progresso inicial como 0%
+                //     setIsMonitoring(true);
 
-                    // Agendar notificação com 30 segundos de atraso
-                    sendPushNotification(
-                      'Pergunta da Lumi',
-                      'A Lumi tem uma nova pergunta para tu responderes!',
-                      { screen: 'QuestionPage' } // Dados para redirecionamento
-                    );
-                  }
-                }}
+                //     // Agendar notificação com 30 segundos de atraso
+                //     sendPushNotification(
+                //       'Pergunta da Lumi',
+                //       'A Lumi tem uma nova pergunta para tu responderes!',
+                //       { screen: 'QuestionPage' } // Dados para redirecionamento
+                //     );
+                //   }
+                // }}
               >
                 <Text className="text-xl text-white font-quickbold">
                   Começar Monitorização
@@ -215,7 +226,7 @@ export default function HomePage() {
                 </Text>
               </View>
 
-              <DailyTasks userId={6} />
+              <DailyTasks />
             </View>
 
             {/* Literacia */}

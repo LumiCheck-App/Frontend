@@ -73,7 +73,7 @@ export default function FirstFiveQuestions({
     setUserQuestionnaire((prevUserQuestionnaire) => {
       const updatedUserQuestionnaire = { ...prevUserQuestionnaire };
 
-      updatedUserQuestionnaire[`question${questionId}`] = score;
+      updatedUserQuestionnaire[`question${questionId + 1}`] = score;
 
       return updatedUserQuestionnaire;
     });
