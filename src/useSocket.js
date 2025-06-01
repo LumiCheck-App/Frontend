@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import Toast from 'react-native-toast-message';
 
-const API_URL =
-  process.env.EXPO_PUBLIC_BACKEND_URL_PROD || 'http://localhost:8000';
+const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
 
 export default function useSocket(userId) {
   useEffect(() => {

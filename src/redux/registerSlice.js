@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const API_URL =
-  process.env.EXPO_PUBLIC_BACKEND_URL_PROD || 'http://localhost:8000';
+const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
