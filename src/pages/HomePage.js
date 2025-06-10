@@ -12,11 +12,29 @@ import DailyTasks from '../components/DailyTasks';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
+//import react-native modules
+import { NativeModules } from 'react-native';
+
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
   const [scrollY] = useState(new Animated.Value(0));
   const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
   const [progress, setProgress] = useState(0); // Estado do progresso
+
+  //importar os módulos nativos de screen time e work manager
+  const { ScreenTimeModule } = NativeModules;
+  const { WorkManagerModule } = NativeModules;
+
+  //Abrir as configurações de acesso ao uso
+  const StartMonotoring = () => {
+    //Pedir acesso ao uso do dispositivo
+    ScreenTimeModule.requestUsageAccess();
+    //Iniciar Trabalho em segundo plano
+    WorkManagerModule.startWork();
+    //Mudar o state
+    setIsMonitoring(true)
+  };
+
 
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
@@ -172,6 +190,7 @@ export default function HomePage() {
             {!isMonitoring ? (
               <TouchableOpacity
                 className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
+                onPress={StartMonotoring}
                 // onPress={async () => {
                 //   const permissionGranted =
                 //     await requestNotificationPermission();

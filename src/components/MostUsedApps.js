@@ -1,84 +1,50 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
+import { useEffect, useState } from 'react';
+import { getAppIcon } from "../sevices/AppIconService";
 
-export default function MostUsedApps() {
-  //Ir buscar dados á API
-  const UserAppData = [
-    {
-      id: 0,
-      image: require('../../assets/insta-logo.png'),
-      hours: 4.5,
-      date: "11/01/2025",
-      app_name: "instagram",
-    },
-    {
-      id: 1,
-      image: require('../../assets/tiktok-logo.png'),
-      hours: 5,
-      date: "11/01/2025",
-      app_name: "tiktok",
-    },
-    {
-      id: 2,
-      image: require('../../assets/facebook-logo.png'),
-      hours: 4,
-      date: "11/01/2025",
-      app_name: "facebook",
-    },
-    {
-      id: 3,
-      image: require('../../assets/youtube-logo.png'),
-      hours: 3.5,
-      date: "11/01/2025",
-      app_name: "youtube",
-    },
-    {
-      id: 4,
-      image: require('../../assets/shein-logo.jpg'),
-      hours: 3,
-      date: "11/01/2025",
-      app_name: "shein",
-    },
-    {
-      id: 5,
-      image: require('../../assets/tiktok-logo.png'),
-      hours: 1,
-      date: "11/01/2025",
-      app_name: "tiktok",
-    },
-    {
-      id: 6,
-      image: require('../../assets/facebook-logo.png'),
-      hours: 1,
-      date: "11/01/2025",
-      app_name: "facebook",
-    },
-    {
-      id: 7,
-      image: require('../../assets/cc-logo.jpg'),
-      hours: 2.2,
-      date: "11/01/2025",
-      app_name: "Clash of Clans",
-    },
-  ];
 
-  const Data_time_ordered = [...UserAppData]
-    .sort((a, b) => b.hours - a.hours) // Sort by descending `hours`
+export default function MostUsedApps({appTime}) {
+
+  // Filter out specific apps from the appTime array
+  appTime.map((app) => {
+    if(app.appName == "home" || app.appName == "deskclock" || app.appName == "settings" || app.appName == "phone" || app.appName == "messages" || app.appName == "contacts" || app.appName == "cleaner"){
+      appTime.splice(appTime.indexOf(app), 1);
+    }
+  })
+  
+  const Data_time_ordered = [...appTime]
+    .sort((a, b) => b.time - a.time) // Sort by descending `hours`
     .slice(0, 6); // Take only the top 6 elements
+
   return (
     <View>
       {Data_time_ordered.map((Data, index) => {
         let Time_percentage;
 
-        if (Data.hours === 0) {
+        if(Data.time < 60){
           Time_percentage = '0%';
+        }else{
+          if(Data.time >= 60){
+            const hours = Math.floor(Data.time / 60);
+            if (hours >= 5) {
+              Time_percentage = '100%';
+            }else {
+              Time_percentage = `${(hours * 100) / 6 + 10}%`
+            }
+          }
         }
 
-        if (Data.hours >= 5) {
-          Time_percentage = '100%';
-        } else {
-          Time_percentage = `${(Data.hours * 100) / 6 + 10}%`;
-        }
+        const [iconUrl, setIconUrl] = useState(null);
+
+        useEffect(() => {
+                (async () => {
+                    const icon = await getAppIcon(Data.id);
+                    if (icon) {
+                        setIconUrl(icon);
+                    }
+                })();
+            }, [Data.id]);
 
         return (
           <View
@@ -88,10 +54,10 @@ export default function MostUsedApps() {
           >
             <View className="w-1/6">
               <Image
-                source={Data.image}
-                className="w-6 h-6"
+                source={{ uri: iconUrl || "https://reactnative.dev/img/tiny_logo.png" }}
+                className="w-8 h-8"
                 resizeMode="contain"
-                accessibilityLabel={`${Data.app_name} ${Data.hours} horas`}
+                accessibilityLabel={`${Data.appName} ${Data.time} horas`}
               />
             </View>
 
