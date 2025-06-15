@@ -9,6 +9,7 @@ import HelpContactsIcon from '../../assets/icons/helpcontacts.svg';
 import { FontAwesome } from '@expo/vector-icons';
 import ArcProgressBar from '../components/ArcProgressBar';
 import DailyTasks from '../components/DailyTasks';
+import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
@@ -38,6 +39,8 @@ export default function HomePage() {
 
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
+
+   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserAnswers());
@@ -186,11 +189,15 @@ export default function HomePage() {
               Olá, Rodrigo!
             </Text>
 
+            <MonotorizationModal
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}/>
+
             {/* Mostrar o botão ou o card baseado no estado */}
             {!isMonitoring ? (
               <TouchableOpacity
                 className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
-                onPress={StartMonotoring}
+                onPress={()=>setModalVisible(true)}
                 // onPress={async () => {
                 //   const permissionGranted =
                 //     await requestNotificationPermission();
