@@ -88,8 +88,14 @@ class ScreenTimeModule(reactContext: ReactApplicationContext) : ReactContextBase
     @ReactMethod
     fun requestUsageAccess() {
         val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+        intent.data = android.net.Uri.parse("package:${reactApplicationContext.packageName}")
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         reactApplicationContext.startActivity(intent)
+    }
+
+    @ReactMethod
+    fun hasUsageAccess(promise: Promise) {
+        promise.resolve(isUsageAccessGranted(reactApplicationContext))
     }
 
     private fun isUsageAccessGranted(context: Context): Boolean {

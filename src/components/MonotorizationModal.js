@@ -1,26 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, Switch } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Modal, TouchableOpacity, Switch, AppState } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
+import { toogleMonitorization } from '../redux/isMonitoringSlice';
+
+//import react-native modules
+import { NativeModules } from 'react-native';
 
 export default function MonotorizationModal({ modalVisible, setModalVisible }) {
+  //importar os módulos nativos de screen time e work manager
+  const { ScreenTimeModule } = NativeModules;
+  const { WorkManagerModule } = NativeModules;
+
+  const dispatch = useDispatch();
+
   const [isSTenabled, setIsSTenabled] = useState(false);
-  const [isBGenabled, setIsBGenabled] = useState(false);
   const [isFGenabled, setIsFGenabled] = useState(false);
+
+  useEffect(() => {
+    const checkScreenTimePermission = async () => {
+      try {
+        const hasPermission = await ScreenTimeModule.hasUsageAccess();
+        setIsSTenabled(hasPermission);
+      } catch (error) {
+        console.log('Error checking screen time permission:', error);
+      }
+    };
+
+    checkScreenTimePermission();
+
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === 'active') {
+        checkScreenTimePermission();
+      }
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+    return () => {
+    subscription?.remove();
+    };
+  }, []);
+
   const toggleSwitch = (permission) => {
     switch (permission) {
-        case 'ScreenTime':
-             setIsSTenabled((previousState) => !previousState)
-            break;
-        case 'Background':
-            setIsBGenabled((previousState) => !previousState)
-            break;
-        case 'Foreground':
-            setIsFGenabled((previousState) => !previousState)
-            break;
-        default:
-            break;
+      case 'ScreenTime':
+        ScreenTimeModule.requestUsageAccess();
+        break;
+      case 'Foreground':
+        setIsFGenabled((previousState) => !previousState);
+        break;
+      default:
+        break;
     }
-}
+  };
+
+  const StartMonotoring = () => {
+    if (isSTenabled && isFGenabled) {
+      console.log('Iniciando monitorização com as seguintes permissões:');
+      //WorkManagerModule.startWork();
+      dispatch(toogleMonitorization());
+      setModalVisible(false);
+    } else {
+      alert('Por favor, ativa todas as opções para iniciar a monitorização.');
+    }
+  };
 
   return (
     <Modal
@@ -38,7 +82,7 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
           >
             <FontAwesome name="close" size={24} color="#ff9d00" />
           </TouchableOpacity>
-          <Text className="text-xl text-white font-quickbold">
+          <Text className="text-xl text-black font-quickbold">
             Vamos começar a Moniterização!!!
           </Text>
           <Text>
@@ -58,18 +102,8 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
               trackColor={{ false: '#767577', true: '#ffe5b4' }}
               thumbColor={isSTenabled ? '#ff9d00' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={()=>toggleSwitch('ScreenTime')}
+              onValueChange={() => toggleSwitch('ScreenTime')}
               value={isSTenabled}
-            />
-          </View>
-          <View className="w-full flex flex-row justify-between items-center">
-            <Text className="font-black">Atividade em Background</Text>
-            <Switch
-              trackColor={{ false: '#767577', true: '#ffe5b4' }}
-              thumbColor={isBGenabled ? '#ff9d00' : '#f4f3f4'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={()=>toggleSwitch('Background')}
-              value={isBGenabled}
             />
           </View>
           <View className="w-full flex flex-row justify-between items-center">
@@ -78,10 +112,18 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
               trackColor={{ false: '#767577', true: '#ffe5b4' }}
               thumbColor={isFGenabled ? '#ff9d00' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={()=>toggleSwitch('Foreground')}
+              onValueChange={() => toggleSwitch('Foreground')}
               value={isFGenabled}
             />
           </View>
+          <TouchableOpacity
+            className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
+            onPress={StartMonotoring}
+          >
+            <Text className="text-center text-white font-quickbold text-lg">
+              Começar Moniterização
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>

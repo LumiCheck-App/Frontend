@@ -7,6 +7,7 @@ import onBoardingReducer from './onBoardingSlice';
 import dailyTasksReducer from './dailyTasksSlice';
 import userAnswersReducer from './userAnswersSlice';
 import completedTasksReducer from './completedTasksSlice';
+import isMonitoringReducer from './isMonitoringSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     dailyTasks: dailyTasksReducer,
     userAnswers: userAnswersReducer,
     completedTasks: completedTasksReducer,
+    isMonitoring: isMonitoringReducer,
   },
 });

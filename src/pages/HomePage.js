@@ -13,32 +13,16 @@ import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
-//import react-native modules
-import { NativeModules } from 'react-native';
-
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
   const [scrollY] = useState(new Animated.Value(0));
-  const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
+ 
   const [progress, setProgress] = useState(0); // Estado do progresso
-
-  //importar os módulos nativos de screen time e work manager
-  const { ScreenTimeModule } = NativeModules;
-  const { WorkManagerModule } = NativeModules;
-
-  //Abrir as configurações de acesso ao uso
-  const StartMonotoring = () => {
-    //Pedir acesso ao uso do dispositivo
-    ScreenTimeModule.requestUsageAccess();
-    //Iniciar Trabalho em segundo plano
-    WorkManagerModule.startWork();
-    //Mudar o state
-    setIsMonitoring(true)
-  };
-
 
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
+  const isMonitoringState = useSelector((state) => state.isMonitoring);
+
 
    const [modalVisible, setModalVisible] = useState(false);
 
@@ -194,25 +178,10 @@ export default function HomePage() {
               setModalVisible={setModalVisible}/>
 
             {/* Mostrar o botão ou o card baseado no estado */}
-            {!isMonitoring ? (
+            {!isMonitoringState ? (
               <TouchableOpacity
                 className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
                 onPress={()=>setModalVisible(true)}
-                // onPress={async () => {
-                //   const permissionGranted =
-                //     await requestNotificationPermission();
-                //   if (permissionGranted) {
-                //     // Configurar progresso inicial como 0%
-                //     setIsMonitoring(true);
-
-                //     // Agendar notificação com 30 segundos de atraso
-                //     sendPushNotification(
-                //       'Pergunta da Lumi',
-                //       'A Lumi tem uma nova pergunta para tu responderes!',
-                //       { screen: 'QuestionPage' } // Dados para redirecionamento
-                //     );
-                //   }
-                // }}
               >
                 <Text className="text-xl text-white font-quickbold">
                   Começar Monitorização
