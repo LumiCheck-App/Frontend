@@ -1,3 +1,4 @@
+//this is my build.gradle inside android>app folder
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
@@ -150,6 +151,7 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation ("com.google.firebase:firebase-messaging:23.1.2")
     
     implementation "androidx.work:work-runtime-ktx:2.8.1"
     implementation "com.squareup.okhttp3:okhttp:4.10.0"
@@ -178,3 +180,5 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

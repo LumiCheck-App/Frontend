@@ -13,18 +13,33 @@ import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
+import messaging from '@react-native-firebase/messaging';
+
 export default function HomePage() {
+  const getToken = async () => {
+    try {
+      const token = await messaging().getToken();
+      console.log('FCM Token:', token);
+      return token;
+    } catch (error) {
+      console.error('Error getting FCM token:', error);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
   const [timeLeft, setTimeLeft] = useState('');
   const [scrollY] = useState(new Animated.Value(0));
- 
+
   const [progress, setProgress] = useState(0); // Estado do progresso
 
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
   const isMonitoringState = useSelector((state) => state.isMonitoring);
 
-
-   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserAnswers());
@@ -175,13 +190,14 @@ export default function HomePage() {
 
             <MonotorizationModal
               modalVisible={modalVisible}
-              setModalVisible={setModalVisible}/>
+              setModalVisible={setModalVisible}
+            />
 
             {/* Mostrar o botão ou o card baseado no estado */}
             {!isMonitoringState ? (
               <TouchableOpacity
                 className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
-                onPress={()=>setModalVisible(true)}
+                onPress={() => setModalVisible(true)}
               >
                 <Text className="text-xl text-white font-quickbold">
                   Começar Monitorização
