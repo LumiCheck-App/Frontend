@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity, Switch, AppState } from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  Switch,
+  AppState,
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { toogleMonitorization } from '../redux/isMonitoringSlice';
@@ -31,16 +38,16 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
     checkScreenTimePermission();
 
     const checkOverlayPermission = async () => {
-      try{
+      try {
         const hasPermission = await FloatingBubble.checkOverlayPermission();
         setIsFGenabled(hasPermission);
-        console.log(hasPermission)
-      }catch (error) {
+        console.log(hasPermission);
+      } catch (error) {
         console.log('Error checking screen time permission:', error);
       }
-    }
+    };
 
-    checkOverlayPermission()
+    checkOverlayPermission();
 
     const handleAppStateChange = (nextAppState) => {
       if (nextAppState === 'active') {
@@ -48,10 +55,13 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
       }
     };
 
-    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
 
     return () => {
-    subscription?.remove();
+      subscription?.remove();
     };
   }, []);
 
@@ -69,10 +79,10 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
   };
 
   const StartMonotoring = () => {
-    FloatingBubble.showBubble()
+    FloatingBubble.showBubble();
     if (isSTenabled && isFGenabled) {
       console.log('Iniciando monitorização com as seguintes permissões:');
-      //WorkManagerModule.startWork();
+      WorkManagerModule.startWork();
       dispatch(toogleMonitorization());
       setModalVisible(false);
     } else {
