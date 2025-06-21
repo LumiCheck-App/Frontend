@@ -1,0 +1,31 @@
+<!-- bubble_layout.xml -->
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/bubble_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/my_bubble"
+        android:contentDescription="Bubble"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:elevation="10dp" />
+
+    <TextView
+        android:id="@+id/bubble_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_background"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginStart="90dp"
+        android:visibility="gone"
+        android:elevation="6dp"
+        android:text="Hello"
+        android:maxWidth="200dp" />
+</FrameLayout>

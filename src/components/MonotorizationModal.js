@@ -10,6 +10,7 @@ import { NativeModules } from 'react-native';
 export default function MonotorizationModal({ modalVisible, setModalVisible }) {
   //importar os módulos nativos de screen time e work manager
   const { ScreenTimeModule } = NativeModules;
+  const { FloatingBubble } = NativeModules;
   const { WorkManagerModule } = NativeModules;
 
   const dispatch = useDispatch();
@@ -28,6 +29,18 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
     };
 
     checkScreenTimePermission();
+
+    const checkOverlayPermission = async () => {
+      try{
+        const hasPermission = await FloatingBubble.checkOverlayPermission();
+        setIsFGenabled(hasPermission);
+        console.log(hasPermission)
+      }catch (error) {
+        console.log('Error checking screen time permission:', error);
+      }
+    }
+
+    checkOverlayPermission()
 
     const handleAppStateChange = (nextAppState) => {
       if (nextAppState === 'active') {
@@ -48,7 +61,7 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
         ScreenTimeModule.requestUsageAccess();
         break;
       case 'Foreground':
-        setIsFGenabled((previousState) => !previousState);
+        FloatingBubble.requestPermission();
         break;
       default:
         break;
@@ -56,6 +69,7 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
   };
 
   const StartMonotoring = () => {
+    FloatingBubble.showBubble()
     if (isSTenabled && isFGenabled) {
       console.log('Iniciando monitorização com as seguintes permissões:');
       //WorkManagerModule.startWork();

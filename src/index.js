@@ -5,6 +5,18 @@ import { store } from './redux/store';
 import FontDefiner from './FontDefiner';
 import Toast from 'react-native-toast-message';
 import toastConfig from './toastConfig';
+import messaging from '@react-native-firebase/messaging';
+import { NativeModules } from 'react-native';
+
+const { FloatingBubble } = NativeModules;
+
+// Handle messages in the background
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  if (FloatingBubble && remoteMessage?.notification?.body) {
+    FloatingBubble.showBubble();
+    FloatingBubble.showMessage(remoteMessage.notification.body);
+  }
+  });
 
 function ReduxWrapper() {
   return (

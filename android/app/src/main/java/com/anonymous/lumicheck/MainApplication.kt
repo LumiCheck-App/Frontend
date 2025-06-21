@@ -16,6 +16,8 @@ import com.facebook.soloader.SoLoader
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
 
+import com.anonymous.lumicheck.FloatingBubblePackage;
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost = ReactNativeHostWrapper(
@@ -26,6 +28,7 @@ class MainApplication : Application(), ReactApplication {
                 add(ScreenTimePackage())
                 add(AppIconPackage())
                 add(WorkManagerPackage())
+                add(FloatingBubblePackage())
             }
           }
 
