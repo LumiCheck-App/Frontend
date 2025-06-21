@@ -12,10 +12,20 @@ import DailyTasks from '../components/DailyTasks';
 import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
-
 import messaging from '@react-native-firebase/messaging';
+import { getFirebaseToken } from '../redux/firebaseTokenSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomePage() {
+  const [timeLeft, setTimeLeft] = useState('');
+  const [scrollY] = useState(new Animated.Value(0));
+  const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch();
+  const { answers: perguntas } = useSelector((state) => state.userAnswers);
+  const isMonitoringState = useSelector((state) => state.isMonitoring);
+  const questionCount = perguntas.length;
+  const [modalVisible, setModalVisible] = useState(false);
+
   const getToken = async () => {
     try {
       const token = await messaging().getToken();
@@ -26,26 +36,32 @@ export default function HomePage() {
     }
   };
 
+  const checkAndUpdateFirebaseToken = async () => {
+    try {
+      const currentToken = await getToken();
+      if (!currentToken) {
+        return;
+      }
+      const storedToken = await AsyncStorage.getItem('firebase_token');
+
+      if (currentToken !== storedToken) {
+        await AsyncStorage.setItem('firebase_token', currentToken);
+        dispatch(getFirebaseToken({ firebase_token: currentToken }));
+      } else {
+        console.log('Token unchanged, skipping update');
+      }
+    } catch (error) {
+      console.error('Error checking firebase token:', error);
+    }
+  };
+
   useEffect(() => {
-    getToken();
+    checkAndUpdateFirebaseToken();
   }, []);
-
-  const [timeLeft, setTimeLeft] = useState('');
-  const [scrollY] = useState(new Animated.Value(0));
-
-  const [progress, setProgress] = useState(0); // Estado do progresso
-
-  const dispatch = useDispatch();
-  const { answers: perguntas } = useSelector((state) => state.userAnswers);
-  const isMonitoringState = useSelector((state) => state.isMonitoring);
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserAnswers());
   }, [dispatch]);
-
-  const questionCount = perguntas.length;
 
   // Função para calcular o tempo restante até a meia-noite
   const calculateTimeLeft = () => {

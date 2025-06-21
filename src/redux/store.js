@@ -8,6 +8,7 @@ import dailyTasksReducer from './dailyTasksSlice';
 import userAnswersReducer from './userAnswersSlice';
 import completedTasksReducer from './completedTasksSlice';
 import isMonitoringReducer from './isMonitoringSlice';
+import firebaseTokenReducer from './firebaseTokenSlice';
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     userAnswers: userAnswersReducer,
     completedTasks: completedTasksReducer,
     isMonitoring: isMonitoringReducer,
+    firebaseToken: firebaseTokenReducer,
   },
 });
