@@ -51,30 +51,24 @@ export const getIsMonitoringStatus = createAsyncThunk(
 );
 
 const isMonitoringSlice = createSlice({
-  name: 'user',
+  name: 'isMonitoring',
   initialState: {
-    user: null,
+    status: false,
     loading: false,
     error: null,
   },
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
+    setMonitoringStatus: (state, action) => {
+      state.status = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(updateIsMonitoringStatus.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+      .addCase(getIsMonitoringStatus.fulfilled, (state, action) => {
+        state.status = action.payload;
       })
       .addCase(updateIsMonitoringStatus.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-      })
-      .addCase(updateIsMonitoringStatus.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
+        state.status = action.payload.is_monitoring;
       });
   },
 });

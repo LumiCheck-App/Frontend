@@ -15,6 +15,10 @@ import { fetchUserAnswers } from '../redux/userAnswersSlice';
 import messaging from '@react-native-firebase/messaging';
 import { getFirebaseToken } from '../redux/firebaseTokenSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  getIsMonitoringStatus,
+  updateIsMonitoringStatus,
+} from '../redux/isMonitoringSlice';
 
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
@@ -22,9 +26,11 @@ export default function HomePage() {
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
-  const isMonitoringState = useSelector((state) => state.isMonitoring);
   const questionCount = perguntas.length;
   const [modalVisible, setModalVisible] = useState(false);
+  const { isMonitoringState, loading, error } = useSelector(
+    (state) => state.isMonitoring
+  );
 
   const getToken = async () => {
     try {
@@ -61,6 +67,7 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(fetchUserAnswers());
+    dispatch(getIsMonitoringStatus());
   }, [dispatch]);
 
   // Função para calcular o tempo restante até a meia-noite
