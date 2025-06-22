@@ -23,13 +23,6 @@ class WorkManagerModule(reactContext: ReactApplicationContext) : ReactContextBas
     @ReactMethod
     fun setUserId(userId: Int) {
         prefs.edit().putInt("USER_ID", userId).apply()
-        Log.d("WorkManagerModule", "🆔 User ID set: $userId")
-    }
-
-    @ReactMethod
-    fun testConnection(message: String, callback: Callback) {
-        Log.d("WorkManagerModule", "📢 Mensagem recebida: $message")
-        callback.invoke("Kotlin recebeu: $message")
     }
 
     @ReactMethod
@@ -38,13 +31,12 @@ class WorkManagerModule(reactContext: ReactApplicationContext) : ReactContextBas
             val now = Calendar.getInstance()
             val nextRun = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, 23)
-                set(Calendar.MINUTE, 25)
+                set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
                 if (now.after(this)) add(Calendar.DAY_OF_YEAR, 1)
             }
 
             val initialDelay = nextRun.timeInMillis - now.timeInMillis
-            Log.d("WorkManagerModule", "⏳ Agendando para ${nextRun.time} (delay: ${initialDelay/1000}s)")
 
             val workRequest = OneTimeWorkRequestBuilder<MyWorker>()
                 .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
@@ -79,19 +71,6 @@ class WorkManagerModule(reactContext: ReactApplicationContext) : ReactContextBas
                 }
                 callback.invoke(status)
             }
-    }
-
-    @ReactMethod
-    fun runWorkerNow(callback: Callback) {
-        val workRequest = OneTimeWorkRequestBuilder<MyWorker>()
-            .setInitialDelay(0, TimeUnit.MILLISECONDS)
-            .build()
-        
-        WorkManager.getInstance(reactApplicationContext)
-            .enqueue(workRequest)
-            .result.addListener({
-                callback.invoke("Worker executado com sucesso")
-            }, ContextCompat.getMainExecutor(reactApplicationContext))
     }
 
     private fun createConstraints() = Constraints.Builder()

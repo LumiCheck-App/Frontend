@@ -21,38 +21,28 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
         .build()
 
     override fun doWork(): Result {
-        Log.d("MyWorker", "🚀 Iniciando trabalho...")
-        logDeviceStatus()
-
         return try {
             val userId = prefs.getInt("USER_ID", -1).takeIf { it != -1 } 
-                ?: return Result.success().also { 
-                    Log.d("MyWorker", "⏭️ Nenhum usuário logado") 
-                }
+                ?: return Result.success()
 
             val screenData = getScreenTimeData()
             val success = sendToApi(userId, screenData)
 
             if (success) Result.success() else Result.retry()
         } catch (e: Exception) {
-            Log.e("MyWorker", "Erro crítico", e)
+            Log.e("MyWorker", "Erro no worker", e)
             Result.retry()
         }
     }
 
     private fun getScreenTimeData(): ScreenTimeData {
-        return try {
-            ScreenTimeUtil.getScreenTime(applicationContext).let {
-                ScreenTimeData(
-                    totalMinutes = it.totalScreenTimeMinutes.toFloat(),
-                    appBreakdown = it.appScreenTime
-                        .filterValues { time -> time >= 1 }
-                        .mapValues { entry -> entry.value.toFloat() }
-                )
-            }
-        } catch (e: Exception) {
-            Log.e("MyWorker", "Erro ao obter tempo de tela", e)
-            throw e
+        return ScreenTimeUtil.getScreenTime(applicationContext).let {
+            ScreenTimeData(
+                totalMinutes = it.totalScreenTimeMinutes.toFloat(),
+                appBreakdown = it.appScreenTime
+                    .filterValues { time -> time >= 1 }
+                    .mapValues { entry -> entry.value.toFloat() }
+            )
         }
     }
 
@@ -66,15 +56,9 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
                 .build()
 
             client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) {
-                    Log.w("MyWorker", "Falha na API: ${response.code} - ${response.message}")
-                    return false
-                }
-                Log.d("MyWorker", "✅ Dados enviados com sucesso!")
-                true
+                response.isSuccessful
             }
         } catch (e: Exception) {
-            Log.e("MyWorker", "Erro na comunicação com API", e)
             false
         }
     }
@@ -90,22 +74,7 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
             put("usage_data", usageData)
         }.toString()
 
-        Log.d("MyWorker", "📦 Payload: $payload")
         return RequestBody.create("application/json".toMediaTypeOrNull(), payload)
-    }
-
-    private fun logDeviceStatus() {
-        val connManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val isOnline = connManager.activeNetworkInfo?.isConnected == true
-
-        val batteryStatus = applicationContext.registerReceiver(null, 
-            IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val batteryLevel = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
-
-        Log.d("MyWorker", "📱 Status: " +
-            "Online=$isOnline, " +
-            "Bateria=$batteryLevel%, " +
-            "Carregando=${batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) != 0}")
     }
 
     private data class ScreenTimeData(
