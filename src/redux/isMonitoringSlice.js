@@ -43,6 +43,7 @@ export const getIsMonitoringStatus = createAsyncThunk(
       if (!userData) throw new Error('User not found in local storage');
 
       const user = JSON.parse(userData);
+      console.log('User is monitoring:', user.is_monitoring);
       return user.is_monitoring;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -53,22 +54,22 @@ export const getIsMonitoringStatus = createAsyncThunk(
 const isMonitoringSlice = createSlice({
   name: 'isMonitoring',
   initialState: {
-    status: false,
+    isMonitoringState: false,
     loading: false,
     error: null,
   },
   reducers: {
     setMonitoringStatus: (state, action) => {
-      state.status = action.payload;
+      state.isMonitoringState = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getIsMonitoringStatus.fulfilled, (state, action) => {
-        state.status = action.payload;
+        state.isMonitoringState = action.payload;
       })
       .addCase(updateIsMonitoringStatus.fulfilled, (state, action) => {
-        state.status = action.payload.is_monitoring;
+        state.isMonitoringState = action.payload.is_monitoring;
       });
   },
 });

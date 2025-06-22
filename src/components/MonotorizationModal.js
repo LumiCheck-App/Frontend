@@ -108,7 +108,7 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
             <FontAwesome name="close" size={24} color="#ff9d00" />
           </TouchableOpacity>
           <Text className="text-xl text-black font-quickbold">
-            Vamos começar a Moniterização!!!
+            Vamos começar a Monitorização!!!
           </Text>
           <Text>
             A monitorização consiste na recolha dos teus dados de screenTime e
