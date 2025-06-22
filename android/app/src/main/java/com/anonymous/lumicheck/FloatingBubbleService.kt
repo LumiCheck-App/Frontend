@@ -59,10 +59,11 @@ class FloatingBubbleService : Service() {
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         windowManager?.addView(bubbleView, params)
 
-        setupCloseView(inflater) // <--- Line added
+        setupCloseView(inflater)
 
+        // Click listener para abrir a app
         bubbleIcon?.setOnClickListener {
-            Toast.makeText(this, "Bubble clicked!", Toast.LENGTH_SHORT).show()
+            openApp()
         }
 
         bubbleIcon?.setOnTouchListener(object : View.OnTouchListener {
@@ -70,6 +71,7 @@ class FloatingBubbleService : Service() {
             private var initialY = 0
             private var initialTouchX = 0f
             private var initialTouchY = 0f
+            private var isDragging = false
 
             override fun onTouch(v: View?, event: MotionEvent): Boolean {
                 when (event.action) {
@@ -78,13 +80,22 @@ class FloatingBubbleService : Service() {
                         initialY = params.y
                         initialTouchX = event.rawX
                         initialTouchY = event.rawY
+                        isDragging = false
                         closeView?.visibility = View.VISIBLE
                         return true
                     }
 
                     MotionEvent.ACTION_MOVE -> {
-                        params.x = initialX + (event.rawX - initialTouchX).toInt()
-                        params.y = initialY + (event.rawY - initialTouchY).toInt()
+                        val deltaX = (event.rawX - initialTouchX).toInt()
+                        val deltaY = (event.rawY - initialTouchY).toInt()
+                        
+                        // Considerar dragging se moveu mais de 10 pixels
+                        if (kotlin.math.abs(deltaX) > 10 || kotlin.math.abs(deltaY) > 10) {
+                            isDragging = true
+                        }
+                        
+                        params.x = initialX + deltaX
+                        params.y = initialY + deltaY
                         windowManager?.updateViewLayout(bubbleView, params)
                         return true
                     }
@@ -96,12 +107,36 @@ class FloatingBubbleService : Service() {
                         } else {
                             snapToEdge(params)
                         }
+                        
+                        // Se não estava a fazer drag, é um click
+                        if (!isDragging) {
+                            v?.performClick()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                stopSelf()
+                            }, 1000)
+                        }
                         return true
                     }
                 }
                 return false
             }
         })
+    }
+
+    private fun openApp() {
+        try {
+            // Opção 1: Usar Deep Link (recomendado)
+            val deepLinkIntent = Intent(Intent.ACTION_VIEW)
+            deepLinkIntent.data = android.net.Uri.parse("exp+lumicheck://question-page")
+            deepLinkIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(deepLinkIntent)
+            
+        } catch (e: Exception) {
+            // Fallback: abrir a app normalmente
+            val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+            launchIntent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(launchIntent)
+        }
     }
 
     private fun setupCloseView(inflater: LayoutInflater) {

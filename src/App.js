@@ -34,6 +34,8 @@ import AllLumiQuestions from './pages/AllLumiQuestions';
 import AllTrophies from './pages/AllTrophies';
 import QuestionPage from './pages/QuestionPage';
 
+import * as Linking from 'expo-linking';
+
 import { NativeModules } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 
@@ -42,6 +44,15 @@ const { FloatingBubble } = NativeModules;
 const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
 
 export default function App() {
+  const linking = {
+    prefixes: [Linking.createURL('/'), 'exp+lumicheck://'],
+    config: {
+      screens: {
+        QuestionPage: 'question-page',
+      },
+    },
+  };
+
   const dispatch = useDispatch();
   const [initialRoute, setInitialRoute] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -215,7 +226,7 @@ export default function App() {
   // Stack Navigator principal
   return (
     <>
-      <NavigationContainer ref={NavigationRef}>
+      <NavigationContainer ref={NavigationRef} linking={linking}>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
           initialRouteName={initialRoute}

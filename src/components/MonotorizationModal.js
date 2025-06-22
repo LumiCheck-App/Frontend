@@ -52,6 +52,7 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
     const handleAppStateChange = (nextAppState) => {
       if (nextAppState === 'active') {
         checkScreenTimePermission();
+        checkOverlayPermission();
       }
     };
 
@@ -79,7 +80,6 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
   };
 
   const StartMonotoring = () => {
-    FloatingBubble.showBubble();
     if (isSTenabled && isFGenabled) {
       console.log('Iniciando monitorização com as seguintes permissões:');
       WorkManagerModule.startWork();

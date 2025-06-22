@@ -7,6 +7,7 @@
     "icon": "./assets/lumis/Lumi4k.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "scheme": "lumicheck",
     "splash": {
       "image": "./assets/lumis/Lumi4k.png",
       "resizeMode": "contain",
@@ -36,6 +37,9 @@
     "web": {
       "favicon": "./assets/lumis/Lumi4k.png",
       "bundler": "metro"
+    },
+    "linking": {
+      "prefixes": ["lumicheck://", "exp+lumicheck://"]
     },
     "plugins": [
       "expo-font",
