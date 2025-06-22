@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import { toogleMonitorization } from '../redux/isMonitoringSlice';
 
 //import react-native modules
 import { NativeModules } from 'react-native';
@@ -83,7 +82,6 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
     if (isSTenabled && isFGenabled) {
       console.log('Iniciando monitorização com as seguintes permissões:');
       WorkManagerModule.startWork();
-      dispatch(toogleMonitorization());
       setModalVisible(false);
     } else {
       alert('Por favor, ativa todas as opções para iniciar a monitorização.');
