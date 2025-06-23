@@ -16,22 +16,15 @@ export default function ScreenTimeChart() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
-        <Text>Carregando dados...</Text>
+      <View className="flex-1 justify-center items-center py-4 text-center">
+        <Text className="text-lg text-center font-quickregular">
+          A carregar dados do gráfico...
+        </Text>
       </View>
     );
   }
 
-  if (error) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'red' }}>Erro: {error}</Text>
-      </View>
-    );
-  }
-
-  if (!last7Days || last7Days.length <= 1) {
+  if (error || !last7Days || last7Days.length <= 1) {
     return (
       <View className="flex-1 justify-center items-center py-4 text-center">
         <Text className="text-lg text-center font-quickregular">
