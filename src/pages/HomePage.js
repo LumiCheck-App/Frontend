@@ -9,23 +9,67 @@ import HelpContactsIcon from '../../assets/icons/helpcontacts.svg';
 import { FontAwesome } from '@expo/vector-icons';
 import ArcProgressBar from '../components/ArcProgressBar';
 import DailyTasks from '../components/DailyTasks';
+import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
+import messaging from '@react-native-firebase/messaging';
+import { getFirebaseToken } from '../redux/firebaseTokenSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadUserFromStorage } from '../redux/userSlice';
+import { getIsMonitoringStatus } from '../redux/isMonitoringSlice';
 
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
   const [scrollY] = useState(new Animated.Value(0));
-  const [isMonitoring, setIsMonitoring] = useState(false); // Estado para controlar a monitorização
-  const [progress, setProgress] = useState(0); // Estado do progresso
-
+  const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
+  const { isMonitoringState, loading, error } = useSelector(
+    (status) => status.isMonitoring
+  );
+  const questionCount = perguntas.length;
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const user = useSelector((state) => state.user.data);
+
+  const getToken = async () => {
+    try {
+      const token = await messaging().getToken();
+      console.log('FCM Token:', token);
+      return token;
+    } catch (error) {
+      console.error('Error getting FCM token:', error);
+    }
+  };
+
+  const checkAndUpdateFirebaseToken = async () => {
+    try {
+      const currentToken = await getToken();
+      if (!currentToken) {
+        return;
+      }
+      const storedToken = await AsyncStorage.getItem('firebase_token');
+
+      if (currentToken !== storedToken) {
+        await AsyncStorage.setItem('firebase_token', currentToken);
+        dispatch(getFirebaseToken({ firebase_token: currentToken }));
+      } else {
+        console.log('Token unchanged, skipping update');
+      }
+    } catch (error) {
+      console.error('Error checking firebase token:', error);
+    }
+  };
 
   useEffect(() => {
-    dispatch(fetchUserAnswers());
-  }, [dispatch]);
+    checkAndUpdateFirebaseToken();
+  }, []);
 
-  const questionCount = perguntas.length;
+  useEffect(() => {
+    dispatch(loadUserFromStorage());
+    dispatch(fetchUserAnswers());
+    dispatch(getIsMonitoringStatus());
+  }, [dispatch]);
 
   // Função para calcular o tempo restante até a meia-noite
   const calculateTimeLeft = () => {
@@ -165,28 +209,19 @@ export default function HomePage() {
           <View className="flex-1 items-center pt-60">
             {/* Texto de boas-vindas */}
             <Text className="text-2xl font-quickbold text-gray-800 mt-4">
-              Olá, Rodrigo!
+              Olá, {user?.username || 'Utilizador'}!
             </Text>
 
+            <MonotorizationModal
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
+            />
+
             {/* Mostrar o botão ou o card baseado no estado */}
-            {!isMonitoring ? (
+            {!isMonitoringState ? (
               <TouchableOpacity
                 className="bg-orange rounded-lg w-11/12 py-3 mt-12 items-center"
-                // onPress={async () => {
-                //   const permissionGranted =
-                //     await requestNotificationPermission();
-                //   if (permissionGranted) {
-                //     // Configurar progresso inicial como 0%
-                //     setIsMonitoring(true);
-
-                //     // Agendar notificação com 30 segundos de atraso
-                //     sendPushNotification(
-                //       'Pergunta da Lumi',
-                //       'A Lumi tem uma nova pergunta para tu responderes!',
-                //       { screen: 'QuestionPage' } // Dados para redirecionamento
-                //     );
-                //   }
-                // }}
+                onPress={() => setModalVisible(true)}
               >
                 <Text className="text-xl text-white font-quickbold">
                   Começar Monitorização

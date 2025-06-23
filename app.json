@@ -7,6 +7,7 @@
     "icon": "./assets/lumis/Lumi4k.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "scheme": "lumicheck",
     "splash": {
       "image": "./assets/lumis/Lumi4k.png",
       "resizeMode": "contain",
@@ -15,7 +16,9 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"],
+        "UIBackgroundModes": [
+          "remote-notification"
+        ],
         "NSUserTrackingUsageDescription": "Este app utiliza notificações para manter você informado sobre atualizações importantes.",
         "UIUserNotificationSettings": {
           "UIUserNotificationTypeAlert": true,
@@ -28,12 +31,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/lumis/Lumi4k.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.lumicheck"
     },
     "web": {
       "favicon": "./assets/lumis/Lumi4k.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-font"]
+    "linking": {
+      "prefixes": ["lumicheck://", "exp+lumicheck://"]
+    },
+    "plugins": [
+      "expo-font",
+      "expo-dev-client"
+    ]
   }
 }

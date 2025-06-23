@@ -15,7 +15,7 @@ export default function EditProfile({ navigation }) {
   const [username, setUname] = useState('Rodrigo');
   const [mail, setMail] = useState('rodrigograca@gmail.com');
   const [profileImage, setProfileImage] = useState(
-    require('../../assets/juice_pfp.jpg')
+    require('../../assets/user.png')
   );
   const [newImage, setNewImage] = useState(null);
 

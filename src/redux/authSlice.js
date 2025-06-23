@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeModules } from 'react-native';
 
 const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
 
@@ -18,6 +19,12 @@ export const loginUser = createAsyncThunk(
         await AsyncStorage.setItem('token', data.access_token);
         await AsyncStorage.setItem('refresh_token', data.refresh_token);
         await AsyncStorage.setItem('user', JSON.stringify(data.user));
+
+        const { WorkManagerModule } = NativeModules;
+        WorkManagerModule.setUserId(data.user.id);
+
+        console.log('User ID set in WorkManager:', data.user.id);
+
         return { token: data.access_token, user: data.user };
       } else {
         return thunkAPI.rejectWithValue(data.message);
@@ -34,6 +41,10 @@ export const logoutUser = createAsyncThunk(
     try {
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('user');
+
+      const { WorkManagerModule } = NativeModules;
+      WorkManagerModule.setUserId(-1);
+
       return true;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

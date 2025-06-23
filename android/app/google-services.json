@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241241973344",
+    "project_id": "bubblechat-491d0",
+    "storage_bucket": "bubblechat-491d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241241973344:android:b60b169b514b0e65265905",
+        "android_client_info": {
+          "package_name": "com.anonymous.lumicheck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYmcuSfpO_wUTkxGsXsQaymbmD9OwgLLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
