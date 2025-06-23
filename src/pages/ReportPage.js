@@ -25,67 +25,62 @@ import { fetchUserAnswers } from '../redux/userAnswersSlice';
 import { NativeModules } from 'react-native';
 
 export default function ReportPage() {
-
   //importar os módulos nativos de screen time e work manager
   const { ScreenTimeModule } = NativeModules;
 
   //Variaveis para o tempo de ecrã e uso de apps
-    const [screenTime, setScreenTime] = useState(null);
-    const [appUsage, setAppUsage] = useState([]);
-  
-    //formata o tempo de screen time
-    function formatTime(minutes) {
-      if (minutes >= 60) {
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-        return remainingMinutes > 0
-          ? `${hours}h ${remainingMinutes}min`
-          : `${hours}h`;
-      }
-      return `${minutes}min`;
-    }
+  const [screenTime, setScreenTime] = useState(null);
+  const [appUsage, setAppUsage] = useState([]);
 
-  
-    //função de ir buscar o tempo de ecrã
-    const fetchScreenTime = async () => {
-        try {
-          const response = await ScreenTimeModule.getScreenTime();
-          //console.log('Screen Time Data:', response);
-          setScreenTime(Math.floor(response.screenTimeMinutes / 60));
-          setAppUsage(response.appScreenTime || {});
-          let appUsageData = [];
-          Object.entries(response.appScreenTime).forEach(([app, time]) => {
-            if (time > 0) {
-              let appName;
-              if (app.split('.').pop() === 'android') {
-                let splitedAppNames = app.split('.');
-                appName = splitedAppNames[splitedAppNames.length - 2];
-              } else {
-                appName = app.split('.').pop();
-              }
-              appUsageData.push({
-                id: app,
-                appName: appName,
-                time: time,
-              });
-            }
+  //formata o tempo de screen time
+  function formatTime(minutes) {
+    if (minutes >= 60) {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      return remainingMinutes > 0
+        ? `${hours}h ${remainingMinutes}min`
+        : `${hours}h`;
+    }
+    return `${minutes}min`;
+  }
+
+  //função de ir buscar o tempo de ecrã
+  const fetchScreenTime = async () => {
+    try {
+      const response = await ScreenTimeModule.getScreenTime();
+      //console.log('Screen Time Data:', response);
+      setScreenTime(Math.floor(response.screenTimeMinutes / 60));
+      setAppUsage(response.appScreenTime || {});
+      let appUsageData = [];
+      Object.entries(response.appScreenTime).forEach(([app, time]) => {
+        if (time > 0) {
+          let appName;
+          if (app.split('.').pop() === 'android') {
+            let splitedAppNames = app.split('.');
+            appName = splitedAppNames[splitedAppNames.length - 2];
+          } else {
+            appName = app.split('.').pop();
+          }
+          appUsageData.push({
+            id: app,
+            appName: appName,
+            time: time,
           });
-    
-          setAppUsage(appUsageData || []);
-          //console.log(screenTime);
-  
-        } catch (error) {
-          console.error('Error fetching screen time:', error);
-          // Narrow the type of 'error'
-          const errorMessage =
-            error instanceof Error
-              ? error.message
-              : 'Could not fetch screen time.';
-    
-          Alert.alert('Error', errorMessage);
         }
-      };
-  
+      });
+
+      setAppUsage(appUsageData || []);
+      //console.log(screenTime);
+    } catch (error) {
+      console.error('Error fetching screen time:', error);
+      // Narrow the type of 'error'
+      const errorMessage =
+        error instanceof Error ? error.message : 'Could not fetch screen time.';
+
+      Alert.alert('Error', errorMessage);
+    }
+  };
+
   useEffect(() => {
     fetchScreenTime();
   }, []);
@@ -373,21 +368,23 @@ export default function ReportPage() {
               accessibilityLabel="Arco de progresso"
             />
             <Text
-              className="text-lg font-quickregular"
+              className="text-lg font-quickregular text-center px-4"
               accessibilityRole="text"
             >
-              O seu relatório está quase terminado.
+              {perguntas.length * 5 <= 50
+                ? 'Responda a mais algumas perguntas para ter uma pontuação mais precisa.'
+                : 'O seu relatório está quase terminado.'}
             </Text>
             <Text className="text-lg font-quickbold" accessibilityRole="text">
               O LumiScore é apenas uma previsão!
             </Text>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               className="absolute top-2 right-2"
               accessibilityLabel="Definições de monitorização"
               accessibilityRole="button"
             >
               <FontAwesome name="gear" size={20} color="#d0d0d0" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View className="flex-1 items-center pt-9 px-4">

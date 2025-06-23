@@ -11,8 +11,8 @@ import isMonitoringReducer from './isMonitoringSlice';
 import firebaseTokenReducer from './firebaseTokenSlice';
 import answerQuestionReducer from './answerQuestionSlice';
 import userReducer from './userSlice';
-`
-`;
+import screentimeReducer from './screentimeSlice';
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -27,5 +27,6 @@ export const store = configureStore({
     firebaseToken: firebaseTokenReducer,
     answerQuestion: answerQuestionReducer,
     user: userReducer,
+    screentime: screentimeReducer,
   },
 });

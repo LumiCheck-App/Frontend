@@ -234,18 +234,20 @@ export default function HomePage() {
                   <ArcProgressBar
                     size={80}
                     strokeWidth={8}
-                    progress={progress}
+                    progress={perguntas.length * 5}
                   />
-                  <View className="flex-1 mr-4 py-8">
+                  <View className="flex-1 mr-4 py-8 px-4">
                     <Text className="font-quickbold text-md text-black text-center">
-                      O seu relatório está quase terminado!
+                      {perguntas.length * 5 <= 50
+                        ? 'Responda a mais algumas perguntas para ter uma pontuação mais precisa.'
+                        : 'O seu relatório está quase terminado.'}
                     </Text>
                   </View>
                 </View>
 
-                <TouchableOpacity className="absolute top-2 right-2">
+                {/* <TouchableOpacity className="absolute top-2 right-2">
                   <FontAwesome name="gear" size={20} color="#d0d0d0" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </TouchableOpacity>
             )}
 
