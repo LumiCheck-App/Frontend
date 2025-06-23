@@ -1,11 +1,28 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Modal,
+  TextInput,
+  Alert,
+} from 'react-native';
 import BackgroundGradient from '../components/BackgroundGradient';
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import CardForOptions from '../components/CardForOptions';
+import { useDispatch } from 'react-redux';
+import { deleteUserAccount } from '../redux/deleteAccountSlice';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Settings({ navigation }) {
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
   const Conta = [
     {
       link: 'EditProfile',
@@ -59,13 +76,31 @@ export default function Settings({ navigation }) {
 
   const DeleteAccount = [
     {
-      link: 'Login',
+      action: () => setIsDeleteModalVisible(true),
       text: 'Apagar Conta',
       textColor: 'text-red',
       arrowColor: '#da6f6f',
-      icon: <Feather name="log-out" size={25} color="#da6f6f" />,
+      icon: <MaterialIcons name="delete" size={25} color="#da6f6f" />,
     },
   ];
+
+  const handleDeleteAccount = async () => {
+    if (!password) {
+      Alert.alert('Erro', 'Por favor insira a sua password');
+      return;
+    }
+
+    try {
+      await dispatch(deleteUserAccount(password)).unwrap();
+      Alert.alert('Sucesso', 'A sua conta foi apagada com sucesso');
+      navigation.navigate('Login');
+    } catch (error) {
+      Alert.alert('Erro', error.message || 'Ocorreu um erro ao apagar a conta');
+    } finally {
+      setIsDeleteModalVisible(false);
+      setPassword('');
+    }
+  };
 
   return (
     <BackgroundGradient>
@@ -79,18 +114,6 @@ export default function Settings({ navigation }) {
                   <Ionicons name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
               </View>
-              {/* <Image
-                source={require('../../assets/user.png')}
-                className="w-32 h-32 rounded-full"
-                resizeMode="contain"
-              />
-
-              <Text className="text-2xl font-quickbold text-black mt-6">
-                Rodrigo
-              </Text>
-              <Text className="text-md font-quickbold text-dark-gray">
-                rodrigograca@gmail.com
-              </Text> */}
 
               <View className="w-11/12 mt-8 mb-4">
                 <Text className="text-xl font-quickbold text-black">Conta</Text>
@@ -105,13 +128,66 @@ export default function Settings({ navigation }) {
               <View className="mt-2">
                 <CardForOptions options={Logout} />
               </View>
-              <View className="mt-2">
+              <TouchableOpacity className="mt-2">
                 <CardForOptions options={DeleteAccount} />
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
       </ScrollView>
+
+      {/* Modal para apagar conta */}
+      <Modal
+        visible={isDeleteModalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setIsDeleteModalVisible(false)}
+      >
+        <View className="flex-1 justify-center items-center bg-black/50 px-4">
+          <View className="relative  bg-off-white pt-20 pb-10 px-6 flex-col justify-center items-center w-full border-x border-y border-light-gray rounded-lg gap-8">
+            <TouchableOpacity
+              className="ml-2 absolute top-4 right-4"
+              onPress={() => {
+                setIsDeleteModalVisible(false);
+                setPassword('');
+              }}
+            >
+              <FontAwesome name="close" size={24} color="#ff9d00" />
+            </TouchableOpacity>
+            <Text className="text-xl text-black font-quickbold">
+              Apagar conta
+            </Text>
+            <Text className="mb-4">
+              Tens a certeza que queres apagar a tua conta? Esta ação é
+              irreversível.
+            </Text>
+
+            <View className="w-full">
+              <Text className="text-xl text-left font-quickbold text-black mb-4">
+                Confirmar alterações com password
+              </Text>
+              <TextInput
+                className="bg-white w-full text-black border border-light-gray rounded-lg px-4 py-3 font-quickregular text-xl"
+                placeholder="Introduza a sua password"
+                secureTextEntry={true}
+                value={password}
+                onChangeText={setPassword}
+              />
+            </View>
+
+            <View className="flex-row">
+              <TouchableOpacity
+                className="bg-red rounded-lg w-11/12 py-3 mt-8 items-center"
+                onPress={handleDeleteAccount}
+              >
+                <Text className="text-center text-white font-quickbold text-lg">
+                  Apagar Conta
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </BackgroundGradient>
   );
 }

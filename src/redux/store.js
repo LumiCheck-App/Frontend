@@ -13,6 +13,7 @@ import answerQuestionReducer from './answerQuestionSlice';
 import userReducer from './userSlice';
 import screentimeReducer from './screentimeSlice';
 import updateUserCredentialsReducer from './updateUserCredentialsSlice';
+import deleteAccountReducer from './deleteAccountSlice';
 
 export const store = configureStore({
   reducer: {
@@ -30,5 +31,6 @@ export const store = configureStore({
     user: userReducer,
     screentime: screentimeReducer,
     updateUserCredentials: updateUserCredentialsReducer,
+    deleteAccount: deleteAccountReducer,
   },
 });
