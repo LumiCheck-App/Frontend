@@ -9,7 +9,7 @@ import {
   ScrollView,
   ImageBackground,
 } from 'react-native';
-import MapView, { Marker } from 'expo-maps';
+import MapView, { Marker } from 'react-native-maps';
 import BackgroundGradient from '../components/BackgroundGradient';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
