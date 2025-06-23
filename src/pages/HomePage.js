@@ -15,8 +15,8 @@ import { fetchUserAnswers } from '../redux/userAnswersSlice';
 import messaging from '@react-native-firebase/messaging';
 import { getFirebaseToken } from '../redux/firebaseTokenSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import {getIsMonitoringStatus} from '../redux/isMonitoringSlice'
+import { loadUserFromStorage } from '../redux/userSlice';
+import { getIsMonitoringStatus } from '../redux/isMonitoringSlice';
 
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
@@ -24,9 +24,13 @@ export default function HomePage() {
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
-  const {isMonitoringState, loading, error} = useSelector((status) => status.isMonitoring);
+  const { isMonitoringState, loading, error } = useSelector(
+    (status) => status.isMonitoring
+  );
   const questionCount = perguntas.length;
   const [modalVisible, setModalVisible] = useState(false);
+
+  const user = useSelector((state) => state.user.data);
 
   const getToken = async () => {
     try {
@@ -62,8 +66,9 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    dispatch(loadUserFromStorage());
     dispatch(fetchUserAnswers());
-    dispatch(getIsMonitoringStatus())
+    dispatch(getIsMonitoringStatus());
   }, [dispatch]);
 
   // Função para calcular o tempo restante até a meia-noite
@@ -204,7 +209,7 @@ export default function HomePage() {
           <View className="flex-1 items-center pt-60">
             {/* Texto de boas-vindas */}
             <Text className="text-2xl font-quickbold text-gray-800 mt-4">
-              Olá, Rodrigo!
+              Olá, {user?.username || 'Utilizador'}!
             </Text>
 
             <MonotorizationModal

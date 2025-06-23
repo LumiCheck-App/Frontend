@@ -17,14 +17,17 @@ import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
+import { loadUserFromStorage } from '../redux/userSlice';
 
 export default function ProfilePage() {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
+  const user = useSelector((state) => state.user.data);
 
   useEffect(() => {
+    dispatch(loadUserFromStorage());
     dispatch(fetchUserAnswers());
   }, [dispatch]);
 
@@ -70,17 +73,16 @@ export default function ProfilePage() {
             <View className="flex-1 items-center pt-12">
               {/* Ícone PNG */}
               <Image
-                source={require('../../assets/juice_pfp.jpg')}
-                className="w-40 h-40 rounded-full mt-[24px]"
+                source={require('../../assets/user.png')}
+                className="w-32 h-32 rounded-full mt-[20px]"
                 resizeMode="contain"
               />
-
               {/* Texto de boas-vindas */}
               <Text className="text-2xl font-quickbold text-black mt-6">
-                Rodrigo
+                {user?.username || 'Utilizador'}
               </Text>
               <Text className="text-md font-quickbold text-dark-gray">
-                rodrigograca@gmail.com
+                {user?.email || 'utilizador@mail.com'}
               </Text>
               {/* Informações */}
               <View className="flex-row justify-between w-11/12 mt-12">
@@ -112,7 +114,6 @@ export default function ProfilePage() {
                   </Text>
                 </View>
               </View>
-
               {/* Secção de Tarefas Diárias */}
               <View className="w-11/12 mt-8">
                 {/* Cabeçalho */}
@@ -177,7 +178,6 @@ export default function ProfilePage() {
                   </View>
                 </TouchableOpacity>
               </View>
-
               <View className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray px-4 py-2 items-center">
                 <TouchableOpacity
                   className="flex-row items-center w-full py-3"
