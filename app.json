@@ -39,11 +39,15 @@
       "bundler": "metro"
     },
     "linking": {
-      "prefixes": ["lumicheck://", "exp+lumicheck://"]
+      "prefixes": [
+        "lumicheck://",
+        "exp+lumicheck://"
+      ]
     },
     "plugins": [
       "expo-font",
-      "expo-dev-client"
+      "expo-dev-client",
+      "expo-maps"
     ]
   }
 }
