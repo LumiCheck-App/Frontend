@@ -4,12 +4,12 @@
     "slug": "lumicheck",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/lumis/Lumi4k.png",
+    "icon": "./assets/icons/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "scheme": "lumicheck",
     "splash": {
-      "image": "./assets/lumis/Lumi4k.png",
+      "image": "./assets/icons/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
