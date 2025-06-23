@@ -12,6 +12,7 @@ import firebaseTokenReducer from './firebaseTokenSlice';
 import answerQuestionReducer from './answerQuestionSlice';
 import userReducer from './userSlice';
 import screentimeReducer from './screentimeSlice';
+import updateUserCredentialsReducer from './updateUserCredentialsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -28,5 +29,6 @@ export const store = configureStore({
     answerQuestion: answerQuestionReducer,
     user: userReducer,
     screentime: screentimeReducer,
+    updateUserCredentials: updateUserCredentialsReducer,
   },
 });
