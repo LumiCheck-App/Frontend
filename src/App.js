@@ -41,7 +41,7 @@ import messaging from '@react-native-firebase/messaging';
 
 const { FloatingBubble } = NativeModules;
 
-const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL_PROD;
 
 export default function App() {
   const linking = {
