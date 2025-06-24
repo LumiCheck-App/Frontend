@@ -13,24 +13,22 @@ export const loginUser = createAsyncThunk(
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
+
       const data = await response.json();
 
-      if (response.ok) {
-        await AsyncStorage.setItem('token', data.access_token);
-        await AsyncStorage.setItem('refresh_token', data.refresh_token);
-        await AsyncStorage.setItem('user', JSON.stringify(data.user));
-
-        const { WorkManagerModule } = NativeModules;
-        WorkManagerModule.setUserId(data.user.id);
-        WorkManagerModule.setToken(data.access_token);
-
-        console.log('User ID set in WorkManager:', data.user.id);
-        console.log('Token set in WorkManager:', data.access_token);
-
-        return { token: data.access_token, user: data.user };
-      } else {
-        return thunkAPI.rejectWithValue(data.message);
+      if (!response.ok) {
+        return thunkAPI.rejectWithValue(data.detail || 'Login failed');
       }
+
+      await AsyncStorage.setItem('token', data.access_token);
+      await AsyncStorage.setItem('refresh_token', data.refresh_token);
+      await AsyncStorage.setItem('user', JSON.stringify(data.user));
+
+      const { WorkManagerModule } = NativeModules;
+      WorkManagerModule.setUserId(data.user.id);
+      WorkManagerModule.setToken(data.access_token);
+
+      return { token: data.access_token, user: data.user };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
