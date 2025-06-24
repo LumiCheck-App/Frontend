@@ -46,7 +46,6 @@ export default function MonotorizationModal({ modalVisible, setModalVisible, but
       try {
         const hasPermission = await FloatingBubble.checkOverlayPermission();
         setIsFGenabled(hasPermission);
-        console.log(hasPermission);
       } catch (error) {
         console.log('Error checking screen time permission:', error);
       }
