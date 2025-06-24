@@ -16,7 +16,14 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
     FloatingBubble.showBubble();
     FloatingBubble.showMessage(remoteMessage.notification.body);
   }
-  });
+});
+
+messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log('Notification caused app to open from background:', remoteMessage);
+      // Pequeno delay para garantir que a navegação está pronta
+      setTimeout(() => {
+        NavigationRef.current?.navigate('QuestionPage');
+      }, 10000);})
 
 function ReduxWrapper() {
   return (

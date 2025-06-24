@@ -65,7 +65,24 @@ export default function App() {
         FloatingBubble.showMessage(remoteMessage.notification.body);
       }
     });
-    return ForegroundMessage;
+
+    const OnClickNotificationOpen = messaging().onNotificationOpenedApp(
+      (remoteMessage) => {
+        console.log(
+          'Notification caused app to open from background:',
+          remoteMessage
+        );
+        // Pequeno delay para garantir que a navegação está pronta
+        setTimeout(() => {
+          NavigationRef.current?.navigate('QuestionPage');
+        }, 500);
+      }
+    );
+
+    return () => {
+      ForegroundMessage;
+      OnClickNotificationOpen;
+    };
   }, []);
 
   useEffect(() => {
