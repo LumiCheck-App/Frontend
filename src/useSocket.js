@@ -24,6 +24,7 @@ export default function useSocket(userId) {
         position: 'top',
         visibilityTime: 3000,
         autoHide: true,
+        props: { svg: data.image },
       });
     });
 

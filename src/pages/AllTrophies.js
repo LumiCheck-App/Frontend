@@ -11,38 +11,7 @@ import { fetchUnlockedAchievements } from '../redux/unlockedAchievementsSlice';
 import { fetchLockedAchievements } from '../redux/lockedAchievementsSlice';
 import { checkModoZenProgress } from '../redux/modoZenSlice';
 
-import AprocuraDeAjuda from '../../assets/trophies/aprocuradeajuda.svg';
-import Autoconsciente from '../../assets/trophies/autoconsciente.svg';
-import Curioso from '../../assets/trophies/curioso.svg';
-import Dedicado from '../../assets/trophies/dedicado.svg';
-import DiaDeDetox from '../../assets/trophies/diadedetox.svg';
-import HoraDeRecolher from '../../assets/trophies/horaderecolher.svg';
-import Marcodos20 from '../../assets/trophies/marcodos20.svg';
-import ModoZen from '../../assets/trophies/modozen.svg';
-import Perfecionista from '../../assets/trophies/perfecionista.svg';
-import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
-import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
-
-const trophies = {
-  aprocuradeajuda: AprocuraDeAjuda,
-  autoconsciente: Autoconsciente,
-  curioso: Curioso,
-  dedicado: Dedicado,
-  diadedetox: DiaDeDetox,
-  horaderecolher: HoraDeRecolher,
-  marcodos20: Marcodos20,
-  modozen: ModoZen,
-  perfecionista: Perfecionista,
-  primeiropasso: PrimeiroPasso,
-  blocked: BlockedTrophy,
-};
-
-const getTrophyIcon = (iconName) => {
-  if (!iconName) return BlockedTrophy;
-
-  const key = iconName.replace('.svg', '').toLowerCase();
-  return trophies[key] || BlockedTrophy;
-};
+import { getTrophyIcon } from '../../assets/trophies';
 
 export default function AllTrophies({ navigation }) {
   const dispatch = useDispatch();
