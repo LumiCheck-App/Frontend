@@ -28,6 +28,7 @@ export default function ProfilePage() {
 
   const trophieswon =
     useSelector((state) => state.unlockedAchievements.achievements) || [];
+  const trophiesCount = trophieswon.length;
 
   useEffect(() => {
     dispatch(fetchUnlockedAchievements());
@@ -90,7 +91,9 @@ export default function ProfilePage() {
                   {/* Linha superior: Ícone e número */}
                   <View className="flex-row ml-2 mb-2 items-center">
                     <TrophyGoldIcon width={24} height={24} />
-                    <Text className="text-2xl font-quickbold ml-2">0</Text>
+                    <Text className="text-2xl font-quickbold ml-2">
+                      {trophiesCount}
+                    </Text>
                   </View>
                   {/* Linha inferior: Texto */}
                   <Text className="text-sm text-dark-gray text-center">

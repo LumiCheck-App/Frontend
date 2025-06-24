@@ -12,6 +12,7 @@ import DailyTasks from '../components/DailyTasks';
 import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
+import { fetchUnlockedAchievements } from '../redux/unlockedAchievementsSlice';
 import messaging from '@react-native-firebase/messaging';
 import { getFirebaseToken } from '../redux/firebaseTokenSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,6 +29,9 @@ export default function HomePage() {
     (status) => status.isMonitoring
   );
   const questionCount = perguntas.length;
+  const trophieswon =
+    useSelector((state) => state.unlockedAchievements.achievements) || [];
+  const trophiesCount = trophieswon.length;
   const [modalVisible, setModalVisible] = useState(false);
 
   const user = useSelector((state) => state.user.data);
@@ -66,6 +70,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    dispatch(fetchUnlockedAchievements());
     dispatch(loadUserFromStorage());
     dispatch(fetchUserAnswers());
     dispatch(getIsMonitoringStatus());
@@ -173,7 +178,7 @@ export default function HomePage() {
           }}
           className="flex-row items-center"
         >
-          <Text className="text-lg font-quickbold mr-2">0</Text>
+          <Text className="text-lg font-quickbold mr-2">{trophiesCount}</Text>
           <TrophyGoldIcon width={24} height={24} />
         </Animated.View>
       </View>
