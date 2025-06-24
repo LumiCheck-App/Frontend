@@ -56,13 +56,18 @@ export default function TrophiesPage() {
   }, [dispatch]);
 
   const modoZen = useSelector((state) => state.modoZen.data) || {};
+
   const trophiesunlocked =
     useSelector((state) => state.unlockedAchievements.achievements) || [];
   const trophieswon = trophiesunlocked.filter(
     (trophy) => trophy.tag !== 'modozen'
   );
-  const trophieslocked =
+
+  const trophiesnotwon =
     useSelector((state) => state.lockedAchievements.achievements) || [];
+  const trophieslocked = trophiesnotwon.filter(
+    (trophy) => trophy.tag !== 'modozen'
+  );
 
   return (
     <BackgroundGradient>

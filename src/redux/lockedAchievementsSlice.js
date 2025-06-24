@@ -47,9 +47,7 @@ const lockedAchievementsSlice = createSlice({
       })
       .addCase(fetchLockedAchievements.fulfilled, (state, action) => {
         state.loading = false;
-        state.achievements = action.payload.filter(
-          (achievement) => achievement.tag !== 'modozen'
-        );
+        state.achievements = action.payload;
       })
       .addCase(fetchLockedAchievements.rejected, (state, action) => {
         state.loading = false;
