@@ -215,6 +215,7 @@ export default function HomePage() {
             <MonotorizationModal
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
+              buttonText="Começar Moniterização"
             />
 
             {/* Mostrar o botão ou o card baseado no estado */}

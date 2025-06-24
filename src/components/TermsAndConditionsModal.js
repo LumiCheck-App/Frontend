@@ -19,7 +19,7 @@ export default function TermsAndContitionsModal({
       {/* Overlay */}
       <View className="bg-black opacity-50 absolute w-full h-full top-0"></View>
       <View className="h-screen justify-center items-center w-screen px-5">
-        <View className="relative max-h-96 bg-off-white pt-20 pb-10 px-6 flex-col justify-center items-center w-full border-x border-y border-light-gray rounded-lg gap-8">
+        <View className="relative max-h-[600px] bg-off-white pt-20 pb-10 px-6 flex-col justify-center items-center w-full border-x border-y border-light-gray rounded-lg gap-8">
           <Text className="text-2xl font-quickbold text-orange">
             Termos e Condições
           </Text>

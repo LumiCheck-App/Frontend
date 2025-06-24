@@ -17,9 +17,14 @@ import CardForOptions from '../components/CardForOptions';
 import { useDispatch } from 'react-redux';
 import { deleteUserAccount } from '../redux/deleteAccountSlice';
 import { FontAwesome } from '@expo/vector-icons';
+import MonotorizationModal from '../components/MonotorizationModal';
+import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
 
 export default function Settings({ navigation }) {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [MonitorizationModalVisible, setMonitorizationModalVisible] =
+    useState(false);
+  const [TermsAndConModalVisible, setTermsAndConModalVisible] = useState(false);
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
@@ -32,14 +37,14 @@ export default function Settings({ navigation }) {
       icon: null,
     },
     {
-      link: 'EditProfile',
+      action: () => setMonitorizationModalVisible(true),
       text: 'Opções de Monitorização',
       textColor: 'text-black',
       arrowColor: '#000000',
       icon: null,
     },
     {
-      link: 'EditProfile',
+      action: ()=> setTermsAndConModalVisible(true),
       text: 'Termos e Condições',
       textColor: 'text-black',
       arrowColor: '#000000',
@@ -49,7 +54,7 @@ export default function Settings({ navigation }) {
 
   const Suporte = [
     {
-      link: 'EditProfile',
+      link: 'Onboarding',
       text: 'Onboarding',
       textColor: 'text-black',
       arrowColor: '#000000',
@@ -188,6 +193,18 @@ export default function Settings({ navigation }) {
           </View>
         </View>
       </Modal>
+
+      {/* Modal para as settings de monitorização */}
+      <MonotorizationModal
+        modalVisible={MonitorizationModalVisible}
+        setModalVisible={setMonitorizationModalVisible}
+        buttonText="Salvar Mudanças"
+      />
+
+      <TermsAndContitionsModal
+        modalVisible={TermsAndConModalVisible}
+        setModalVisible={setTermsAndConModalVisible}
+      />
     </BackgroundGradient>
   );
 }
