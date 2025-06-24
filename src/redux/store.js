@@ -17,6 +17,7 @@ import deleteAccountReducer from './deleteAccountSlice';
 import unlockedAchievementsReducer from './unlockedAchievementsSlice';
 import lockedAchievementsReducer from './lockedAchievementsSlice';
 import modoZenReducer from './modoZenSlice';
+import achievementReducer from './achievementSlice';
 
 export const store = configureStore({
   reducer: {
@@ -38,5 +39,6 @@ export const store = configureStore({
     unlockedAchievements: unlockedAchievementsReducer,
     lockedAchievements: lockedAchievementsReducer,
     modoZen: modoZenReducer,
+    achievement: achievementReducer,
   },
 });
