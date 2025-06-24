@@ -26,7 +26,7 @@ export const loginUser = createAsyncThunk(
 
       const { WorkManagerModule } = NativeModules;
       WorkManagerModule.setUserId(data.user.id);
-      WorkManagerModule.setToken(data.access_token);
+      WorkManagerModule.setAuthToken(data.access_token);
 
       return { token: data.access_token, user: data.user };
     } catch (error) {
