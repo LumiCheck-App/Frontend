@@ -11,8 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { logoutUser } from '../redux/authSlice';
 
 import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
-import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
-import BomProgresso from '../../assets/trophies/bomprogresso.svg';
+import BomDiaAlegria from '../../assets/trophies/modozen.svg';
+import BomProgresso from '../../assets/trophies/curioso.svg';
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 import { useDispatch, useSelector } from 'react-redux';

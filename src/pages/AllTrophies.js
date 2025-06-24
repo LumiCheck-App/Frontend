@@ -4,8 +4,8 @@ import BackgroundGradient from '../components/BackgroundGradient';
 import { Ionicons } from '@expo/vector-icons';
 import Achievements from '../components/Achievements';
 import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
-import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
-import BomProgresso from '../../assets/trophies/bomprogresso.svg';
+import BomDiaAlegria from '../../assets/trophies/modozen.svg';
+import BomProgresso from '../../assets/trophies/curioso.svg';
 
 export default function AllTrophies({ navigation }) {
   const trophieswon = [

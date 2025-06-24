@@ -3,17 +3,12 @@ import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import BackgroundGradient from '../components/BackgroundGradient';
 import { Ionicons } from '@expo/vector-icons';
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
-import ChestIcon from '../../assets/trophies/chest.png';
 
 export default function TrophyDetail({ route, navigation }) {
   const { trophy } = route.params;
   let text, description, IconComponent;
 
-  if (trophy.icon === 'Chest') {
-    IconComponent = ChestIcon;
-  } else {
-    IconComponent = trophy.icon || BlockedTrophy;
-  }
+  IconComponent = trophy.icon || BlockedTrophy;
 
   if (IconComponent === BlockedTrophy) {
     text = '????????';
