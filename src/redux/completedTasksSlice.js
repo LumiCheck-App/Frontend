@@ -8,11 +8,16 @@ export const fetchCompletedTasks = createAsyncThunk(
   'completedTasks/fetchCompletedTasks',
   async (_, thunkAPI) => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const userString = await AsyncStorage.getItem('user');
       const user = JSON.parse(userString);
       const userId = user.id;
 
-      const response = await fetch(`${API_URL}/task/${userId}/completed`);
+      const response = await fetch(`${API_URL}/task/${userId}/completed`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const err = await response.json();

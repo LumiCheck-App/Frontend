@@ -24,9 +24,12 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
         return try {
             val userId = prefs.getInt("USER_ID", -1).takeIf { it != -1 } 
                 ?: return Result.success()
+            
+            val token = prefs.getString("AUTH_TOKEN", null)
+                ?: return Result.success()
 
             val screenData = getScreenTimeData()
-            val success = sendToApi(userId, screenData)
+            val success = sendToApi(userId, token, screenData)
 
             if (success) Result.success() else Result.retry()
         } catch (e: Exception) {
@@ -46,13 +49,14 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
         }
     }
 
-    private fun sendToApi(userId: Int, data: ScreenTimeData): Boolean {
+    private fun sendToApi(userId: Int, token: String, data: ScreenTimeData): Boolean {
         return try {
             val jsonBody = createRequestBody(userId, data)
             val request = Request.Builder()
                 .url("https://king-prawn-app-3re4n.ondigitalocean.app/screentime/")
                 .post(jsonBody)
                 .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer ${token}")
                 .build()
 
             client.newCall(request).execute().use { response ->

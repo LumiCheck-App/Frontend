@@ -8,11 +8,19 @@ export const fetchLast7DaysScreenTime = createAsyncThunk(
   'screentime/fetchLast7DaysScreenTime',
   async (_, thunkAPI) => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const userString = await AsyncStorage.getItem('user');
       const user = JSON.parse(userString);
       const userId = user.id;
 
-      const response = await fetch(`${API_URL}/screentime/last7days/${userId}`);
+      const response = await fetch(
+        `${API_URL}/screentime/last7days/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         const err = await response.json();
