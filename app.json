@@ -43,7 +43,14 @@
     },
     "plugins": [
       "expo-font",
-      "expo-dev-client"
+      "expo-dev-client",
+      "@react-native-firebase/app",
+      [
+        "@react-native-firebase/messaging",
+        {
+          "backgroundMessageHandler": "./src/firebase-messaging.js"
+        }
+      ]
     ]
   }
 }

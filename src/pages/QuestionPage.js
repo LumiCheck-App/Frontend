@@ -9,6 +9,10 @@ import {
 } from '../redux/answerQuestionSlice';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { NativeModules } from 'react-native';
+
+const { FloatingBubble } = NativeModules;
+
 export default function QuestionPage() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -23,6 +27,10 @@ export default function QuestionPage() {
   const { question, loading, error } = useSelector(
     (state) => state.answerQuestion
   );
+
+  useEffect(()=>{
+    FloatingBubble.hideBubble()
+  },[])
 
   useEffect(() => {
     dispatch(getRandomUnansweredQuestion());
