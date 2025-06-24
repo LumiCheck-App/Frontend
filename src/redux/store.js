@@ -14,6 +14,9 @@ import userReducer from './userSlice';
 import screentimeReducer from './screentimeSlice';
 import updateUserCredentialsReducer from './updateUserCredentialsSlice';
 import deleteAccountReducer from './deleteAccountSlice';
+import unlockedAchievementsReducer from './unlockedAchievementsSlice';
+import lockedAchievementsReducer from './lockedAchievementsSlice';
+import modoZenReducer from './modoZenSlice';
 
 export const store = configureStore({
   reducer: {
@@ -32,5 +35,8 @@ export const store = configureStore({
     screentime: screentimeReducer,
     updateUserCredentials: updateUserCredentialsReducer,
     deleteAccount: deleteAccountReducer,
+    unlockedAchievements: unlockedAchievementsReducer,
+    lockedAchievements: lockedAchievementsReducer,
+    modoZen: modoZenReducer,
   },
 });

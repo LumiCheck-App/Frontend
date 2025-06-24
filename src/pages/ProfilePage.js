@@ -10,14 +10,14 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { logoutUser } from '../redux/authSlice';
 
-import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
-import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
-import BomProgresso from '../../assets/trophies/bomprogresso.svg';
-import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
 import { loadUserFromStorage } from '../redux/userSlice';
+
+import { fetchUnlockedAchievements } from '../redux/unlockedAchievementsSlice';
+
+import { getTrophyIcon } from '../../assets/trophies';
+import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 export default function ProfilePage() {
   const navigation = useNavigation();
@@ -26,32 +26,16 @@ export default function ProfilePage() {
   const { answers: perguntas } = useSelector((state) => state.userAnswers);
   const user = useSelector((state) => state.user.data);
 
+  const trophieswon =
+    useSelector((state) => state.unlockedAchievements.achievements) || [];
+
   useEffect(() => {
+    dispatch(fetchUnlockedAchievements());
     dispatch(loadUserFromStorage());
     dispatch(fetchUserAnswers());
   }, [dispatch]);
 
   const questionCount = perguntas.length;
-
-  const trophieswon = [
-    {
-      text: 'Primeiro Passo',
-      description: 'Completar o teste inicial',
-      icon: PrimeiroPasso,
-    },
-    {
-      text: 'Bom Dia Alegria',
-      description:
-        'Não usar o telemóvel nos primeiros 30 minutos após acordar durante 3 dias consecutivos',
-      icon: BomDiaAlegria,
-    },
-    {
-      text: 'Bom Progresso',
-      description:
-        'Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana',
-      icon: BomProgresso,
-    },
-  ];
 
   const handleLogout = async () => {
     try {
@@ -125,25 +109,32 @@ export default function ProfilePage() {
 
                 <View className="flex-row items-center justify-around bg-white rounded-lg mb-2 border border-light-gray">
                   {/* Troféus disponíveis */}
-                  {trophieswon.slice(0, 3).map((trophy, index) => (
-                    <React.Fragment key={index}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate('TrophyDetail', { trophy })
-                        }
-                      >
-                        <trophy.icon
-                          width={80}
-                          height={80}
-                          style={{ margin: 16 }}
-                        />
-                      </TouchableOpacity>
+                  {trophieswon.slice(0, 3).map((trophy, index) => {
+                    const TrophyIcon = getTrophyIcon(trophy.image);
+                    return (
+                      <React.Fragment key={index}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            navigation.navigate('TrophyDetail', {
+                              trophy,
+                              image: getTrophyIcon(trophy.image),
+                              unlocked: true,
+                            })
+                          }
+                        >
+                          <TrophyIcon
+                            width={80}
+                            height={80}
+                            style={{ margin: 16 }}
+                          />
+                        </TouchableOpacity>
 
-                      {index < 2 && (
-                        <View className="w-px h-full bg-light-gray" />
-                      )}
-                    </React.Fragment>
-                  ))}
+                        {index < 2 && (
+                          <View className="w-px h-full bg-light-gray" />
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
 
                   {/* Troféu bloqueado caso não hajam 3 trofeus */}
                   {Array.from({ length: 3 - trophieswon.length }).map(
