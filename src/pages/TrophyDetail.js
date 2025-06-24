@@ -5,16 +5,20 @@ import { Ionicons } from '@expo/vector-icons';
 import BlockedTrophy from '../../assets/trophies/trophyblocked.svg';
 
 export default function TrophyDetail({ route, navigation }) {
-  const { trophy } = route.params;
-  let text, description, IconComponent;
+  const { trophy, image, unlocked } = route.params;
+  let name, description, IconComponent;
 
-  IconComponent = trophy.icon || BlockedTrophy;
+  if (unlocked) {
+    IconComponent = image;
+  } else {
+    IconComponent = BlockedTrophy;
+  }
 
   if (IconComponent === BlockedTrophy) {
-    text = '????????';
+    name = '????????';
     description = trophy.description;
   } else {
-    text = trophy.text;
+    name = trophy.name;
     description = trophy.description;
   }
 
@@ -31,21 +35,13 @@ export default function TrophyDetail({ route, navigation }) {
             </View>
 
             <View className="flex-1 justify-center items-center mb-16">
-              {trophy.icon === 'Chest' ? (
-                <Image
-                  source={IconComponent}
-                  className="w-72 h-72 mb-16"
-                  resizeMode="contain"
-                />
-              ) : (
-                <IconComponent
-                  width={300}
-                  height={300}
-                  style={{ marginBottom: 50 }}
-                />
-              )}
+              <IconComponent
+                width={300}
+                height={300}
+                style={{ marginBottom: 50 }}
+              />
               <Text className="text-2xl text-center font-quickbold">
-                {text}
+                {name}
               </Text>
               <Text className="mt-4 mb-16 px-16 text-lg text-center font-quickbold text-dark-gray">
                 {description}
@@ -53,7 +49,7 @@ export default function TrophyDetail({ route, navigation }) {
             </View>
           </View>
 
-          {IconComponent !== BlockedTrophy && IconComponent !== ChestIcon && (
+          {IconComponent !== BlockedTrophy && (
             <TouchableOpacity
               className="bg-orange rounded-lg w-11/12 py-3"
               style={{ position: 'absolute', bottom: 100, alignSelf: 'center' }}

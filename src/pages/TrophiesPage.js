@@ -108,6 +108,8 @@ export default function TrophiesPage() {
                     onPress={() =>
                       navigation.navigate('TrophyDetail', {
                         trophy: modoZen.achievement,
+                        image: getTrophyIcon(modoZen.achievement.image),
+                        unlocked: modoZen.unlocked,
                       })
                     }
                   >
@@ -134,7 +136,11 @@ export default function TrophiesPage() {
                     <TouchableOpacity
                       key={index}
                       onPress={() =>
-                        navigation.navigate('TrophyDetail', { trophy })
+                        navigation.navigate('TrophyDetail', {
+                          trophy,
+                          image: getTrophyIcon(trophy.image),
+                          unlocked: false,
+                        })
                       }
                       className="mb-4"
                     >
@@ -158,7 +164,11 @@ export default function TrophiesPage() {
                   <TouchableOpacity
                     key={index}
                     onPress={() =>
-                      navigation.navigate('TrophyDetail', { trophy })
+                      navigation.navigate('TrophyDetail', {
+                        trophy,
+                        image: getTrophyIcon(trophy.image),
+                        unlocked: true,
+                      })
                     }
                   >
                     <Achievements
