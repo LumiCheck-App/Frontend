@@ -134,7 +134,7 @@ export default function TrophiesPage() {
                     Sala de Troféus
                   </Text>
                 </View>
-                {trophieswon.map((trophy, index) => (
+                {trophieswon.slice(0, 3).map((trophy, index) => (
                   <TouchableOpacity
                     key={index}
                     onPress={() =>
