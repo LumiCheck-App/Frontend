@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeModules } from 'react-native';
+import eventEmitter from '../eventEmitter';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL_PROD;
 
@@ -23,6 +24,7 @@ export const loginUser = createAsyncThunk(
       await AsyncStorage.setItem('token', data.access_token);
       await AsyncStorage.setItem('refresh_token', data.refresh_token);
       await AsyncStorage.setItem('user', JSON.stringify(data.user));
+      eventEmitter.emit('tokenChanged');
 
       const { WorkManagerModule } = NativeModules;
       WorkManagerModule.setUserId(data.user.id);
@@ -41,6 +43,7 @@ export const logoutUser = createAsyncThunk(
     try {
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('user');
+      eventEmitter.emit('tokenChanged');
 
       const { WorkManagerModule } = NativeModules;
       WorkManagerModule.setUserId(-1);

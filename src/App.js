@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTokenFromStorage } from './redux/authSlice';
 import { NavigationRef } from './NavigationRef';
+import eventEmitter from './eventEmitter';
 
 // Importar os ícones personalizados
 import HomeIcon from '../assets/icons/home.svg';
@@ -106,6 +107,7 @@ export default function App() {
           if (response.ok) {
             const data = await response.json();
             await AsyncStorage.setItem('token', data.access_token);
+            eventEmitter.emit('tokenChanged');
             dispatch(
               setTokenFromStorage({
                 token: data.access_token,
@@ -115,6 +117,7 @@ export default function App() {
             setInitialRoute('HomeTabs');
           } else {
             await AsyncStorage.multiRemove(['token', 'refresh_token', 'user']);
+            eventEmitter.emit('tokenChanged');
             setInitialRoute('Welcome');
           }
         } else {
