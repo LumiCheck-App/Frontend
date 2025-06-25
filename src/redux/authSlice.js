@@ -42,6 +42,7 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('refresh_token');
       await AsyncStorage.removeItem('user');
       eventEmitter.emit('tokenChanged');
 
