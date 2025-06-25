@@ -297,8 +297,8 @@ export default function HomePage() {
             <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
               <HelpContactsIcon width={100} height={100} />
               <Text className="text-md font-quickbold my-3">
-                Existem 4270 profissionais de saúde à tua disposição. Não
-                hesites em contacta-los.
+                Existem 48 profissionais de saúde à tua disposição. Não hesites
+                em contacta-los.
               </Text>
             </TouchableOpacity>
           </View>
