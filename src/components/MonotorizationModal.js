@@ -8,14 +8,18 @@ import {
   AppState,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { useDispatch,  useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {updateIsMonitoringStatus} from '../redux/isMonitoringSlice'
+import { updateIsMonitoringStatus } from '../redux/isMonitoringSlice';
 
 //import react-native modules
 import { NativeModules } from 'react-native';
 
-export default function MonotorizationModal({ modalVisible, setModalVisible, buttonText }) {
+export default function MonotorizationModal({
+  modalVisible,
+  setModalVisible,
+  buttonText,
+}) {
   //importar os módulos nativos de screen time e work manager
   const { ScreenTimeModule } = NativeModules;
   const { FloatingBubble } = NativeModules;
@@ -84,11 +88,12 @@ export default function MonotorizationModal({ modalVisible, setModalVisible, but
   };
 
   const StartMonotoring = () => {
-    if(!isMonitoringState){
+    if (!isMonitoringState) {
       WorkManagerModule.startWork();
-      dispatch(updateIsMonitoringStatus())
+      dispatch(updateIsMonitoringStatus());
+      FloatingBubble.showBubble();
     }
-      setModalVisible(false);
+    setModalVisible(false);
   };
 
   return (
@@ -116,9 +121,10 @@ export default function MonotorizationModal({ modalVisible, setModalVisible, but
             situação em que encontras!
           </Text>
           <Text>
-            Para isso, se quiseres uma análise mais completa, e uma interação mais dinâmica, vamos precisar que nos dês permissão para aceder aos teus
-            dados de screenTime e para a Lumicheck possa trabalhar em Background
-            e Foreground.
+            Para isso, se quiseres uma análise mais completa, e uma interação
+            mais dinâmica, vamos precisar que nos dês permissão para aceder aos
+            teus dados de screenTime e para a Lumicheck possa trabalhar em
+            Background e Foreground.
           </Text>
 
           <View className="w-full flex flex-row justify-between items-center">
