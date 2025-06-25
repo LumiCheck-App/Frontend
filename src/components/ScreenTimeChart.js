@@ -28,7 +28,8 @@ export default function ScreenTimeChart() {
     return (
       <View className="flex-1 justify-center items-center py-4 text-center">
         <Text className="text-lg text-center font-quickregular">
-          Dentro de 2 dias, você verá o gráfico de comparação de screentime.
+          Dentro de 2 dias, vais poder ver o gráfico de comparação de
+          screentime.
         </Text>
       </View>
     );
