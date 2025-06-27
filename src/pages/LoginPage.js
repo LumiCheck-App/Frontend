@@ -61,7 +61,12 @@ export default function LoginPage() {
       <View className="px-4">
         <View className="w-11/12 mx-auto flex-col gap-4">
           <View className="justify-center items-center mb-14">
-            <Text className=" text-5xl font-quickbold text-orange">Login</Text>
+            <Text
+              className=" text-5xl font-quickbold text-orange"
+              style={{ lineHeight: 60 }}
+            >
+              Login
+            </Text>
           </View>
 
           {/* Input do username */}

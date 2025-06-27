@@ -19,6 +19,7 @@ import { deleteUserAccount } from '../redux/deleteAccountSlice';
 import { FontAwesome } from '@expo/vector-icons';
 import MonotorizationModal from '../components/MonotorizationModal';
 import TermsAndContitionsModal from '../components/TermsAndConditionsModal';
+import { Linking } from 'react-native';
 
 export default function Settings({ navigation }) {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -44,7 +45,7 @@ export default function Settings({ navigation }) {
       icon: null,
     },
     {
-      action: ()=> setTermsAndConModalVisible(true),
+      action: () => setTermsAndConModalVisible(true),
       text: 'Termos e Condições',
       textColor: 'text-black',
       arrowColor: '#000000',
@@ -61,7 +62,10 @@ export default function Settings({ navigation }) {
       icon: null,
     },
     {
-      link: 'EditProfile',
+      action: () =>
+        Linking.openURL(
+          'mailto:lumicheck.app@gmail.com?subject=Feedback%20App'
+        ),
       text: 'Enviar Feedback',
       textColor: 'text-black',
       arrowColor: '#000000',

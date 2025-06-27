@@ -103,63 +103,45 @@ export default function ProfilePage() {
               </View>
               {/* Secção de Tarefas Diárias */}
               <View className="w-11/12 mt-8">
-                {/* Cabeçalho */}
                 <View className="mb-4">
                   <Text className="text-xl font-quickbold text-black">
                     Sala de Troféus
                   </Text>
                 </View>
 
-                <View className="flex-row items-center justify-around bg-white rounded-lg mb-2 border border-light-gray">
-                  {/* Troféus disponíveis */}
-                  {trophieswon.slice(0, 3).map((trophy, index) => {
-                    const TrophyIcon = getTrophyIcon(trophy.image);
-                    return (
-                      <React.Fragment key={index}>
-                        <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate('TrophyDetail', {
-                              trophy,
-                              image: getTrophyIcon(trophy.image),
-                              unlocked: true,
-                            })
-                          }
-                        >
-                          <TrophyIcon
-                            width={80}
-                            height={80}
-                            style={{ margin: 16 }}
-                          />
-                        </TouchableOpacity>
+                <View className="flex-row bg-white rounded-lg mb-2 border border-light-gray overflow-hidden">
+                  {[0, 1, 2].map((i) => {
+                    const trophy = trophieswon[i];
+                    const isLast = i === 2;
+                    const TrophyIcon = trophy
+                      ? getTrophyIcon(trophy.image)
+                      : BlockedTrophy;
 
-                        {index < 2 && (
-                          <View className="w-px h-full bg-light-gray" />
-                        )}
+                    return (
+                      <React.Fragment key={i}>
+                        <View className="flex-1 items-center justify-center py-4">
+                          <TouchableOpacity
+                            onPress={() =>
+                              trophy &&
+                              navigation.navigate('TrophyDetail', {
+                                trophy,
+                                image: TrophyIcon,
+                                unlocked: true,
+                              })
+                            }
+                            disabled={!trophy}
+                          >
+                            <TrophyIcon width={80} height={80} />
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Linha vertical entre colunas, menos na última */}
+                        {!isLast && <View className="w-px bg-light-gray" />}
                       </React.Fragment>
                     );
                   })}
-
-                  {/* Troféu bloqueado caso não hajam 3 trofeus */}
-                  {Array.from({ length: 3 - trophieswon.length }).map(
-                    (_, index) => (
-                      <React.Fragment key={`blocked-${index}`}>
-                        <TouchableOpacity disabled>
-                          <BlockedTrophy
-                            width={80}
-                            height={80}
-                            style={{ margin: 16 }}
-                          />
-                        </TouchableOpacity>
-
-                        {trophieswon.length + index < 2 && (
-                          <View className="w-px h-full bg-light-gray" />
-                        )}
-                      </React.Fragment>
-                    )
-                  )}
                 </View>
 
-                {/* Ver todas */}
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('Troféus', { screen: 'AllTrophies' })
@@ -172,6 +154,7 @@ export default function ProfilePage() {
                   </View>
                 </TouchableOpacity>
               </View>
+
               <View className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray px-4 py-2 items-center">
                 <TouchableOpacity
                   className="flex-row items-center w-full py-3"
