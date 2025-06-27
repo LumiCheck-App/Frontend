@@ -37,7 +37,7 @@ Bem-vindo ao Frontend da **LumiCheck**! ✨
 
 ### 💻 É necessário ter um emulador Android disponivel
 
-- Quando `npm start` é executado, automaticamente o simulador de smartphone do Android Studio vai abrir
+- Quando `npx expo run:android` é executado, automaticamente o simulador de smartphone do Android Studio vai abrir
 - Isto só funciona se já o tiveres instalado e configurado com o SDK correto.
 
 ---
