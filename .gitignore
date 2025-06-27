@@ -1,7 +1,14 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+#envs
+.env
+.env.*
+
 # dependencies
 node_modules/
+
+# Android Studio
+.idea/
 
 # Expo
 .expo/

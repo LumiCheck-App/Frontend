@@ -1,39 +1,45 @@
 # Frontend
 
-Bem-vindo ao Frontend da LumiCheck!
+Bem-vindo ao Frontend da **LumiCheck**! ✨
 
 ---
 
-## Como Rodar o Projeto
+## 📱 Como Instalar a App
 
-1. Ter o Node.js instalado.
-2. Instala as dependências:
+- Fazer download do apk que está no link abaixo e instala-lo no teu dispositivo Android.
+  ```bash
+  https://raw.githubusercontent.com/LumiCheck-App/Frontend/release/lumicheck.apk
+  ```
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+1. Clona este repositório para o teu pc.
+2. Ter uma versão recente do Node.js instalada.
+3. Instala as dependências:
    ```bash
    npm install
+   npx expo install @react-native-firebase/app
+   npx expo install @react-native-firebase/messaging
    ```
-3. Para iniciar o projeto:
+4. Para dar build do projeto:
    ```bash
-   npm start
+   cd android
+   ./gradlew clean
+   cd ..
+   npx expo run:android
    ```
 
 ---
 
-## Como Visualizar o Projeto
+## 📱 Como Visualizar o Projeto
 
-### 1. No Telemóvel (Smartphone)
-- Após rodar `npm start`, um QR Code vai aparecer no terminal.
-- Dá Scan do QR Code no app Expo Go.
-  
-> **Nota:** Sempre que fizeres alterações no código, tens de atualizar manualmente o app no telemóvel (clicando na tecla 'r' no terminal).
+### 💻 É necessário ter um emulador Android disponivel
 
-### 2. Versão Web
-- Quando `npm start` é executado, podes clicar no 'w' para abrir a versão web.
-- Pressiona `F12` para acessar as ferramentas de dev.
-- No painel de ferramentas, seleciona o modo "Dispositivo Móvel" para veres o projeto na resolução de telemóvel.
-
-> **Nota:** Na versão web, para veres as atualizações após alterações no código, tens de abrir uma nova tab.
+- Quando `npm start` é executado, automaticamente o simulador de smartphone do Android Studio vai abrir
+- Isto só funciona se já o tiveres instalado e configurado com o SDK correto.
 
 ---
 
-GL Bro!
-
+❓ Alguma dúvida não hesites em contactar algum dos devs.

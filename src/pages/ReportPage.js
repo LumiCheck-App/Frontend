@@ -1,0 +1,543 @@
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Animated,
+  AppState,
+} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import BackgroundGradient from '../components/BackgroundGradient';
+import ArcProgressBar from '../components/ArcProgressBar';
+import MostUsedApps from '../components/MostUsedApps';
+import ScreenTimeChart from '../components/ScreenTimeChart';
+import Lumi3Colors from '../components/Lumi3Colors';
+import LumiQuestion from '../components/LumiQuestion';
+import { useNavigation } from '@react-navigation/native';
+import Lumi from '../../assets/lumis/Lumi.svg';
+import RedLumi from '../../assets/lumis/LumiVermelha.svg';
+import ScoreIcon from '../../assets/icons/scoreicon.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserAnswers } from '../redux/userAnswersSlice';
+import { Dimensions } from 'react-native';
+
+//import react-native modules
+import { NativeModules } from 'react-native';
+
+export default function ReportPage() {
+  //importar os módulos nativos de screen time
+  const { ScreenTimeModule } = NativeModules;
+
+  const [isSTenabled, setIsSTenabled] = useState(false);
+
+  //Variaveis para o tempo de ecrã e uso de apps
+  const [screenTime, setScreenTime] = useState(null);
+  const [appUsage, setAppUsage] = useState([]);
+
+  const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
+    Dimensions.get('window');
+
+  //função de ir buscar o tempo de ecrã
+  const fetchScreenTime = async () => {
+    try {
+      const response = await ScreenTimeModule.getScreenTime();
+      setScreenTime(Math.floor(response.screenTimeMinutes / 60));
+      setAppUsage(response.appScreenTime || {});
+      let appUsageData = [];
+      Object.entries(response.appScreenTime).forEach(([app, time]) => {
+        if (time > 0) {
+          let appName;
+          if (app.split('.').pop() === 'android') {
+            let splitedAppNames = app.split('.');
+            appName = splitedAppNames[splitedAppNames.length - 2];
+          } else {
+            appName = app.split('.').pop();
+          }
+          appUsageData.push({
+            id: app,
+            appName: appName,
+            time: time,
+          });
+        }
+      });
+
+      setAppUsage(appUsageData || []);
+      //console.log(screenTime);
+    } catch (error) {
+      console.error('Error fetching screen time:', error);
+      // Narrow the type of 'error'
+      const errorMessage =
+        error instanceof Error ? error.message : 'Could not fetch screen time.';
+
+      Alert.alert('Error', errorMessage);
+    }
+  };
+
+  const checkScreenTimePermission = async () => {
+    try {
+      const hasPermission = await ScreenTimeModule.hasUsageAccess();
+      setIsSTenabled(hasPermission);
+      if (hasPermission) {
+        fetchScreenTime();
+      }
+    } catch (error) {
+      console.log('Error checking screen time permission:', error);
+    }
+  };
+
+  useEffect(() => {
+    checkScreenTimePermission();
+
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === 'active') {
+        checkScreenTimePermission();
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription?.remove();
+    };
+  }, []);
+
+  const navigation = useNavigation();
+  const [scrollY] = useState(new Animated.Value(0));
+
+  const dispatch = useDispatch();
+  const {
+    answers: perguntas,
+    loading,
+    error,
+  } = useSelector((state) => state.userAnswers);
+
+  useEffect(() => {
+    dispatch(fetchUserAnswers());
+  }, [dispatch]);
+
+  if (loading)
+    return (
+      <BackgroundGradient>
+        <View className="flex-1 justify-center items-center gap-12">
+          <Lumi
+            width={140}
+            height={140}
+            accessibilityRole="image"
+            accessibilityLabel="Imagem da Lumi"
+          />
+          <Text className="text-xl">A carregar...</Text>
+        </View>
+      </BackgroundGradient>
+    );
+  if (error)
+    return (
+      <BackgroundGradient>
+        <View className="flex-1 justify-center items-center gap-12">
+          <RedLumi
+            width={140}
+            height={140}
+            accessibilityRole="image"
+            accessibilityLabel="Imagem da Lumi"
+          />
+          <Text>Erro: {error}</Text>
+        </View>
+      </BackgroundGradient>
+    );
+
+  // Função para obter a legenda com base na pontuação
+  const getCaptionFromScore = (score) => {
+    switch (score) {
+      case 0:
+        return 'Não aplicável';
+      case 1:
+        return 'Raramente';
+      case 2:
+        return 'Ocasionalmente';
+      case 3:
+        return 'Frequentemente';
+      case 4:
+        return 'Muitas Vezes';
+      case 5:
+        return 'Sempre';
+      default:
+        return '';
+    }
+  };
+
+  const negativeCount = perguntas.filter(
+    (p) => p.answer === 4 || p.answer === 5
+  ).length;
+  const neutralCount = perguntas.filter(
+    (p) => p.answer === 2 || p.answer === 3
+  ).length;
+  const positiveCount = perguntas.filter(
+    (p) => p.answer === 0 || p.answer === 1
+  ).length;
+
+  // Função para calcular o score geral (0-100)
+  const calculateOverallScore = (answers) => {
+    if (!answers || answers.length === 0) return 0;
+
+    // Soma todas as respostas (cada resposta vai de 0 a 5)
+    const totalScore = answers.reduce(
+      (sum, question) => sum + (question.answer || 0),
+      0
+    );
+
+    // Calcula a porcentagem (máximo possível é answers.length * 5)
+    const maxPossibleScore = answers.length * 5;
+    const percentage = (totalScore / maxPossibleScore) * 100;
+
+    return Math.round(percentage); // Retorna arredondado para inteiro
+  };
+
+  // Função para determinar o nível de uso baseado no score
+  const getUsageLevel = (score) => {
+    if (score < 40) {
+      return 'Uso regular de telemóvel';
+    } else if (score >= 40 && score < 70) {
+      return 'Uso exagerado de telemóvel';
+    } else {
+      return 'Vício extremo de telemóvel';
+    }
+  };
+  // Animação para Lumi
+  const lumiPositionY = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.06],
+    extrapolate: 'clamp',
+  });
+
+  const lumiPositionX = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_WIDTH * 0.38],
+    extrapolate: 'clamp',
+  });
+
+  const lumiScale = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [1, 0.25],
+    extrapolate: 'clamp',
+  });
+
+  // Animação para número principal (LumiScore)
+  const number34PositionY = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.15],
+    extrapolate: 'clamp',
+  });
+
+  const number34PositionX = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, SCREEN_WIDTH * 0.43],
+    extrapolate: 'clamp',
+  });
+
+  const usoTelemovelPositionY = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.3],
+    extrapolate: 'clamp',
+  });
+
+  // Animação para "/100" e ícone
+  const numberPositionY = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.25],
+    extrapolate: 'clamp',
+  });
+
+  const numberPositionX = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, SCREEN_WIDTH * 0.21],
+    extrapolate: 'clamp',
+  });
+
+  const backgroundOpacity = scrollY.interpolate({
+    inputRange: [SCREEN_HEIGHT * 0.2, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
+
+  const textOpacity = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.15],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const numberFontSize = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [SCREEN_WIDTH * 0.25, 16],
+    extrapolate: 'clamp',
+  });
+
+  const numberColor = scrollY.interpolate({
+    inputRange: [SCREEN_HEIGHT * 0.28, SCREEN_HEIGHT * 0.3],
+    outputRange: ['#ff9d00', '#000000'],
+    extrapolate: 'clamp',
+  });
+
+  return (
+    <BackgroundGradient>
+      {/* Efeito de blur no topo da tela */}
+      <Animated.View
+        style={{
+          opacity: backgroundOpacity,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 160,
+          zIndex: 5,
+        }}
+      >
+        <LinearGradient
+          colors={['#ffe5b4', '#ffe5b4', '#fff9ef00']}
+          locations={[0, 0.6, 1]}
+          style={{ flex: 1, opacity: 0.9 }}
+        />
+      </Animated.View>
+
+      {/* Animação para Lumi */}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          transform: [
+            { translateX: lumiPositionX },
+            { translateY: lumiPositionY },
+            { scale: lumiScale },
+          ],
+          zIndex: 10,
+          left: SCREEN_WIDTH * 0.5,
+          top: SCREEN_HEIGHT * 0.08,
+          marginLeft: -75,
+        }}
+        className="flex-1 items-center"
+      >
+        <Lumi
+          width={140}
+          height={140}
+          accessibilityRole="image"
+          accessibilityLabel="Imagem da Lumi"
+        />
+      </Animated.View>
+
+      {/* Animação para números e ScoreIcon */}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          transform: [
+            { translateX: number34PositionX },
+            { translateY: number34PositionY },
+          ],
+          zIndex: 10,
+          left: SCREEN_WIDTH * 0.3,
+          top: SCREEN_HEIGHT * 0.23,
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+        }}
+      >
+        <Animated.Text
+          style={{ fontSize: numberFontSize, color: numberColor }}
+          className="font-quickbold"
+          accessibilityRole="text"
+          accessibilityLabel={`LumiScore ${calculateOverallScore(perguntas)} de 100`}
+        >
+          {calculateOverallScore(perguntas)}
+        </Animated.Text>
+      </Animated.View>
+
+      <Animated.View
+        style={{
+          position: 'absolute',
+          transform: [
+            { translateX: numberPositionX },
+            { translateY: numberPositionY },
+          ],
+          zIndex: 10,
+          left: SCREEN_WIDTH * 0.57,
+          top: SCREEN_HEIGHT * 0.33,
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+        }}
+      >
+        <Text
+          className="text-lg font-quickbold"
+          importantForAccessibility="no-hide-descendants"
+        >
+          /100
+        </Text>
+        <ScoreIcon
+          width={24}
+          height={24}
+          style={{ marginLeft: 4 }}
+          accessible={false}
+        />
+      </Animated.View>
+
+      {/* Texto "Uso regular do telemóvel" com opacidade animada */}
+      <Animated.View
+        style={{
+          transform: [{ translateY: usoTelemovelPositionY }],
+          opacity: textOpacity,
+          alignItems: 'center',
+          zIndex: 10,
+          top: SCREEN_HEIGHT * 0.37,
+        }}
+      >
+        <Text
+          className="text-2xl font-quickbold text-orange"
+          accessibilityRole="text"
+        >
+          {getUsageLevel(calculateOverallScore(perguntas))}
+        </Text>
+      </Animated.View>
+
+      <Animated.ScrollView
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={16}
+      >
+        <View
+          className="flex-1 items-center pt-9 px-4 relative"
+          style={{ marginTop: 350 }}
+          accessible={true}
+        >
+          <View
+            className="bg-white rounded-lg w-11/12 p-4 border border-light-gray items-center justify-center gap-4"
+            accessible={true}
+          >
+            <ArcProgressBar
+              size={160}
+              strokeWidth={16}
+              progress={perguntas.length * 5}
+              accessibilityLabel="Arco de progresso"
+            />
+            <Text
+              className="text-lg font-quickregular text-center px-4"
+              accessibilityRole="text"
+            >
+              {perguntas.length * 5 <= 50
+                ? 'Responda a mais algumas perguntas para ter uma pontuação mais precisa.'
+                : 'O seu relatório está quase terminado.'}
+            </Text>
+            <Text className="text-lg font-quickbold" accessibilityRole="text">
+              O LumiScore é apenas uma previsão!
+            </Text>
+            {/* <TouchableOpacity
+              className="absolute top-2 right-2"
+              accessibilityLabel="Definições de monitorização"
+              accessibilityRole="button"
+            >
+              <FontAwesome name="gear" size={20} color="#d0d0d0" />
+            </TouchableOpacity> */}
+          </View>
+        </View>
+        {isSTenabled ? (
+          <>
+            <View className="flex-1 items-center pt-9 px-4">
+              <View
+                accessible={true}
+                accessibilityLabel="Gráfico de Linhas com tempo de ecrã"
+                className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative"
+              >
+                <Text
+                  className="text-lg font-quickbold"
+                  accessibilityRole="header"
+                >
+                  Tempo de ecrã
+                </Text>
+                <ScreenTimeChart />
+              </View>
+            </View>
+            <View className="flex-1 items-center pt-9 px-4">
+              <View
+                className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
+                accessible={true}
+              >
+                <Text
+                  className="text-lg font-quickbold"
+                  accessibilityRole="header"
+                >
+                  Apps mais usadas
+                </Text>
+                <MostUsedApps appTime={appUsage} />
+              </View>
+            </View>
+          </>
+        ) : (
+          <>
+            <View className="flex-1 items-center pt-9 px-4">
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Perfil', { screen: 'Settings' });
+                }}
+              >
+                <View
+                  className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
+                  accessible={true}
+                >
+                  <FontAwesome
+                    className="text-center"
+                    name="lock"
+                    size={100}
+                    color="#ff9d00"
+                  />
+
+                  <Text
+                    className="text-lg text-center font-quickregular"
+                    accessibilityRole="header"
+                  >
+                    Ativa a opção de ScreenTime nas definições para teres acesso
+                    á tua atividade com mais detalhe
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+        <View className="flex-1 items-center px-4">
+          <Lumi3Colors
+            negative={negativeCount.toString()}
+            neutral={neutralCount.toString()}
+            positive={positiveCount.toString()}
+          />
+        </View>
+        <View className="flex-1 items-center px-4">
+          {perguntas.slice(0, 3).map((pergunta, index) => (
+            <LumiQuestion
+              key={index}
+              index={index + 1}
+              text={pergunta.question}
+              score={pergunta.answer?.toString() || '0'}
+              caption={getCaptionFromScore(pergunta.answer)}
+            />
+          ))}
+
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Perfil', { screen: 'AllLumiQuestions' })
+            }
+            accessibilityRole="link"
+          >
+            <View className="mt-2 mb-4 flex-row justify-end w-11/12">
+              <Text
+                className="text-md font-quickbold text-right text-orange pb-20"
+                accessibilityLabel="Ver todas as tuas respostas"
+              >
+                VER TODAS
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Animated.ScrollView>
+    </BackgroundGradient>
+  );
+}
