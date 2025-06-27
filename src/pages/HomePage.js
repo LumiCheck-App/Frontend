@@ -18,6 +18,7 @@ import { getFirebaseToken } from '../redux/firebaseTokenSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loadUserFromStorage } from '../redux/userSlice';
 import { getIsMonitoringStatus } from '../redux/isMonitoringSlice';
+import { Dimensions } from 'react-native';
 
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState('');
@@ -35,6 +36,9 @@ export default function HomePage() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const user = useSelector((state) => state.user.data);
+
+  const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
+    Dimensions.get('window');
 
   const getToken = async () => {
     try {
@@ -103,38 +107,38 @@ export default function HomePage() {
 
   // Animação para Lumi
   const lumiPositionY = scrollY.interpolate({
-    inputRange: [0, 150],
-    outputRange: [0, -80],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.08],
     extrapolate: 'clamp',
   });
 
   const lumiPositionX = scrollY.interpolate({
-    inputRange: [0, 150],
-    outputRange: [0, -160],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_WIDTH * 0.38],
     extrapolate: 'clamp',
   });
 
   const lumiScale = scrollY.interpolate({
-    inputRange: [0, 150],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
     outputRange: [1, 0.25],
     extrapolate: 'clamp',
   });
 
   // Animação para os ícones e números
   const questionIconPositionX = scrollY.interpolate({
-    inputRange: [0, 150],
-    outputRange: [0, -65], // Move o ícone de "?" para a esquerda
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.065],
     extrapolate: 'clamp',
   });
 
   const trophyIconPositionY = scrollY.interpolate({
-    inputRange: [0, 150],
-    outputRange: [0, -32], // Move o ícone de troféu para cima
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.034],
     extrapolate: 'clamp',
   });
 
   const backgroundOpacity = scrollY.interpolate({
-    inputRange: [150, 200],
+    inputRange: [SCREEN_HEIGHT * 0.2, SCREEN_HEIGHT * 0.3],
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });

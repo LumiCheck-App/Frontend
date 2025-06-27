@@ -6,11 +6,6 @@ const TrophyProgress = ({ text, description, progress, total, icon }) => {
   const progressWidth = `${(progress / total) * 100}%`;
   let IconComponent = icon || BlockedTrophy;
 
-  const descriptionCutted =
-    description?.length > 32
-      ? `${description.substring(0, 30)}...`
-      : description;
-
   // Check if IconComponent is valid
   if (!IconComponent) {
     console.error('IconComponent is undefined for icon:', icon);
@@ -27,8 +22,8 @@ const TrophyProgress = ({ text, description, progress, total, icon }) => {
       </View>
       <View className="flex-1">
         {/* Texto */}
-        <Text className="text-lg font-quickregular mb-2">
-          {descriptionCutted}
+        <Text className="text-lg font-quickregular mb-2 line-clamp-1">
+          {description}
         </Text>
 
         {/* Barra de progresso */}

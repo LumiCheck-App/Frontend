@@ -22,6 +22,7 @@ import RedLumi from '../../assets/lumis/LumiVermelha.svg';
 import ScoreIcon from '../../assets/icons/scoreicon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
+import { Dimensions } from 'react-native';
 
 //import react-native modules
 import { NativeModules } from 'react-native';
@@ -35,6 +36,9 @@ export default function ReportPage() {
   //Variaveis para o tempo de ecrã e uso de apps
   const [screenTime, setScreenTime] = useState(null);
   const [appUsage, setAppUsage] = useState([]);
+
+  const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
+    Dimensions.get('window');
 
   //função de ir buscar o tempo de ecrã
   const fetchScreenTime = async () => {
@@ -203,73 +207,78 @@ export default function ReportPage() {
       return 'Vício extremo de telemóvel';
     }
   };
-
   // Animação para Lumi
   const lumiPositionY = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [0, -80],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.06],
     extrapolate: 'clamp',
   });
 
   const lumiPositionX = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [0, -160],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_WIDTH * 0.38],
     extrapolate: 'clamp',
   });
 
   const lumiScale = scrollY.interpolate({
-    inputRange: [0, 270],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
     outputRange: [1, 0.25],
     extrapolate: 'clamp',
   });
 
+  // Animação para número principal (LumiScore)
   const number34PositionY = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [0, -148],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.15],
     extrapolate: 'clamp',
   });
 
-  // Animações para números e ScoreIcon
   const number34PositionX = scrollY.interpolate({
-    inputRange: [0, 240],
-    outputRange: [0, 185],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, SCREEN_WIDTH * 0.43],
     extrapolate: 'clamp',
   });
 
+  const usoTelemovelPositionY = scrollY.interpolate({
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.3],
+    extrapolate: 'clamp',
+  });
+
+  // Animação para "/100" e ícone
   const numberPositionY = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [0, -240],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, -SCREEN_HEIGHT * 0.25],
     extrapolate: 'clamp',
   });
 
-  // Animações para números e ScoreIcon
   const numberPositionX = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [0, 80],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [0, SCREEN_WIDTH * 0.21],
     extrapolate: 'clamp',
   });
 
   const backgroundOpacity = scrollY.interpolate({
-    inputRange: [150, 270],
+    inputRange: [SCREEN_HEIGHT * 0.2, SCREEN_HEIGHT * 0.3],
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });
 
   const textOpacity = scrollY.interpolate({
-    inputRange: [150, 270],
+    inputRange: [0, SCREEN_HEIGHT * 0.15],
     outputRange: [1, 0],
     extrapolate: 'clamp',
   });
 
   const numberFontSize = scrollY.interpolate({
-    inputRange: [0, 270],
-    outputRange: [110, 16],
+    inputRange: [0, SCREEN_HEIGHT * 0.3],
+    outputRange: [SCREEN_WIDTH * 0.25, 16],
     extrapolate: 'clamp',
   });
 
   const numberColor = scrollY.interpolate({
-    inputRange: [250, 270],
-    outputRange: ['#ff9d00', '#000000'], // De amarelo para preto
+    inputRange: [SCREEN_HEIGHT * 0.28, SCREEN_HEIGHT * 0.3],
+    outputRange: ['#ff9d00', '#000000'],
     extrapolate: 'clamp',
   });
 
@@ -304,8 +313,8 @@ export default function ReportPage() {
             { scale: lumiScale },
           ],
           zIndex: 10,
-          left: '50%',
-          top: 90,
+          left: SCREEN_WIDTH * 0.5,
+          top: SCREEN_HEIGHT * 0.08,
           marginLeft: -75,
         }}
         className="flex-1 items-center"
@@ -327,8 +336,8 @@ export default function ReportPage() {
             { translateY: number34PositionY },
           ],
           zIndex: 10,
-          left: '25%',
-          top: 220,
+          left: SCREEN_WIDTH * 0.3,
+          top: SCREEN_HEIGHT * 0.23,
           flexDirection: 'row',
           alignItems: 'flex-end',
         }}
@@ -351,8 +360,8 @@ export default function ReportPage() {
             { translateY: numberPositionY },
           ],
           zIndex: 10,
-          left: '57%',
-          top: 310,
+          left: SCREEN_WIDTH * 0.57,
+          top: SCREEN_HEIGHT * 0.33,
           flexDirection: 'row',
           alignItems: 'flex-end',
         }}
@@ -374,11 +383,11 @@ export default function ReportPage() {
       {/* Texto "Uso regular do telemóvel" com opacidade animada */}
       <Animated.View
         style={{
-          transform: [{ translateY: numberPositionY }],
+          transform: [{ translateY: usoTelemovelPositionY }],
           opacity: textOpacity,
           alignItems: 'center',
           zIndex: 10,
-          top: 350,
+          top: SCREEN_HEIGHT * 0.37,
         }}
       >
         <Text
@@ -466,9 +475,11 @@ export default function ReportPage() {
         ) : (
           <>
             <View className="flex-1 items-center pt-9 px-4">
-              <TouchableOpacity onPress={()=>{
-                navigation.navigate('Perfil', { screen: 'Settings' })
-              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Perfil', { screen: 'Settings' });
+                }}
+              >
                 <View
                   className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
                   accessible={true}
