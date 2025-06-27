@@ -12,6 +12,7 @@ import DailyTasks from '../components/DailyTasks';
 import MonotorizationModal from '../components/MonotorizationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
+import { fetchUnlockedAchievements } from '../redux/unlockedAchievementsSlice';
 import messaging from '@react-native-firebase/messaging';
 import { getFirebaseToken } from '../redux/firebaseTokenSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,6 +29,9 @@ export default function HomePage() {
     (status) => status.isMonitoring
   );
   const questionCount = perguntas.length;
+  const trophieswon =
+    useSelector((state) => state.unlockedAchievements.achievements) || [];
+  const trophiesCount = trophieswon.length;
   const [modalVisible, setModalVisible] = useState(false);
 
   const user = useSelector((state) => state.user.data);
@@ -66,6 +70,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    dispatch(fetchUnlockedAchievements());
     dispatch(loadUserFromStorage());
     dispatch(fetchUserAnswers());
     dispatch(getIsMonitoringStatus());
@@ -173,7 +178,7 @@ export default function HomePage() {
           }}
           className="flex-row items-center"
         >
-          <Text className="text-lg font-quickbold mr-2">0</Text>
+          <Text className="text-lg font-quickbold mr-2">{trophiesCount}</Text>
           <TrophyGoldIcon width={24} height={24} />
         </Animated.View>
       </View>
@@ -215,6 +220,7 @@ export default function HomePage() {
             <MonotorizationModal
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
+              buttonText="Começar Moniterização"
             />
 
             {/* Mostrar o botão ou o card baseado no estado */}
@@ -234,18 +240,20 @@ export default function HomePage() {
                   <ArcProgressBar
                     size={80}
                     strokeWidth={8}
-                    progress={progress}
+                    progress={perguntas.length * 5}
                   />
-                  <View className="flex-1 mr-4 py-8">
+                  <View className="flex-1 mr-4 py-8 px-4">
                     <Text className="font-quickbold text-md text-black text-center">
-                      O seu relatório está quase terminado!
+                      {perguntas.length * 5 <= 50
+                        ? 'Responda a mais algumas perguntas para ter uma pontuação mais precisa.'
+                        : 'O seu relatório está quase terminado.'}
                     </Text>
                   </View>
                 </View>
 
-                <TouchableOpacity className="absolute top-2 right-2">
+                {/* <TouchableOpacity className="absolute top-2 right-2">
                   <FontAwesome name="gear" size={20} color="#d0d0d0" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </TouchableOpacity>
             )}
 
@@ -289,8 +297,8 @@ export default function HomePage() {
             <TouchableOpacity className="bg-white rounded-lg w-11/12 mt-8 border border-light-gray p-4 items-center">
               <HelpContactsIcon width={100} height={100} />
               <Text className="text-md font-quickbold my-3">
-                Existem 4270 profissionais de saúde à tua disposição. Não
-                hesites em contacta-los.
+                Existem 48 profissionais de saúde à tua disposição. Não hesites
+                em contacta-los.
               </Text>
             </TouchableOpacity>
           </View>

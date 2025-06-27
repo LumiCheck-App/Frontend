@@ -2,11 +2,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const firstCapitalize = (str) => {
-  if (!str) return '';
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
 // AsyncThunk para carregar e processar o user do AsyncStorage
 export const loadUserFromStorage = createAsyncThunk(
   'user/loadUserFromStorage',
@@ -14,10 +9,7 @@ export const loadUserFromStorage = createAsyncThunk(
     const userJson = await AsyncStorage.getItem('user');
     if (userJson) {
       const user = JSON.parse(userJson);
-      return {
-        ...user,
-        username: firstCapitalize(user.username),
-      };
+      return user;
     }
     return null;
   }

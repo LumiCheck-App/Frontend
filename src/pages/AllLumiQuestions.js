@@ -7,6 +7,9 @@ import Lumi3Colors from '../components/Lumi3Colors.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
 
+import Lumi from '../../assets/lumis/Lumi.svg';
+import RedLumi from '../../assets/lumis/LumiVermelha.svg'
+
 export default function AllLumiQuestions({ navigation }) {
   const dispatch = useDispatch();
   const {
@@ -19,8 +22,32 @@ export default function AllLumiQuestions({ navigation }) {
     dispatch(fetchUserAnswers());
   }, [dispatch]);
 
-  if (loading) return <Text>A carregar...</Text>;
-  if (error) return <Text>Erro: {error}</Text>;
+  if (loading)
+      return (
+        <BackgroundGradient>
+          <View className="flex-1 justify-center items-center gap-12">
+            <Lumi
+            width={140}
+            height={140}
+            accessibilityRole="image"
+            accessibilityLabel="Imagem da Lumi"
+          />
+            <Text className='text-xl'>A carregar...</Text>
+          </View>
+        </BackgroundGradient>
+      );
+   if (error) return(
+      <BackgroundGradient>
+          <View className="flex-1 justify-center items-center gap-12">
+            <RedLumi
+            width={140}
+            height={140}
+            accessibilityRole="image"
+            accessibilityLabel="Imagem da Lumi"
+          />
+            <Text>Erro: {error}</Text>
+          </View>
+        </BackgroundGradient>);
 
   // Função para obter a legenda com base na pontuação
   const getCaptionFromScore = (score) => {

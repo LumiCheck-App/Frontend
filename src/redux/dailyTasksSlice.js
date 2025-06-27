@@ -1,17 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL_PROD;
 
 export const fetchDailyTasks = createAsyncThunk(
   'dailyTasks/fetchDailyTasks',
   async (_, thunkAPI) => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const userString = await AsyncStorage.getItem('user');
       const user = JSON.parse(userString);
       const userId = user.id;
 
-      const response = await fetch(`${API_URL}/task/${userId}/dailystatus`);
+      const response = await fetch(`${API_URL}/task/${userId}/dailystatus`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch daily tasks');
       }
@@ -27,6 +32,7 @@ export const toggleTaskStatus = createAsyncThunk(
   'dailyTasks/toggleTaskStatus',
   async ({ taskId }, thunkAPI) => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const userString = await AsyncStorage.getItem('user');
       const user = JSON.parse(userString);
       const userId = user.id;
@@ -35,6 +41,9 @@ export const toggleTaskStatus = createAsyncThunk(
         `${API_URL}/task/${taskId}/${userId}/toggle`,
         {
           method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

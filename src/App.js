@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTokenFromStorage } from './redux/authSlice';
 import { NavigationRef } from './NavigationRef';
+import eventEmitter from './eventEmitter';
 
 // Importar os ícones personalizados
 import HomeIcon from '../assets/icons/home.svg';
@@ -41,7 +42,7 @@ import messaging from '@react-native-firebase/messaging';
 
 const { FloatingBubble } = NativeModules;
 
-const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL_PROD;
 
 export default function App() {
   const linking = {
@@ -65,7 +66,24 @@ export default function App() {
         FloatingBubble.showMessage(remoteMessage.notification.body);
       }
     });
-    return ForegroundMessage;
+
+    const OnClickNotificationOpen = messaging().onNotificationOpenedApp(
+      (remoteMessage) => {
+        console.log(
+          'Notification caused app to open from background:',
+          remoteMessage
+        );
+        // Pequeno delay para garantir que a navegação está pronta
+        setTimeout(() => {
+          NavigationRef.current?.navigate('QuestionPage');
+        }, 500);
+      }
+    );
+
+    return () => {
+      ForegroundMessage;
+      OnClickNotificationOpen;
+    };
   }, []);
 
   useEffect(() => {
@@ -89,6 +107,7 @@ export default function App() {
           if (response.ok) {
             const data = await response.json();
             await AsyncStorage.setItem('token', data.access_token);
+            eventEmitter.emit('tokenChanged');
             dispatch(
               setTokenFromStorage({
                 token: data.access_token,
@@ -98,6 +117,7 @@ export default function App() {
             setInitialRoute('HomeTabs');
           } else {
             await AsyncStorage.multiRemove(['token', 'refresh_token', 'user']);
+            eventEmitter.emit('tokenChanged');
             setInitialRoute('Welcome');
           }
         } else {

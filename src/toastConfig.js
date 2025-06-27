@@ -1,11 +1,20 @@
 import React from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import TrophyGoldIcon from '../assets/icons/trophygold.svg';
+
 import { navigate } from './NavigationRef';
+import { getTrophyIcon } from '../assets/trophies';
+
+const IconComponent = ({ svg, width = 40, height = 40 }) => {
+  const SvgIcon = getTrophyIcon(svg);
+  if (!SvgIcon) {
+    return null;
+  }
+
+  return <SvgIcon width={width} height={height} />;
+};
 
 const toastConfig = {
-  success: ({ text1, text2 }) => {
+  success: ({ text1, text2, props }) => {
     const handlePress = () => {
       navigate('Troféus', {
         screen: 'AllTrophies',
@@ -32,7 +41,7 @@ const toastConfig = {
           }}
         >
           <View style={{ marginRight: 12 }}>
-            <TrophyGoldIcon width={40} height={40} />
+            <IconComponent svg={props.svg} />
           </View>
 
           <View style={{ flex: 1 }}>

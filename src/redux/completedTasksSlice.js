@@ -1,18 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL_PROD;
 
 // Thunk para buscar tarefas concluídas
 export const fetchCompletedTasks = createAsyncThunk(
   'completedTasks/fetchCompletedTasks',
   async (_, thunkAPI) => {
     try {
+      const token = await AsyncStorage.getItem('token');
       const userString = await AsyncStorage.getItem('user');
       const user = JSON.parse(userString);
       const userId = user.id;
 
-      const response = await fetch(`${API_URL}/task/${userId}/completed`);
+      const response = await fetch(`${API_URL}/task/${userId}/completed`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         const err = await response.json();

@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Animated,
+  AppState,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,6 +18,7 @@ import Lumi3Colors from '../components/Lumi3Colors';
 import LumiQuestion from '../components/LumiQuestion';
 import { useNavigation } from '@react-navigation/native';
 import Lumi from '../../assets/lumis/Lumi.svg';
+import RedLumi from '../../assets/lumis/LumiVermelha.svg';
 import ScoreIcon from '../../assets/icons/scoreicon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAnswers } from '../redux/userAnswersSlice';
@@ -25,69 +27,80 @@ import { fetchUserAnswers } from '../redux/userAnswersSlice';
 import { NativeModules } from 'react-native';
 
 export default function ReportPage() {
-
-  //importar os módulos nativos de screen time e work manager
+  //importar os módulos nativos de screen time
   const { ScreenTimeModule } = NativeModules;
 
-  //Variaveis para o tempo de ecrã e uso de apps
-    const [screenTime, setScreenTime] = useState(null);
-    const [appUsage, setAppUsage] = useState([]);
-  
-    //formata o tempo de screen time
-    function formatTime(minutes) {
-      if (minutes >= 60) {
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-        return remainingMinutes > 0
-          ? `${hours}h ${remainingMinutes}min`
-          : `${hours}h`;
-      }
-      return `${minutes}min`;
-    }
+  const [isSTenabled, setIsSTenabled] = useState(false);
 
-  
-    //função de ir buscar o tempo de ecrã
-    const fetchScreenTime = async () => {
-        try {
-          const response = await ScreenTimeModule.getScreenTime();
-          //console.log('Screen Time Data:', response);
-          setScreenTime(Math.floor(response.screenTimeMinutes / 60));
-          setAppUsage(response.appScreenTime || {});
-          let appUsageData = [];
-          Object.entries(response.appScreenTime).forEach(([app, time]) => {
-            if (time > 0) {
-              let appName;
-              if (app.split('.').pop() === 'android') {
-                let splitedAppNames = app.split('.');
-                appName = splitedAppNames[splitedAppNames.length - 2];
-              } else {
-                appName = app.split('.').pop();
-              }
-              appUsageData.push({
-                id: app,
-                appName: appName,
-                time: time,
-              });
-            }
+  //Variaveis para o tempo de ecrã e uso de apps
+  const [screenTime, setScreenTime] = useState(null);
+  const [appUsage, setAppUsage] = useState([]);
+
+  //função de ir buscar o tempo de ecrã
+  const fetchScreenTime = async () => {
+    try {
+      const response = await ScreenTimeModule.getScreenTime();
+      setScreenTime(Math.floor(response.screenTimeMinutes / 60));
+      setAppUsage(response.appScreenTime || {});
+      let appUsageData = [];
+      Object.entries(response.appScreenTime).forEach(([app, time]) => {
+        if (time > 0) {
+          let appName;
+          if (app.split('.').pop() === 'android') {
+            let splitedAppNames = app.split('.');
+            appName = splitedAppNames[splitedAppNames.length - 2];
+          } else {
+            appName = app.split('.').pop();
+          }
+          appUsageData.push({
+            id: app,
+            appName: appName,
+            time: time,
           });
-    
-          setAppUsage(appUsageData || []);
-          //console.log(screenTime);
-  
-        } catch (error) {
-          console.error('Error fetching screen time:', error);
-          // Narrow the type of 'error'
-          const errorMessage =
-            error instanceof Error
-              ? error.message
-              : 'Could not fetch screen time.';
-    
-          Alert.alert('Error', errorMessage);
         }
-      };
-  
+      });
+
+      setAppUsage(appUsageData || []);
+      //console.log(screenTime);
+    } catch (error) {
+      console.error('Error fetching screen time:', error);
+      // Narrow the type of 'error'
+      const errorMessage =
+        error instanceof Error ? error.message : 'Could not fetch screen time.';
+
+      Alert.alert('Error', errorMessage);
+    }
+  };
+
+  const checkScreenTimePermission = async () => {
+    try {
+      const hasPermission = await ScreenTimeModule.hasUsageAccess();
+      setIsSTenabled(hasPermission);
+      if (hasPermission) {
+        fetchScreenTime();
+      }
+    } catch (error) {
+      console.log('Error checking screen time permission:', error);
+    }
+  };
+
   useEffect(() => {
-    fetchScreenTime();
+    checkScreenTimePermission();
+
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === 'active') {
+        checkScreenTimePermission();
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription?.remove();
+    };
   }, []);
 
   const navigation = useNavigation();
@@ -104,8 +117,34 @@ export default function ReportPage() {
     dispatch(fetchUserAnswers());
   }, [dispatch]);
 
-  if (loading) return <Text>A carregar...</Text>;
-  if (error) return <Text>Erro: {error}</Text>;
+  if (loading)
+    return (
+      <BackgroundGradient>
+        <View className="flex-1 justify-center items-center gap-12">
+          <Lumi
+            width={140}
+            height={140}
+            accessibilityRole="image"
+            accessibilityLabel="Imagem da Lumi"
+          />
+          <Text className="text-xl">A carregar...</Text>
+        </View>
+      </BackgroundGradient>
+    );
+  if (error)
+    return (
+      <BackgroundGradient>
+        <View className="flex-1 justify-center items-center gap-12">
+          <RedLumi
+            width={140}
+            height={140}
+            accessibilityRole="image"
+            accessibilityLabel="Imagem da Lumi"
+          />
+          <Text>Erro: {error}</Text>
+        </View>
+      </BackgroundGradient>
+    );
 
   // Função para obter a legenda com base na pontuação
   const getCaptionFromScore = (score) => {
@@ -373,46 +412,86 @@ export default function ReportPage() {
               accessibilityLabel="Arco de progresso"
             />
             <Text
-              className="text-lg font-quickregular"
+              className="text-lg font-quickregular text-center px-4"
               accessibilityRole="text"
             >
-              O seu relatório está quase terminado.
+              {perguntas.length * 5 <= 50
+                ? 'Responda a mais algumas perguntas para ter uma pontuação mais precisa.'
+                : 'O seu relatório está quase terminado.'}
             </Text>
             <Text className="text-lg font-quickbold" accessibilityRole="text">
               O LumiScore é apenas uma previsão!
             </Text>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               className="absolute top-2 right-2"
               accessibilityLabel="Definições de monitorização"
               accessibilityRole="button"
             >
               <FontAwesome name="gear" size={20} color="#d0d0d0" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
-        <View className="flex-1 items-center pt-9 px-4">
-          <View
-            accessible={true}
-            accessibilityLabel="Gráfico de Linhas com tempo de ecrã"
-            className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative"
-          >
-            <Text className="text-lg font-quickbold" accessibilityRole="header">
-              Tempo de ecrã
-            </Text>
-            <ScreenTimeChart />
-          </View>
-        </View>
-        <View className="flex-1 items-center pt-9 px-4">
-          <View
-            className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
-            accessible={true}
-          >
-            <Text className="text-lg font-quickbold" accessibilityRole="header">
-              Apps mais usadas
-            </Text>
-            <MostUsedApps appTime={appUsage} />
-          </View>
-        </View>
+        {isSTenabled ? (
+          <>
+            <View className="flex-1 items-center pt-9 px-4">
+              <View
+                accessible={true}
+                accessibilityLabel="Gráfico de Linhas com tempo de ecrã"
+                className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4 relative"
+              >
+                <Text
+                  className="text-lg font-quickbold"
+                  accessibilityRole="header"
+                >
+                  Tempo de ecrã
+                </Text>
+                <ScreenTimeChart />
+              </View>
+            </View>
+            <View className="flex-1 items-center pt-9 px-4">
+              <View
+                className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
+                accessible={true}
+              >
+                <Text
+                  className="text-lg font-quickbold"
+                  accessibilityRole="header"
+                >
+                  Apps mais usadas
+                </Text>
+                <MostUsedApps appTime={appUsage} />
+              </View>
+            </View>
+          </>
+        ) : (
+          <>
+            <View className="flex-1 items-center pt-9 px-4">
+              <TouchableOpacity onPress={()=>{
+                navigation.navigate('Perfil', { screen: 'Settings' })
+              }}>
+                <View
+                  className="bg-white rounded-lg w-11/12 p-4 border border-light-gray gap-4"
+                  accessible={true}
+                >
+                  <FontAwesome
+                    className="text-center"
+                    name="lock"
+                    size={100}
+                    color="#ff9d00"
+                  />
+
+                  <Text
+                    className="text-lg text-center font-quickregular"
+                    accessibilityRole="header"
+                  >
+                    Ativa a opção de ScreenTime nas definições para teres acesso
+                    á tua atividade com mais detalhe
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
         <View className="flex-1 items-center px-4">
           <Lumi3Colors
             negative={negativeCount.toString()}

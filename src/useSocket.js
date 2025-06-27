@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import Toast from 'react-native-toast-message';
 
-const API_URL = 'https://king-prawn-app-3re4n.ondigitalocean.app';
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL_PROD;
 
 export default function useSocket(userId) {
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function useSocket(userId) {
         position: 'top',
         visibilityTime: 3000,
         autoHide: true,
+        props: { svg: data.image },
       });
     });
 

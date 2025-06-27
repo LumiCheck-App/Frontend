@@ -16,6 +16,9 @@ import * as Location from 'expo-location';
 import { markersOnMap } from '../psicologos_fakes';
 import { Linking } from 'react-native';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { unlockAchievement } from '../redux/achievementSlice';
+
 const distritos = [
   'Aveiro',
   'Beja',
@@ -51,6 +54,11 @@ export default function HelpPage() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [visibleCount, setVisibleCount] = useState(5);
+
+  const dispatch = useDispatch();
+  const { loading, error, lastUnlocked } = useSelector(
+    (state) => state.achievement
+  );
 
   const [posts] = useState([
     {
@@ -185,7 +193,10 @@ export default function HelpPage() {
                   coordinate={{ latitude: lat, longitude: lng }}
                   title={Nome}
                   description={Telefone}
-                  onPress={() => setSelectedMarker(marker)}
+                  onPress={() => {
+                    dispatch(unlockAchievement({ achievementId: 8 })),
+                      setSelectedMarker(marker);
+                  }}
                 />
               );
             })}
@@ -207,7 +218,7 @@ export default function HelpPage() {
                     </View>
                     <View className="w-1/2">
                       <TouchableOpacity
-                        onPress={() => makeCall(marker.Telefone)}
+                        onPress={() => makeCall(selectedMarker.Telefone)}
                         accessibilityRole="button"
                       >
                         <Text
@@ -362,7 +373,10 @@ export default function HelpPage() {
                 className={`rounded-lg ${
                   index === 0 ? 'ml-[2.25rem] mr-4' : ''
                 } ${index === 4 ? 'mr-[2.25rem]' : 'mr-4'}`}
-                onPress={() => Linking.openURL(item.link)}
+                onPress={() => {
+                  dispatch(unlockAchievement({ achievementId: 7 })),
+                    Linking.openURL(item.link);
+                }}
               >
                 <ImageBackground
                   source={item.image}

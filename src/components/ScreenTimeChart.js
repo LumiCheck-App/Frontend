@@ -1,20 +1,58 @@
-import React from 'react';
-import { Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions, View, ActivityIndicator, Text } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchLast7DaysScreenTime } from '../redux/screentimeSlice';
 
 export default function ScreenTimeChart() {
+  const dispatch = useDispatch();
+  const { last7Days, loading, error } = useSelector(
+    (state) => state.screentime
+  );
+
+  useEffect(() => {
+    dispatch(fetchLast7DaysScreenTime());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center py-4 text-center">
+        <Text className="text-lg text-center font-quickregular">
+          A carregar dados do gráfico...
+        </Text>
+      </View>
+    );
+  }
+
+  if (error || !last7Days || last7Days.length <= 1) {
+    return (
+      <View className="flex-1 justify-center items-center py-4 text-center">
+        <Text className="text-lg text-center font-quickregular">
+          Dentro de 2 dias, vais poder ver o gráfico de comparação de
+          screentime.
+        </Text>
+      </View>
+    );
+  }
+
+  // Preparar dados para o gráfico
+  const chartData = {
+    labels: last7Days.map((item) => item.date),
+    datasets: [
+      {
+        data: last7Days.map((item) => {
+          const minutes = item.total_minutes || 0;
+          return Math.round(minutes / 60); // Convertendo minutos para horas
+        }),
+      },
+    ],
+  };
+
   return (
     <>
       {/* Line Chart */}
       <LineChart
-        data={{
-          labels: ['16/1', '17/1', '18/1', '19/1', '20/1', '21/1', '22/1'], // Dates for X-axis
-          datasets: [
-            {
-              data: [4, 5, 7, 8, 3, 6], // Hours for Y-axis
-            },
-          ],
-        }}
+        data={chartData}
         transparent
         width={Dimensions.get('window').width * 0.8} // Adjust width to fit inside the card
         height={220} // Chart height

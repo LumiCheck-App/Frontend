@@ -26,6 +26,11 @@ class WorkManagerModule(reactContext: ReactApplicationContext) : ReactContextBas
     }
 
     @ReactMethod
+    fun setAuthToken(token: String) {
+        prefs.edit().putString("AUTH_TOKEN", token).apply()
+    }
+
+    @ReactMethod
     fun startWork() {
         try {
             val now = Calendar.getInstance()

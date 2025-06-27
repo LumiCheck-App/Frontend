@@ -9,6 +9,7 @@ import App from './App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 import useSocket from './useSocket';
+import eventEmitter from './eventEmitter';
 
 export default function FontDefiner() {
   const [fontsLoaded] = useFonts({
@@ -19,19 +20,24 @@ export default function FontDefiner() {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    async function loadUserId() {
+    const handleTokenChange = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
         if (token) {
           const decoded = jwtDecode(token);
           setUserId(decoded.sub);
+        } else {
+          setUserId(null);
         }
       } catch (error) {
         console.error('Erro ao carregar token:', error);
       }
-    }
+    };
 
-    loadUserId();
+    eventEmitter.on('tokenChanged', handleTokenChange);
+    return () => {
+      eventEmitter.off('tokenChanged', handleTokenChange);
+    };
   }, []);
 
   useSocket(userId);

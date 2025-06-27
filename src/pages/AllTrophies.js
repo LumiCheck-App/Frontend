@@ -1,47 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import BackgroundGradient from '../components/BackgroundGradient';
 import { Ionicons } from '@expo/vector-icons';
 import Achievements from '../components/Achievements';
-import PrimeiroPasso from '../../assets/trophies/primeiropasso.svg';
-import BomDiaAlegria from '../../assets/trophies/bomdiaalegria.svg';
-import BomProgresso from '../../assets/trophies/bomprogresso.svg';
+import TrophyProgress from '../components/TrophyProgress';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchUnlockedAchievements } from '../redux/unlockedAchievementsSlice';
+import { fetchLockedAchievements } from '../redux/lockedAchievementsSlice';
+import { checkModoZenProgress } from '../redux/modoZenSlice';
+
+import { getTrophyIcon } from '../../assets/trophies';
 
 export default function AllTrophies({ navigation }) {
-  const trophieswon = [
-    {
-      text: 'Primeiro Passo',
-      description: 'Completar o teste inicial',
-      icon: PrimeiroPasso,
-    },
-    {
-      text: 'Bom Dia Alegria',
-      description:
-        'Não usar o telemóvel nos primeiros 30 minutos após acordar durante 3 dias consecutivos',
-      icon: BomDiaAlegria,
-    },
+  const dispatch = useDispatch();
 
-    {
-      text: 'Bom Progresso',
-      description:
-        'Reduzir o uso médio de uma app considerada viciante em 1h por dia durante a semana',
-      icon: BomProgresso,
-    },
-  ];
+  useEffect(() => {
+    dispatch(checkModoZenProgress());
+    dispatch(fetchUnlockedAchievements());
+    dispatch(fetchLockedAchievements());
+  }, [dispatch]);
 
-  const trophiesblocked = [
-    {
-      text: 'Autoconsciênte',
-      description:
-        'Ver o relatório das apps mais usadas todos os dias de uma semana',
-      icon: null,
-    },
-    {
-      text: 'Marco das 20',
-      description: 'Responder a 20 perguntas da Lumi',
-      icon: null,
-    },
-  ];
+  const trophieswon =
+    useSelector((state) => state.unlockedAchievements.achievements) || [];
+
+  const trophieslocked =
+    useSelector((state) => state.lockedAchievements.achievements) || [];
 
   return (
     <BackgroundGradient>
@@ -69,14 +54,18 @@ export default function AllTrophies({ navigation }) {
                   <TouchableOpacity
                     key={index}
                     onPress={() =>
-                      navigation.navigate('TrophyDetail', { trophy })
+                      navigation.navigate('TrophyDetail', {
+                        trophy,
+                        image: getTrophyIcon(trophy.image),
+                        unlocked: true,
+                      })
                     }
                   >
                     <Achievements
                       key={index}
-                      text={trophy.text}
+                      text={trophy.name}
                       description={trophy.description}
-                      icon={trophy.icon}
+                      icon={getTrophyIcon(trophy.image)}
                     />
                   </TouchableOpacity>
                 ))}
@@ -89,11 +78,15 @@ export default function AllTrophies({ navigation }) {
                   </Text>
                 </View>
 
-                {trophiesblocked.map((trophy, index) => (
+                {trophieslocked.map((trophy, index) => (
                   <TouchableOpacity
                     key={index}
                     onPress={() =>
-                      navigation.navigate('TrophyDetail', { trophy })
+                      navigation.navigate('TrophyDetail', {
+                        trophy,
+                        image: getTrophyIcon(trophy.image),
+                        unlocked: false,
+                      })
                     }
                   >
                     <Achievements

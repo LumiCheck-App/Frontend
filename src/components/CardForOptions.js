@@ -11,7 +11,13 @@ export default function CardForOptions({ options }) {
         <TouchableOpacity
           key={index}
           className="flex-row items-center w-full py-3 border-b border-gray-200 last:border-b-0"
-          onPress={() => navigation.navigate(option.link)}
+          onPress={() => {
+            if (option.action) {
+              option.action();
+            } else if (option.link && option.link !== 'null') {
+              navigation.navigate(option.link);
+            }
+          }}
         >
           {/* Ícone */}
           {option.icon && (

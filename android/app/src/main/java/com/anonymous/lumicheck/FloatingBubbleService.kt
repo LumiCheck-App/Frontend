@@ -104,7 +104,7 @@ class FloatingBubbleService : Service() {
                         closeView?.visibility = View.GONE
                         if (isOverCloseArea()) {
                             stopSelf()
-                        } else {
+                        } else if (isDragging) {
                             snapToEdge(params)
                         }
                         

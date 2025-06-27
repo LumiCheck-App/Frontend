@@ -8,18 +8,26 @@ import {
   AppState,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {updateIsMonitoringStatus} from '../redux/isMonitoringSlice'
+import { updateIsMonitoringStatus } from '../redux/isMonitoringSlice';
 
 //import react-native modules
 import { NativeModules } from 'react-native';
 
-export default function MonotorizationModal({ modalVisible, setModalVisible }) {
+export default function MonotorizationModal({
+  modalVisible,
+  setModalVisible,
+  buttonText,
+}) {
   //importar os módulos nativos de screen time e work manager
   const { ScreenTimeModule } = NativeModules;
   const { FloatingBubble } = NativeModules;
   const { WorkManagerModule } = NativeModules;
+
+  const { isMonitoringState, loading, error } = useSelector(
+    (status) => status.isMonitoring
+  );
 
   const dispatch = useDispatch();
 
@@ -42,7 +50,6 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
       try {
         const hasPermission = await FloatingBubble.checkOverlayPermission();
         setIsFGenabled(hasPermission);
-        console.log(hasPermission);
       } catch (error) {
         console.log('Error checking screen time permission:', error);
       }
@@ -81,14 +88,12 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
   };
 
   const StartMonotoring = () => {
-    if (isSTenabled && isFGenabled) {
-      console.log('Iniciando monitorização com as seguintes permissões:');
+    if (!isMonitoringState) {
       WorkManagerModule.startWork();
-      dispatch(updateIsMonitoringStatus())
-      setModalVisible(false);
-    } else {
-      alert('Por favor, ativa todas as opções para iniciar a monitorização.');
+      dispatch(updateIsMonitoringStatus());
+      FloatingBubble.showBubble();
     }
+    setModalVisible(false);
   };
 
   return (
@@ -116,9 +121,10 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
             situação em que encontras!
           </Text>
           <Text>
-            Para isso, vamos precisar que nos dês permissão para aceder aos teus
-            dados de screenTime e para a Lumicheck possa trabalhar em Background
-            e Foreground.
+            Para isso, se quiseres uma análise mais completa, e uma interação
+            mais dinâmica, vamos precisar que nos dês permissão para aceder aos
+            teus dados de screenTime e para a Lumicheck possa trabalhar em
+            Background e Foreground.
           </Text>
 
           <View className="w-full flex flex-row justify-between items-center">
@@ -146,7 +152,7 @@ export default function MonotorizationModal({ modalVisible, setModalVisible }) {
             onPress={StartMonotoring}
           >
             <Text className="text-center text-white font-quickbold text-lg">
-              Começar Moniterização
+              {buttonText}
             </Text>
           </TouchableOpacity>
         </View>
