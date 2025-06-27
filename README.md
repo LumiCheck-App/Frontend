@@ -7,9 +7,9 @@ Bem-vindo ao Frontend da **LumiCheck**! ✨
 ## 📱 Como Instalar a App
 
 - Fazer download do apk que está no link abaixo e instala-lo no teu dispositivo Android.
-  ```bash
-  https://raw.githubusercontent.com/LumiCheck-App/Frontend/release/lumicheck.apk
-  ```
+  
+  [📥 Transferir APK da LumiCheck](https://raw.githubusercontent.com/LumiCheck-App/Frontend/release/lumicheck.apk)
+
 
 ---
 
