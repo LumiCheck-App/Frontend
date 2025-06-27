@@ -32,17 +32,22 @@ const Lumi3Colors = ({ negative, neutral, positive }) => {
           {/* Barra Negativa */}
           <View
             style={{ width: negativeWidth }}
-            className="h-full bg-red rounded-full"
+            className="h-full bg-red rounded-l-full"
           />
+
+          {/* Espaço entre barras */}
+          <View style={{ width: 4 }} />
+
           {/* Barra Neutra */}
-          <View
-            style={{ width: neutralWidth }}
-            className="h-full bg-orange rounded-full mx-2"
-          />
+          <View style={{ width: neutralWidth }} className="h-full bg-orange" />
+
+          {/* Espaço entre barras */}
+          <View style={{ width: 4 }} />
+
           {/* Barra Positiva */}
           <View
             style={{ width: positiveWidth }}
-            className="h-full bg-light-orange border border-orange rounded-full"
+            className="h-full bg-light-orange border border-orange rounded-r-full"
           />
         </View>
 
